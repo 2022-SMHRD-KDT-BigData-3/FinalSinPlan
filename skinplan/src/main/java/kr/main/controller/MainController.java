@@ -12,8 +12,8 @@ public class MainController {
 //	private Mapper mapper;
 	
 	@RequestMapping("/main.do")
-	public String main() {
-		return "templete";
+	public String index() {
+		return "index";
 	}
-	
+
 }
