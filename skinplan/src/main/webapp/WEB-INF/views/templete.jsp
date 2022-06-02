@@ -59,7 +59,8 @@
       <h3 class="float-md-start mb-5">SkinPlan</h3>
     </div>
   </header>
-  <img src="/img/88310993_3135935986424775_7149992294291079168_n.png" class="img-fluid" alt="...">
+  <!-- <img src="/img/88310993_3135935986424775_7149992294291079168_n.png" class="img-fluid" alt="..."> -->
+  <img src="<spring:url value='/resources/img/88310993_3135935986424775_7149992294291079168_n.png'/>">
   <main class="px-5">
     <h1>SkinPlan<h1>
     <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
