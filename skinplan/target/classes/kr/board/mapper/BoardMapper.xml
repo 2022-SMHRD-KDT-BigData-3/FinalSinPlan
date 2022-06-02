@@ -2,25 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.board.mapper.BoardMapper">
    
-    <!-- boardMapper 에서 @Select와 중복이 되면 안된다. 
-    <select id="getAllList" resultType="kr.board.entity.BoardVO">  resultType : 객체전체를 받아오는 것
-     	select * from board order by idx desc
-    </select> -->
-    
-    <insert id="boardInsert" parameterType="kr.board.entity.BoardVO"> <!-- parameterType : 객체전체를 받아오기 때문에 VO객체 경로받아오기  --> 
-        insert into board(idx, userId, title, content, writer)
-	 	values(board_seq.nextval, #{userId}, #{title}, #{content}, #{writer})
-    </insert>
-    
- 
-    
- <!--    
- 	<delete id="boardDelete" parameterType="int">
-        delete from board where idx=#{idx}
-    </delete> -->
-
-    <update id="boardUpdate" parameterType="kr.board.entity.BoardVO"> <!--parameterType : 객체전체 받아오기  -->
-        update board set title=#{title}, content=#{content}
-        where idx=#{idx}
-    </update>
 </mapper>
