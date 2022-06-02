@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<!-- POJO(Controller) scan -->
-	<context:component-scan base-package="kr.main.controller" />
+	<context:component-scan base-package="kr.main.controller"/>
 	
 	
 	
