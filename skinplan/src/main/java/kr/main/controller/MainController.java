@@ -13,7 +13,7 @@ public class MainController {
 
 //	@Autowired 
 //	private Mapper mapper;
-	
+//	
 	@RequestMapping("/main.do")
 	public String index() {
 		return "index";
@@ -26,5 +26,9 @@ public class MainController {
 	public String login() {
 		return "login";
 	}
-	
+	@RequestMapping("/main")
+	public String main() {
+		return "main";
+	}
+
 }
