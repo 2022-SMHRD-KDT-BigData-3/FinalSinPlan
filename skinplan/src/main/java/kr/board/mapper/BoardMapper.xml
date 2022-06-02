@@ -12,10 +12,7 @@
 	 	values(board_seq.nextval, #{userId}, #{title}, #{content}, #{writer})
     </insert>
     
-    <select id="boardContent" resultType="kr.board.entity.BoardVO"  
-        					  parameterType="int">  <!-- resultType : 경로 , parameterType : 1개의 값만 받아와서 데이터타입 한개  -->
-        select * from board where idx=#{idx}
-    </select>
+ 
     
  <!--    
  	<delete id="boardDelete" parameterType="int">
