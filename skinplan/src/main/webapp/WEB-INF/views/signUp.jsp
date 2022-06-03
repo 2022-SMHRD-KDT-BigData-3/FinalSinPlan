@@ -140,7 +140,7 @@
             <hr class="my-4">
 
           <!--   <a href="main"><button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button></a> -->
-          <a href="login" class="btn btn-lg btn-secondary fw-bold border-white">회원가입</a>
+          <a href="join" class="btn btn-lg btn-secondary fw-bold border-white">회원가입</a>
             </form>
     </div>
     </div>

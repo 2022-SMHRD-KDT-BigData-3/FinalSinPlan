@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.board.mapper.Mapper">
-    <!-- <insert id="memberJoin" parameterType="kr.main.entity.User_idVO">
-		insert into user(email, user_name, user_pwd, )       
-    </insert> -->
+    <insert id="memberJoin" >
+		insert into member values(#{email}, #{password}, #{user_name}, #{gender}, #{user_tel}, #{join_data})       
+    </insert>
+    <select id="memberLogin" resultType="kr.main.entity.memberVO">
+        select email, password from member where email=#{email} and password=#{password}
+    </select>
 </mapper>

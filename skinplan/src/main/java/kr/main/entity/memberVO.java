@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserVO {
+public class memberVO {
 
 	private String email;
-	private String name;
-	private String pwd;
-	private int tel; //전화번호
-	private int skin_id; //피부타입
+	private String password;
+	private String user_name;
+	private String gender; //성별
+	private String user_tel; //전화번호
+	private String join_data; //가입일 
 	
 }
