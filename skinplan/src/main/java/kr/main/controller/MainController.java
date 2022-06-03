@@ -21,36 +21,36 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class MainController {
 
-	@Autowired 
+	@Autowired
 	private Mapper mapper;
-	
+
 	@RequestMapping("/main.do")
 	public String index() {
 		return "index";
 	}
-	//회원가입
+
+	// 회원가입
 	@RequestMapping("/signUp")
 	public String signUp() {
 		return "signUp";
 	}
+
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
 	}
-	//로그인
-	@RequestMapping(value="/login", method = {RequestMethod.GET, RequestMethod.POST})
-	public String memberLogin(User_idVO user_idVO, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
-		HttpSession session = req.getSession();
-		User_idVO member = Service.memberLogin(user_idVO);
-		
-		if(member == null) {
-			session.setAttribute("member", null);
-			rttr.addFlashAttribute("msg", false);
-		}else {
-			session.setAttribute("member", member);
-		}
-	return "redirct:/";
-	}
-	
+	/*
+	 * //로그인
+	 * 
+	 * @RequestMapping(value="/login", method = {RequestMethod.GET,
+	 * RequestMethod.POST}) public String memberLogin(User_idVO user_idVO,
+	 * HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	 * HttpSession session = req.getSession(); User_idVO member =
+	 * Service.memberLogin(user_idVO);
+	 * 
+	 * if(member == null) { session.setAttribute("member", null);
+	 * rttr.addFlashAttribute("msg", false); }else { session.setAttribute("member",
+	 * member); } return "redirct:/"; }
+	 */
 
 }
