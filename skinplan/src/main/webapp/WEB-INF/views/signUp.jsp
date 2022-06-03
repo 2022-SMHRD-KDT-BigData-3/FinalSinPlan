@@ -78,7 +78,7 @@
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="you@example.com">
                             <div class="invalid-feedback">
-                                이메일을 입력해주세요.
+                               	이메일을 입력해주세요.
                             </div>
                         </div>
 
@@ -86,9 +86,27 @@
                             <label for="password" class="form-label">비밀번호</label>
                             <input type="text" class="form-control" id="password" placeholder="********" required>
                             <div class="invalid-feedback">
-                                비밀번호를 입력해주세요.
+                               	 비밀번호를 입력해주세요.
                             </div>
                         </div>
+                        
+                        <div class="col-12">
+                            <label for="nickname" class="form-label">Nickname</label>
+                            <input type="text" class="form-control" id="nickname">
+                            <div class="invalid-feedback">
+                               	 닉네임을 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="phonenumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phonenumber" placeholder="-빼고 입력해주세요">
+                            <div class="invalid-feedback">
+                                	핸드폰 번호를 입력해주세요.
+                            </div>
+                        </div>
+                        
+                        
                         <div class="col-12">
                             <label for="sex" class="form-label">성별</label>
                             <div class="my-3">
@@ -104,33 +122,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-5">
-                            <label for="skinType" class="form-label">피부 타입</label>
-                            <select class="form-select" id="skinType" required>
-                                <option value="">목록</option>
-                                <option>건성</option>
-                                <option>지성</option>
-                                <option>중성</option>
-                                <option>복합성</option>
 
-                            </select>
-                            <div class="invalid-feedback">
-                                피부타입을 선택해주세요.
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <label for="state" class="form-label">피부 특징</label>
-                            <select class="form-select" id="state" required>
-                                <option value="">목록</option>
-                                <option>아토피</option>
-                                <option>홍조</option>
-                                <option>여드름</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                피부 특징을 선택해주세요.
-                            </div>
-                        </div>
+
                     </div>
 
             </div>
@@ -140,7 +134,11 @@
             <hr class="my-4">
 
           <!--   <a href="main"><button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button></a> -->
+<<<<<<< HEAD
           <a href="join" class="btn btn-lg btn-secondary fw-bold border-white">회원가입</a>
+=======
+          <input href="login" class="btn btn-lg btn-secondary fw-bold border-white" value="회원가입"></input>
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
             </form>
     </div>
     </div>

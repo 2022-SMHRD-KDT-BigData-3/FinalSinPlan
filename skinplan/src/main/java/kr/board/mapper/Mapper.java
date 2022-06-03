@@ -3,6 +3,7 @@ package kr.board.mapper;
 import kr.main.entity.memberVO;
 
 @org.apache.ibatis.annotations.Mapper
+<<<<<<< HEAD
 
 
 public interface Mapper {
@@ -14,4 +15,10 @@ public interface Mapper {
 
 
 
+=======
+
+
+public interface Mapper {
+	
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 }
