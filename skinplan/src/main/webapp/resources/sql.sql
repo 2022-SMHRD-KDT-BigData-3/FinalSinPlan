@@ -14,3 +14,4 @@ CREATE TABLE user_info(
  CONSTRAINT user_skin_fk FOREIGN KEY(skin_id) REFERENCES skin_type(skin_id));
  
  select * from user_info;
+ select * from skin_type;
