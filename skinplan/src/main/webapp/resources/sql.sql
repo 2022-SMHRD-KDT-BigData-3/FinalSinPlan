@@ -15,4 +15,4 @@ CREATE TABLE user_info(
  
  select * from user_info;
  select * from skin_type;
- 
+ select * from COSMETIC;
