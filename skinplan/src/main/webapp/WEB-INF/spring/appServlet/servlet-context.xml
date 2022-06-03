@@ -24,6 +24,4 @@
 	<!-- POJO(Controller) scan -->
 	<context:component-scan base-package="kr.main.controller"/>
 	
-	
-	
 </beans:beans>
