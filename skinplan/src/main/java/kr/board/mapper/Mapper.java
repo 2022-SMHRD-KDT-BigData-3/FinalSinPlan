@@ -10,5 +10,5 @@ import kr.main.entity.User_idVO;
 
 public interface Mapper {
 	
-
+	public User_idVO memberLogin(User_idVO user_idvo) throws Exception;
 }
