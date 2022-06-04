@@ -101,6 +101,14 @@
                                	 닉네임을 입력해주세요.
                             </div>
                         </div>
+                        
+                        <div class="col-12">
+                            <label for="nickname" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="nickname">
+                            <div class="invalid-feedback">
+                              	  이름을 입력해주세요.
+                            </div>
+                        </div>
 
                         <div class="col-12">
                             <label for="phonenumber" class="form-label">Phone Number</label>
