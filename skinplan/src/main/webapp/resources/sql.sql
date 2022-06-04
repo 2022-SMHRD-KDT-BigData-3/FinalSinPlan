@@ -123,6 +123,12 @@ CREATE TABLE dairy(
  CONSTRAINT dairy_routine_id_fk FOREIGN KEY(routine_id) REFERENCES care_routine(routine_id),
  CONSTRAINT dairy_ingredient_id_fk FOREIGN KEY(ingredient_id) REFERENCES ingredient(ingredient_id));
 
+<<<<<<< HEAD
 select * from member;
 insert into member values('abc','123','abc','1','123456789',sysdate);
 
+=======
+ 
+ ALTER TABLE community ADD(skin_id NUMBER(3) NOT NULL);
+ ALTER TABLE community ADD(CONSTRAINT comm_skin_id_fk FOREIGN KEY(skin_id) REFERENCES skin_type(skin_id));
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
