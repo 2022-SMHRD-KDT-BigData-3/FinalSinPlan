@@ -103,8 +103,8 @@
         </div>
         <form action="upload.php" method="post" enctype="multipart/form-data" class="card text-center" >
           <div class="card-body">
-            <p class="card-text">사진을 업로드하여</p>
-            <p class="card-text">여러분의 피부상태를 알 수 있습니다.</p>
+            <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
+            <p class="card-text">등록해주세요.</p>
             <div class="mb-3">              
                 <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>              
             </div>
