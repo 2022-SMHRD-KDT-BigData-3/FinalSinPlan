@@ -52,6 +52,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+    <script
+	 rc="https://code.jquery.com/jquery-3.4.1.js"
+ 	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+ 	 crossorigin="anonymous"></script>
 
 </head>
 
@@ -72,65 +76,70 @@
 
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">회원가입</h4>
-                <form class="needs-validation" novalidate>
+                <form id="memberjoin" action="memberjoin" class="needs-validation" novalidate method="post">
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                            <input type="email" class="form-control" id="email" name ="email" placeholder="you@example.com">
                             <div class="invalid-feedback">
-                                이메일을 입력해주세요.
+                               	이메일을 입력해주세요.
                             </div>
                         </div>
 
                         <div class="col-12">
                             <label for="password" class="form-label">비밀번호</label>
-                            <input type="text" class="form-control" id="password" placeholder="********" required>
+                            <input type="text" class="form-control" id="password" name="password" placeholder="********" required>
                             <div class="invalid-feedback">
-                                비밀번호를 입력해주세요.
+                               	 비밀번호를 입력해주세요.
                             </div>
                         </div>
+                        
+                        <div class="col-12">
+                            <label for="nickname" class="form-label">Nickname</label>
+                            <input type="text" class="form-control" id="nickname" name="user_name">
+                            <div class="invalid-feedback">
+                               	 닉네임을 입력해주세요.
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="nickname" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="nickname">
+                            <div class="invalid-feedback">
+                              	  이름을 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="phonenumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phonenumber" name="user_tel" placeholder="-빼고 입력해주세요">
+                            <div class="invalid-feedback">
+                                	핸드폰 번호를 입력해주세요.
+                            </div>
+                        </div>
+                        
+                        
                         <div class="col-12">
                             <label for="sex" class="form-label">성별</label>
                             <div class="my-3">
                                 <div class="form-check">
-                                    <input id="male" name="sex" type="radio" class="form-check-input" checked required>
-                                    <label class="form-check-label" for="credit">남성</label>
+                                    <input class="form-check-input" type="radio" name="gender" id="sex" value="0" >
+                                    <label class="form-check-label" for="flexRadioDefault1" name="flexRadioDefault">
+                                     	 남성
+                                    </label>
                                 </div>
                                 <div class="form-check">
-                                    <input id="female" name="paymentMethod" type="radio" class="form-check-input"
-                                        required>
-                                    <label class="form-check-label" for="debit">여성</label>
-                                </div>
+                                    <input class="form-check-input" type="radio" name="gender" id="sex" value="1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2" >
+                                      	여성
+                                    </label>
+                                </div> 
                             </div>
                         </div>
 
-                        <div class="col-md-5">
-                            <label for="skinType" class="form-label">피부 타입</label>
-                            <select class="form-select" id="skinType" required>
-                                <option value="">목록</option>
-                                <option>건성</option>
-                                <option>지성</option>
-                                <option>중성</option>
-                                <option>복합성</option>
 
-                            </select>
-                            <div class="invalid-feedback">
-                                피부타입을 선택해주세요.
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <label for="state" class="form-label">피부 특징</label>
-                            <select class="form-select" id="state" required>
-                                <option value="">목록</option>
-                                <option>아토피</option>
-                                <option>홍조</option>
-                                <option>여드름</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                피부 특징을 선택해주세요.
-                            </div>
-                        </div>
+
                     </div>
 
             </div>
@@ -139,8 +148,8 @@
 
             <hr class="my-4">
 
-          <!--   <a href="main"><button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button></a> -->
-          <a href="login" class="btn btn-lg btn-secondary fw-bold border-white">회원가입</a>
+          <input id="join_button" type="submit" class="btn btn-lg btn-secondary fw-bold border-white" value="회원가입"></input>
+
             </form>
     </div>
     </div>
@@ -155,6 +164,16 @@
         </ul>
     </footer>
     </div>
+    
+    <script>
+    	$(document).ready(function(){
+    		//회원가입 버튼
+    		$("#join_button").click(function(){
+    			$(".memberjoin").attr("action","/member/login");
+    			$(".memberjoin").submit();
+    		});
+    	});
+    </script>
 
 
 

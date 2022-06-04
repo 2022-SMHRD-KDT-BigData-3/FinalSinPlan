@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="ko">
 
@@ -43,6 +44,11 @@
                 font-size: 3.5rem;
             }
         }
+        .login_warn{
+        	margin-top: 30px;
+        	text-align: center;
+        	coler: red;
+        }
     </style>
 
 
@@ -52,6 +58,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 
 </head>
 
@@ -72,11 +82,11 @@
 
             <div class="col-md-7 col-lg-12">
                 <h4 class="mb-3">로그인</h4>
-                <form class="needs-validation" novalidate>
+                <form id="login_Form" class="needs-validation" action="memberlogin" novalidate method="post">
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com">
                             <div class="invalid-feedback">
                                 이메일을 입력해주세요.
                             </div>
@@ -84,7 +94,7 @@
 
                         <div class="col-12">
                             <label for="password" class="form-label">비밀번호</label>
-                            <input type="text" class="form-control" id="password" placeholder="********" required>
+                            <input type="text" class="form-control" name="password" id="password" placeholder="********" required>
                             <div class="invalid-feedback">
                                 비밀번호를 입력해주세요.
                             </div>
@@ -94,12 +104,14 @@
                     </div>
 
             </div>
-
             
-
+            <c:if test = "${result == 0 }">
+            	<div class="login_warn>">사용자 id 또는 비밀번호를 잘못 입력하셨습니다.</div>
+            </c:if>
             <hr class="my-4">
-
-            <button class="w-100 btn btn-primary btn-lg" type="submit">로그인</button>
+			
+		
+            <input class="w-100 btn btn-primary btn-lg" id="login_button" type="submit" value="로그인"></input>
             </form>
     </div>
     </div>
@@ -114,7 +126,15 @@
         </ul>
     </footer>
     </div>
-
+<script>
+	//로그인 버튼 클릭 메서드
+	$("#login_button").click(function(){
+		/* alert("로그인 버튼 작동"); */
+		//로그인 메서드 서버 요청
+		$(".login_form").attr("action", "/member/login");
+		$(".login_form").submit();
+	})
+</script>
 
 
 </body>
