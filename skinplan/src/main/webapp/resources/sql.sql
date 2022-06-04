@@ -8,7 +8,6 @@ CREATE TABLE member(
  gender VARCHAR2(2) NOT NULL,
  mem_tel VARCHAR2(15) NOT NULL,
  join_date DATE DEFAULT SYSDATE NOT NULL,
-<<<<<<< HEAD
  CONSTRAINT mem_email_pk PRIMARY KEY(email),
  CONSTRAINT mem_gender_ck CHECK(gender IN('0','1')));
 
@@ -123,10 +122,7 @@ CREATE TABLE dairy(
  CONSTRAINT dairy_skin_id_fk FOREIGN KEY(skin_id) REFERENCES skin_type(skin_id),
  CONSTRAINT dairy_routine_id_fk FOREIGN KEY(routine_id) REFERENCES care_routine(routine_id),
  CONSTRAINT dairy_ingredient_id_fk FOREIGN KEY(ingredient_id) REFERENCES ingredient(ingredient_id));
-=======
- CONSTRAINT user_email_pk PRIMARY KEY(email),
- CONSTRAINT gender_ck CHECK(gender IN('0','1')));
- 
+
 select * from member;
 insert into member values('abc','123','abc','1','123456789',sysdate);
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+

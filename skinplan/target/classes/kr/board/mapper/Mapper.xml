@@ -3,8 +3,8 @@
 <mapper namespace="kr.board.mapper.Mapper">
 
 	<insert id="memberJoin">
-		insert into member(email, password, user_name, gender, user_tel, join_date)
-		values(#{email, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{user_name, jdbcType=VARCHAR}, #{gender, jdbcType=VARCHAR}, #{user_tel, jdbcType=VARCHAR}, sysdate)       
+		insert into member(email, password, mem_name, nickname, gender, mem_tel, join_date)
+		values(#{email, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{mem_name, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, #{gender, jdbcType=VARCHAR}, #{mem_tel, jdbcType=VARCHAR}, sysdate)       
     </insert>
     <select id="memberLogin" resultType="kr.main.entity.memberVO">
         select email, password from member where email=#{email} and password=#{password}

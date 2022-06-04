@@ -203,7 +203,7 @@
         <main>
           <!-- 글쓰기 -->
           <div class="d-grid gap-2 bg-light">
-            <a href="#" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
+            <a href="boardWrite" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
           </div>
           <!-- 게시글 썸네일 카드 -->
           <div class="album py-2 bg-light">

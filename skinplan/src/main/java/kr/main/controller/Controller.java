@@ -70,4 +70,9 @@ public class Controller {
 	public String infochange() {
 		return "myInfoChange";
 	}
+	//게시판글쓰기
+	@RequestMapping("/boardWrite")
+	public String boardWrite() {
+		return "boardWrite";
+	}
 }

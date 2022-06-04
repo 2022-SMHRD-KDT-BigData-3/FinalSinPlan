@@ -96,7 +96,7 @@
                         
                         <div class="col-12">
                             <label for="nickname" class="form-label">Nickname</label>
-                            <input type="text" class="form-control" id="nickname" name="user_name">
+                            <input type="text" class="form-control" id="nickname" name="nickname">
                             <div class="invalid-feedback">
                                	 닉네임을 입력해주세요.
                             </div>
@@ -104,7 +104,7 @@
                         
                         <div class="col-12">
                             <label for="nickname" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="nickname">
+                            <input type="text" class="form-control" id="nickname" name="mem_name">
                             <div class="invalid-feedback">
                               	  이름을 입력해주세요.
                             </div>
@@ -112,7 +112,7 @@
 
                         <div class="col-12">
                             <label for="phonenumber" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="phonenumber" name="user_tel" placeholder="-빼고 입력해주세요">
+                            <input type="text" class="form-control" id="phonenumber" name="mem_tel" placeholder="-빼고 입력해주세요">
                             <div class="invalid-feedback">
                                 	핸드폰 번호를 입력해주세요.
                             </div>
