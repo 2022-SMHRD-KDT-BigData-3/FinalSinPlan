@@ -108,6 +108,15 @@
             <div class="mb-3">              
                 <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>              
             </div>
+            <fieldset class="row mb-3">
+		      <select class="form-select" aria-label="Default select example">
+		        <option selected>피부 타입</option>
+		        <option value="1">건성</option>
+		        <option value="2">지성</option>
+		        <option value="3">복합성</option>
+		        <option value="4">중성</option>
+		      </select>
+		    </fieldset>
             <input type="submit" class="btn btn-primary" value="피부 진단 받기">
           </div>
         </form> 
