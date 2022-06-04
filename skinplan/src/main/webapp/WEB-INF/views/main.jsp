@@ -64,10 +64,10 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">내 정보 변경</a>
+                <a class="nav-link" href="infochange">내 정보 변경</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">로그아웃</a>
+                <a class="nav-link" href="logout">로그아웃</a>
               </li>
             </ul>
             <form>
@@ -101,16 +101,16 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        <div class="card text-center" >
+        <form action="upload.php" method="post" enctype="multipart/form-data" class="card text-center" >
           <div class="card-body">
             <p class="card-text">사진을 업로드하여</p>
             <p class="card-text">여러분의 피부상태를 알 수 있습니다.</p>
-            <div class="mb-3">
-              <input class="form-control" type="file" id="formFile">
+            <div class="mb-3">              
+                <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>              
             </div>
-            <a href="#" class="btn btn-primary">피부 진단 받기</a>
+            <input type="submit" class="btn btn-primary" value="피부 진단 받기">
           </div>
-        </div> 
+        </form> 
       </div>
       <!-- 피부 일기 페이지 -->
  

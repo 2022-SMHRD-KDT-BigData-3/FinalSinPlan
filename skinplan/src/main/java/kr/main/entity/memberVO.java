@@ -14,6 +14,6 @@ public class memberVO {
 	private String user_name;
 	private String gender; //성별
 	private String user_tel; //전화번호
-	private String join_data; //가입일 
+	private String join_date; //가입일 
 	
 }

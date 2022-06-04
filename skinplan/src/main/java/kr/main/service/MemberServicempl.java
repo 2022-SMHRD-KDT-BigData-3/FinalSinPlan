@@ -12,6 +12,7 @@ public class MemberServicempl implements MemberService{
 	@Autowired
 	Mapper mapper;
 	
+	//회원가입
 	@Override
 	public void memberJoin(memberVO member) throws Exception{
 		mapper.memberJoin(member);

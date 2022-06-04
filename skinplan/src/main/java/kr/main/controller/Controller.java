@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.board.mapper.Mapper;
@@ -34,11 +35,12 @@ public class Controller {
 		return "login";
 	}
 	//회원가입
-	@RequestMapping("/join")
+	@PostMapping("/memberjoin")
 	public String joinPOST(memberVO member) throws Exception{
 		memberservice.memberJoin(member);
 		return "login";
 	}
+
 	//로그인
 	@RequestMapping("/memberlogin")
 	public String loginPOST(HttpServletRequest request, memberVO member, RedirectAttributes rttr) throws Exception{
@@ -57,9 +59,15 @@ public class Controller {
 		return "main";
 	}
 	//메인페이지 로그아웃
-//	@RequestMapping("/memberlogout")
-//	public String logoutMainGET(HttpServletRequest request) throws Exception{
-//		
-//	}
-//	
+	@RequestMapping("/logout")
+	public String logoutMainGET(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "index";
+	}
+	//내정보수정
+	@RequestMapping("/infochange")
+	public String infochange() {
+		return "myInfoChange";
+	}
 }
