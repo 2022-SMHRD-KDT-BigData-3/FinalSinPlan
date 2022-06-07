@@ -77,19 +77,19 @@
         </div>
       </nav>
     </div>
-    <!-- 피부 진단 페이지 -->
+     <!-- 피부 진단 페이지 -->
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade show active" id="pills-scan" role="tabpanel" aria-labelledby="pills-scan-tab" data-bs-touch="true">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="./img/flowers-7188503_1920.jpg" class="d-block w-100" alt="..." height= 500px>
+              <img src="./img/flowers-7188503_1920.jpg" class="d-block w-100" alt="..." height= 470px>
             </div>
             <div class="carousel-item">
-              <img src="./img/phone-wallpaper-g43fb981c2_1920.jpg" class="d-block w-100" alt="..."  height= 500px>
+              <img src="./img/phone-wallpaper-g43fb981c2_1920.jpg" class="d-block w-100" alt="..."  height= 470px>
             </div>
             <div class="carousel-item">
-              <img src="./img/man-gbbbaee27f_1920.jpg" class="d-block w-100" alt="..."  height= 500px>
+              <img src="./img/man-gbbbaee27f_1920.jpg" class="d-block w-100" alt="..."  height= 470px>
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -101,22 +101,22 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        <form action="upload.php" method="post" enctype="multipart/form-data" class="card text-center" >
+        <form  action="upload.php" method="post" enctype="multipart/form-data" class="card text-center" >
           <div class="card-body">
             <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
             <p class="card-text">등록해주세요.</p>
-            <div class="mb-3">              
-                <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>              
+            <div class="mb-3">       
+                <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>         
             </div>
             <fieldset class="row mb-3">
-		      <select class="form-select" aria-label="Default select example">
-		        <option selected>피부 타입</option>
-		        <option value="1">건성</option>
-		        <option value="2">지성</option>
-		        <option value="3">복합성</option>
-		        <option value="4">중성</option>
-		      </select>
-		    </fieldset>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>피부 타입</option>
+                <option value="1">건성</option>
+                <option value="2">지성</option>
+                <option value="3">복합성</option>
+                <option value="4">중성</option>
+              </select>
+            </fieldset>
             <input type="submit" class="btn btn-primary" value="피부 진단 받기">
           </div>
         </form> 
@@ -130,51 +130,34 @@
             <div class="container">       
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
-                  <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                        </div>
-                        <small class="text-muted">9 mins</small>
+                    <div class="card" style="width: 100%;">
+                      <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                       </div>
                     </div>
+                </div>
+                <div class="col">
+                  <div class="card shadow-sm">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
+                        </div>
+                      </div>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                        </div>
-                        <small class="text-muted">9 mins</small>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -212,7 +195,7 @@
         <main>
           <!-- 글쓰기 -->
           <div class="d-grid gap-2 bg-light">
-            <a href="boardWrite" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
+            <a href="#" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
           </div>
           <!-- 게시글 썸네일 카드 -->
           <div class="album py-2 bg-light">
@@ -221,152 +204,121 @@
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img"
-                      aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
         
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
         
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        
-                    <div class="card-body">
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                          <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="/boardView.html">
+                      <div class="card" style="width: 100%;">
+                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
                         </div>
-                        <small class="text-muted">9 mins</small>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
