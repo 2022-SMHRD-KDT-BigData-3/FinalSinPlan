@@ -54,7 +54,10 @@
       resize: none;
     }
   </style>
-
+    <script
+ 		src="https://code.jquery.com/jquery-3.4.1.js"
+ 		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  		crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -74,10 +77,10 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">내 정보 변경</a>
+              <a class="nav-link" href="infochange">내 정보 변경</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">로그아웃</a>
+              <a class="nav-link" href="logout">로그아웃</a>
             </li>
           </ul>
           <form>
@@ -87,19 +90,19 @@
       </div>
     </nav>
   </div>
-  <form>
+  <form action="boardInsert" method="post" id="Form">
     <div class="row mb-3">
       <label for="title" class="col-sm-2 col-form-label">제목</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="title">
+        <input type="text" class="form-control" id="title" name="title">
       </div>
     </div>
     <div class="form-floating">
-      <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"></textarea>
+      <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"></textarea>
       <label for="content">Content</label>
     </div>
     <fieldset class="row mb-3">
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select" aria-label="Default select example" name="skintype">
         <option selected>피부 타입</option>
         <option value="1">건성</option>
         <option value="2">지성</option>
@@ -119,12 +122,18 @@
     </div>
    
     <div class="d-flex justify-content-end mx-4">
-      <input type="submit" class="btn btn-primary mx-1" value="게시글 작성">
-      <a href="#" class="btn btn-primary ">취소</a>
+      <input type="submit" class="btn btn-primary mx-1" value="게시글 작성" id="btn">
+      <a href="cancel" class="btn btn-primary " id="cancelbtn">취소</a>
     </div>
 
 
   </form>
+  <script>
+  	//등록버튼
+  	$("#btn").click(function(){
+  		$("#Form").submit();
+  	});
+  </script>
 
 </body>
 

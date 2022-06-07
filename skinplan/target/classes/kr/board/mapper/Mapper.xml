@@ -10,5 +10,9 @@
         select email, password from member where email=#{email} and password=#{password}
     </select>
 
+    <insert id="boardWrite">
+ 		insert into community
+ 		values(#{comm_id},#{title},#{content},#{email},#{img1},#{img2},#{img3},#{score},sysdate)    
+    </insert>
 
 </mapper>

@@ -17,5 +17,7 @@ public class CommunityVO {
 	private String img1; //사진1
 	private String img2; //사진2
 	private String img3; //사진3
+	private int score; //게시물 추천수
+	private String comm_date; //게시글 작성일
 	
 }

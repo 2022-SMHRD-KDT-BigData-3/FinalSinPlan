@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.board.mapper.Mapper;
+import kr.main.entity.CommunityVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
 
@@ -58,7 +59,7 @@ public class Controller {
 		session.setAttribute("member", lvo); 			//일치하는 아이디, 비밀번호 경우(로그인 성공)
 		return "main";
 	}
-	//메인페이지 로그아웃
+	//메인페이지,상단네비바에서 로그아웃
 	@RequestMapping("/logout")
 	public String logoutMainGET(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
@@ -70,9 +71,21 @@ public class Controller {
 	public String infochange() {
 		return "myInfoChange";
 	}
-	//게시판글쓰기
+	//게시판글쓰기페이지 이동
 	@RequestMapping("/boardWrite")
 	public String boardWrite() {
 		return "boardWrite";
+	}
+	//게시판 글쓰기 등록
+	@RequestMapping("/boardInsert")
+	public String communityPOST(CommunityVO community, RedirectAttributes rttr) throws Exception{
+		memberservice.boardInsert(community);
+		rttr.addFlashAttribute("boardWrite", community.getEmail()); // 등록 성공(사용자 이메일)
+		return "boardWrite";
+	}
+	//게시판 글쓰기 취소
+	@RequestMapping("/cancel")
+	public String boardcancel() {
+		return "main";
 	}
 }

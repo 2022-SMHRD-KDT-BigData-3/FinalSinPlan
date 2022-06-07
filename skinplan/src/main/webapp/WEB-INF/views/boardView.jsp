@@ -77,10 +77,10 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">내 정보 변경</a>
+                            <a class="nav-link" href="infochange">내 정보 변경</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">로그아웃</a>
+                            <a class="nav-link" href="logout">로그아웃</a>
                         </li>
                     </ul>
                     <form>
