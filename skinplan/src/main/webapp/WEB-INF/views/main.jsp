@@ -61,7 +61,7 @@
           <div class="collapse navbar-collapse" id="navbarsExample01">
             <ul class="navbar-nav me-auto mb-2">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="infochange">내 정보 변경</a>
@@ -195,7 +195,7 @@
         <main>
           <!-- 글쓰기 -->
           <div class="d-grid gap-2 bg-light">
-            <a href="#" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
+            <a href="boardWrite" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
           </div>
           <!-- 게시글 썸네일 카드 -->
           <div class="album py-2 bg-light">
@@ -204,7 +204,7 @@
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
                   <div class="card shadow-sm">
-                    <a href="/boardView.html">
+                    <a href="boardView.html">
                       <div class="card" style="width: 100%;">
                         <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
                         <div class="card-body">

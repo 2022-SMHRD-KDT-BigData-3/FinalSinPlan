@@ -22,7 +22,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-
+  <script
+	 rc="https://code.jquery.com/jquery-3.4.1.js"
+ 	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+ 	 crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- Favicons -->
   <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
   <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -114,8 +118,8 @@
     <div class="row mb-3">
       <div class="col-sm-10 offset-sm-2">
         <div class="input-group mb-3">
-          <form action="upload.php" method="post" enctype="multipart/form-data">
-            <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>
+          <form action="uploadAjaxAction" name="frm" method="post" enctype="multipart/form-data">
+            <input multiple="multiple" type="file" name="uploadFile" accept='image/*'/>
           </form>
         </div>
       </div>
@@ -128,11 +132,50 @@
 
 
   </form>
-  <script>
+  <script type="text/javascript">
   	//등록버튼
   	$("#btn").click(function(){
   		$("#Form").submit();
   	});
+  	//이미지 업로드
+  	$("input[type='file']").on("change", function(e){
+  		let formData = new FormData();
+  		let fileInput = $('input[name="uploadFile"]');
+  		let fileList = fileInput[0].files;
+  		let fileObj = fileList[0];
+  		if(!fileCheck(fileObj.name, fileObj.size)){
+  			return false;
+  		}https://okky.kr/articles/recruit?filter.jobType=CONTRACT
+  		for(let i = 0; i < fileList.length; i++){
+  			formData.append("uploadFile", fileObj);	
+  		}
+  		alert("통과");
+  		
+  		$.ajax({
+  			url: 'uploadAjaxAction',
+  			processData : false,
+  			contentType : false,
+  			data : formData,
+  			type : 'POST',
+  			dataType : 'json'
+  		});
+  	});
+  	
+  	/*var, method related whth attachFile  */
+  	let regex = new RegExp("(.*?)\.(jpg|png)$");
+  	let maxSize = 1048576; //1MB
+  	
+  	function fileCheck(fileName, fileSize){
+  		if(fileSize >= maxSize){
+  			alert("파일 사이즈 초과");
+  			return false;
+  		}
+  		if(!regex.test(fileName)){
+  			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+  			return false;
+  		}
+  		return true;
+  	}
   </script>
 
 </body>
