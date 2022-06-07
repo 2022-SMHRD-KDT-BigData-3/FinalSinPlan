@@ -113,7 +113,7 @@
                 <input multiple="multiple" type="file" name="filename[]" accept='image/*'/>         
             </div>
             <fieldset class="row mb-3">
-              <select class="form-select" aria-label="Default select example">
+              <select class="form-select" aria-label="Default select example">  
                 <option selected>피부 타입</option>
                 <option value="1">건성</option>
                 <option value="2">지성</option>
