@@ -46,6 +46,10 @@
           font-size: 3.5rem;
         }
       }
+      a{
+        text-decoration: none;
+        color: black;
+      }
     </style>
 
   </head>
