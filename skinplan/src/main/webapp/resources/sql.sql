@@ -10,6 +10,8 @@ CREATE TABLE member(
  join_date DATE DEFAULT SYSDATE NOT NULL,
  CONSTRAINT mem_email_pk PRIMARY KEY(email),
  CONSTRAINT mem_gender_ck CHECK(gender IN('0','1')));
+ 
+ALTER TABLE member ADD(CONSTRAINT mem_nick_uq UNIQUE(nickname));
 
 -- 증상
 CREATE TABLE symptom(
@@ -68,6 +70,11 @@ CREATE TABLE test_img(
  test_date DATE DEFAULT SYSDATE NOT NULL,
  CONSTRAINT test_id_pk PRIMARY KEY(test_id),
  CONSTRAINT test_email_fk FOREIGN KEY(email) REFERENCES member(email));
+ 
+CREATE SEQUENCE test_img_seq
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 999
  
 -- 증상에 따라 보여줄 케어루틴
 CREATE TABLE care_routine(
@@ -129,13 +136,14 @@ CREATE TABLE dairy(
 
 
 select * from member;
-insert into member values('abc','123','abc','1','123456789',sysdate);
+insert into member values('123','123','123','123','1','123',sysdate);
+
+DROP TABLE member CASCADE CONSTRAINTS;
+
+SELECT * FROM dairy;
 
 
-CREATE SEQUENCE test_img_seq
-INCREMENT BY 1
-START WITH 1
-MAXVALUE 999
+
 
 SELECT * FROM test;
 
