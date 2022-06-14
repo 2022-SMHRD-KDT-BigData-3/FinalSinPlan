@@ -143,8 +143,15 @@ public class Controller {
 	public String boardcancel() {
 		return "main";
 	}
+<<<<<<< HEAD
 	@RequestMapping("/boardView")
 	public String boardView_() {
+=======
+
+	// 게시판 글쓰기페이지로 이동
+	@RequestMapping("/boardView.html")
+	public String boardView() {
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 		return "boardView";
 	}
 
