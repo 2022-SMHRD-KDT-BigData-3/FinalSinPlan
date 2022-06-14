@@ -9,10 +9,42 @@
     <select id="memberLogin" resultType="kr.main.entity.memberVO">
         select email, password from member where email=#{email} and password=#{password}
     </select>
-
-    <insert id="boardWrite">
- 		insert into community
- 		values(#{comm_id},#{title},#{content},#{email},#{img1},#{img2},#{img3},#{score},sysdate)    
+    
+    <select id = "getList" resultType="kr.main.entity.boardVO">
+        <![CDATA[
+        select * from board where bno>0
+        ]]>
+    </select>
+    
+   	<insert id="insert">
+        insert into tbl_attach (uuid, uploadPath, filename, filetype, bno)
+        values (#{uuid},#{uploadPath},#{fileName},#{fileType},#{bno})
     </insert>
-
+<!--     <insert id="insert">
+        insert into board(bno, title, content, skintype)
+        values (seq_board.nextval, #{title}, #{content}, #{skintype})
+    </insert>  -->
+    <insert id="insertSelectKey">
+        <selectKey keyProperty="bno" order="BEFORE" resultType="long">
+            select seq_board.nextval from dual
+        </selectKey>
+        insert into board (bno, title, content, skintype)
+        values (#{bno},#{title},#{content},#{skintype})
+    </insert>
+    
+    <delete id="delete">
+        delete from tbl_attach where uuid = #{uuid}
+    </delete>
+    
+    <select id="findByBno" resultType="kr.main.entity.BoardAttachVO">
+		select * from tbl_attach where bno = #{bno}        
+    </select>
+    
+    <select id="read" resultType="kr.main.entity.boardVO">
+        select * from board where bno = #{bno}
+    </select>
+<!--     <delete id="delete">
+        delete from board where bno = #{bno}
+    </delete> -->
+	
 </mapper>

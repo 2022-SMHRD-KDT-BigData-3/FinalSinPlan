@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ko">
   <head> 
@@ -195,137 +196,32 @@
         <main>
           <!-- 글쓰기 -->
           <div class="d-grid gap-2 bg-light">
-            <a href="boardWrite" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
+            <a href="uploadAjax" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
           </div>
           <!-- 게시글 썸네일 카드 -->
-          <div class="album py-2 bg-light">
-            <div class="container">
-      
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
+         <div class="album py-2 bg-light">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <div class="col">
+                <div class="card shadow-sm">
+                  <a href="/boardView.html">
+                    <div class="card" style="width: 100%;">
+                      <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..."
+                        style="height: 300px; width: 300px">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                          the card's content.</p>
                       </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-        
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-        
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <a href="/boardView.html">
-                      <div class="card" style="width: 100%;">
-                        <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..." style="height: 300px; width: 300px">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>                    
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-
-          <nav aria-label="Page navigation example" style="padding-bottom: 50px">
+        </div>
+        
+<!--           <nav aria-label="Page navigation example" style="padding-bottom: 50px">
             <ul class="pagination justify-content-center bg-light">
               <li class="page-item">
                 <a class="page-link" href="#" aria-label="Previous">
@@ -341,7 +237,7 @@
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> -->
           <div>
 
           </div>

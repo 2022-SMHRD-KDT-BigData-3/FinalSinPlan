@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="kr.main.entity.boardVO"%>
 <!doctype html>
 <html lang="ko">
 
@@ -54,6 +58,14 @@
             border: none;
             resize: none;
         }
+        #result_card img{
+			max-width: 100%;
+	  	 	height: auto;
+	   		display: block;
+	   		padding: 5px;
+	   		margin-top: 10px;
+	  		margin: auto;	
+		}
 
     </style>
 
@@ -93,15 +105,15 @@
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/img/88310993_3135935986424775_7149992294291079168_n.png" class="d-block w-100" height=300px
+                <img src="${vo.uploadFile}" class="d-block w-100" height=300px
                     alt="...">
             </div>
-            <div class="carousel-item">
+            <!-- <div class="carousel-item">
                 <img src="/img/flowers-7188503_1920.jpg" class="d-block w-100" height=300px alt="...">
             </div>
             <div class="carousel-item">
                 <img src="img/phone-wallpaper-g43fb981c2_1920.jpg" class="d-block w-100" height=300px alt="...">
-            </div>
+            </div> -->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -112,28 +124,26 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
     <header>
         <div class="container marketing">
             <div class="row mt-4 mx-auto">
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>사용자 닉네임</h3>         
+                            <h3>${vo.nickname}</h3>      
                         </blockquote>
                         <figcaption class="blockquote-footer">
-                            피부 타입 : OOO
+                           	 피부 타입 : ${vo.skintype}
                         </figcaption>
                     </figure>
-                </div>
-                <div class="col">
-                    <p><a class="btn btn-secondary" href="#">구독하기</a></p>
                 </div>
             </div>
         </div>
     </header>
     <form>
         <div class="row mb-3">
-            <label for="title" class="col-sm-2 col-form-label mx-1">제목</label>
+            <label for="title" class="col-sm-2 col-form-label mx-1">${vo.title}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control-plaintext mx-4" id="title" value="나만의 피부관리 꿀팁" disabled>
             </div>
@@ -141,13 +151,13 @@
 
         <div class="form-floating">
             <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"
-                disabled>사용자가 쓴글</textarea>
+                disabled>${vo.content}</textarea>
             <label for="content">Content</label>
         </div>
-
+           		
         <div class="d-flex justify-content-end mx-4 mt-4">
             <a href="#" class="btn btn-primary mx-1 ">수정하기</a>
-            <a href="#" class="btn btn-primary ">돌아가기</a>
+            <a href="rBoardView" class="btn btn-primary ">돌아가기</a>
         </div>
 
 
