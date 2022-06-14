@@ -29,8 +29,19 @@
     <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#7952b3">
 
-  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+
     <style>
+        body {
+            font-family: 'Jua', sans-serif;
+        }
+
+        .jua-font {
+            font-family: 'Jua', sans-serif;
+        }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -65,22 +76,12 @@
 
 </head>
 
-<body class="bg-light">
+<body class="bg-info bg-opacity-25">
 
-    <div class="container">
+    <div class="container mt-4 jua-font">
         <main>
-            <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72"
-                    height="57">
-                <h2>Checkout form</h2>
-                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required
-                    form group has a validation state that can be triggered by attempting to submit the form without
-                    completing it.</p>
-            </div>
-
-
-
-            <div class="col-md-7 col-lg-12">
+            
+            <div class="col-md-7 col-lg-12 mt-5">
                 <h4 class="mb-3">로그인</h4>
                 <form id="login_Form" class="needs-validation" action="memberlogin" novalidate method="post">
                     <div class="row g-3">
@@ -118,12 +119,8 @@
     </main>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017–2022 Company Name</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
+        <p class="mb-1">&copy; 2022–2022 SkinPlan</p>
+
     </footer>
     </div>
 <script>

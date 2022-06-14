@@ -27,9 +27,19 @@
     <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
     <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#7952b3">
+   <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 
     <style>
+        body{
+            font-family: 'Jua', sans-serif;
+        }
+        .jua-font{
+            font-family: 'Jua', sans-serif;
+        }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -53,28 +63,17 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script
-	 rc="https://code.jquery.com/jquery-3.4.1.js"
+	 src="https://code.jquery.com/jquery-3.4.1.js"
  	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
  	 crossorigin="anonymous"></script>
 
 </head>
 
-<body class="bg-light">
+<body class="bg-info bg-opacity-25">
 
-    <div class="container">
+    <div class="container jua-font">
         <main>
-            <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72"
-                    height="57">
-                <h2>Checkout form</h2>
-                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required
-                    form group has a validation state that can be triggered by attempting to submit the form without
-                    completing it.</p>
-            </div>
-
-
-
-            <div class="col-md-7 col-lg-8">
+            <div class="col-md-7 col-lg-8 mt-5">
                 <h4 class="mb-3">회원가입</h4>
                 <form id="memberjoin" action="memberjoin" class="needs-validation" novalidate method="post">
                     <div class="row g-3">
@@ -148,7 +147,7 @@
 
             <hr class="my-4">
 
-          <input id="join_button" type="submit" class="btn btn-lg btn-secondary fw-bold border-white" value="회원가입"></input>
+          <input id="join_button" type="submit" class="w-100 btn btn-primary btn-lg" value="회원가입"></input>
 
             </form>
     </div>
