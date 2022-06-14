@@ -157,7 +157,6 @@
     <!-- 파일 업로드 -->
    
        <form action="uploadFormAction" name="frm" method="post" enctype="multipart/form-data" id="enrollForm">
-       <!--  <a action="uploadFormAction" name="frm" method="post" enctype="multipart/form-data" id="enrollForm"/> -->
             <input multiple="multiple" type="file" name="uploadFile" accept='image/*'/>
             <div class="form_section">
             	<div class="form_section_title">
@@ -182,7 +181,6 @@
       <button type="submit" class="btn btn-primary mx-1" id="btn">게시글 작성</button>
       <a href="cancel" class="btn btn-primary " id="cancelbtn">취소</a>
     </div>
-
   </form>
   <script type="text/javascript">
   	let enrollForm = $("#enrollForm")

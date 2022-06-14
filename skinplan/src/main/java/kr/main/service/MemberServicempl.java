@@ -1,11 +1,18 @@
 package kr.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.board.mapper.Mapper;
+import kr.main.entity.AttachFileVO;
+import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
+import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
+import lombok.Setter;
 
 @Service
 public class MemberServicempl implements MemberService{
@@ -23,9 +30,22 @@ public class MemberServicempl implements MemberService{
 	public memberVO memberLogin(memberVO member) throws Exception{
 		return mapper.memberLogin(member);
 	}
-	//게시글 등록
+	@Transactional 
 	@Override
-	public void boardInsert(CommunityVO community) throws Exception{
-		mapper.boardWrite(community);
+	public void uploadAjax(boardVO boardvo) {
+		System.out.println("register....."+boardvo);
+		mapper.insertSelectKey(boardvo);
+		if(boardvo.getAttachList() == null || boardvo.getAttachList().size() <=0) {
+			return;
+		}
+		boardvo.getAttachList().forEach(attach ->{
+			attach.setBno(boardvo.getBno());
+			mapper.insert(attach);
+		});
+	}
+	@Override
+	public List<BoardAttachVO> getAttachList(Long bno){
+		System.out.println("get Attach list by bno" +bno);
+		return mapper.findByBno(bno);
 	}
 }
