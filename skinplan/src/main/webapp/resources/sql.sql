@@ -31,14 +31,10 @@ create sequence seq_board;
 select * from board;
 select * from TBL_ATTACH;
 select * from MEMBER;
-<<<<<<< HEAD
+
 drop table board;
 
-=======
-drop table board;
 insert into member values('123','123','123','123','1','123',sysdate);
 
 DROP TABLE member CASCADE CONSTRAINTS;
 
-
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
