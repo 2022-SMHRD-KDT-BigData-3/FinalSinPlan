@@ -317,7 +317,6 @@ a {
           </nav>
 				<div></div>
 
-<<<<<<< HEAD
           </div>
         
         </main>

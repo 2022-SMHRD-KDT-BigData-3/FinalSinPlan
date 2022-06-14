@@ -28,7 +28,7 @@
   <script
 	 src="https://code.jquery.com/jquery-3.4.1.js"
  	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
- 	 crossorigin="anonymous"></script>>
+ 	 crossorigin="anonymous"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    ﻿﻿
   <!-- Favicons -->
@@ -120,7 +120,7 @@
 
 <body>
   <!-- 상단 네비바 -->
-  <div>
+   <div>
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">SkinPlan</a>
@@ -187,6 +187,11 @@
     <div class="uploadDiv">
 		<input type="file" name="uploadFile" multiple>
 	</div>	
+	<div class='uploadResult'>
+		<ul>
+		
+		</ul>
+	</div>
 	<button id="uploadBtn">Upload</button>
     
  	<!-- <h1>Upload with Ajax</h1>
@@ -208,37 +213,6 @@
     </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#uploadBtn").on("click", function(e){
-		var formData = new FormData();
-		var inputFile = $("input[name='uploadFile']");
-		var files = inputFile[0].files;
-		console.log(files);
-		//add File Data to formData
-		 for(var i=0; i<files.length; i++){
-			formData.append("uploadFile", files[i]);
-		}
-		
-		 $.ajax({
-			url : 'uploadAjaxAction',
-			rocessData : false,
-			contentType: false,
-			data : formData,
-			type : 'POST',
-			success : function(result){
-				alert("uploaded");
-			}
-		 });
-	});
-});
-		
-/* $(document).ready(function(e){
-	var formObj = $("form[role='form']");
-	$("button[type='submit']").on("click", function(e){
-		e.preventDefault();
-		console.log("submit clicked");
-	});
-});
 var regex = new RegExp("(.*?)\.(exe|zip)$");
 var maxSize = 5242880; //5MB
 
@@ -253,6 +227,57 @@ function checkExtension(fileName, fileSize){
 	}
 	return true;
 }
+
+$(document).ready(function(){
+	var cloneObj = $(".uploadDiv").clone();
+	$("#uploadBtn").on("click", function(e){
+		var formData = new FormData();
+		var inputFile = $("input[name='uploadFile']");
+		var files = inputFile[0].files;
+		console.log(files);
+		//add File Data to formData
+		 for(var i=0; i<files.length; i++){
+			formData.append("uploadFile", files[i]);
+		}
+		 var uploadResult = $(".uploadResult ul");
+			function showUploadedFile(uploadResultArr){
+				var str = "";
+				$(uploadResultArr).each(function(i, obj){
+					if(obj.image){
+						str += "<li><img src='./resources/img/attach.png'>"+obj.fileName+"</li>";
+					}else{
+						//str += "<li>" + obj.fileName + "</li>";
+						var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+						str += "<li><img src='display?fileName="+fileCallPath+"'><li>";
+					}
+				});
+				uploadResult.append(str);
+			}
+		
+		 $.ajax({
+			url : 'uploadAjaxAction',
+			processData : false,
+			contentType: false,
+			data : formData,
+			type : 'POST',
+			dataType: 'json',
+			success : function(result){
+				console.log(result);
+				showUploadedFile(result);
+				$(".uploadDiv").html(cloneObj.html());
+			}
+		 });//$.ajax
+	});
+});
+		
+/* $(document).ready(function(e){
+	var formObj = $("form[role='form']");
+	$("button[type='submit']").on("click", function(e){
+		e.preventDefault();
+		console.log("submit clicked");
+	});
+});
+
 $("input[type='file']").change(function(e){
 	var formData = new FormData();
 	var inputFile = $("input[name='uploadFile']");
@@ -380,11 +405,7 @@ $("button[type='submit']").on("click",function(e){
 		}); //$.ajax
 	});
 });
-var uploadResult = $(".uploadResult ul");
-	function showUploadeFile(uploadResultArr){
-		var str = "";
-
-	} */
+*/
 
 </script>
 

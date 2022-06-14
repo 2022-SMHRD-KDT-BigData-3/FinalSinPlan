@@ -143,17 +143,6 @@ public class Controller {
 	public String boardcancel() {
 		return "main";
 	}
-<<<<<<< HEAD
-	@RequestMapping("/boardView")
-	public String boardView_() {
-=======
-
-	// 게시판 글쓰기페이지로 이동
-	@RequestMapping("/boardView.html")
-	public String boardView() {
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
-		return "boardView";
-	}
 
 	// 게시판 글쓰기페이지로 이동
 //	@RequestMapping("/boardView.html")
@@ -162,7 +151,7 @@ public class Controller {
 //	}
 	//썸네일 카드 선택
 	@RequestMapping("/boardView.html")
-	public String board_View() {
+	public String boardView() {
 		return "boardView";
 	}
 	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
@@ -254,17 +243,18 @@ public class Controller {
 		//return new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
 	}
 	//이미지 파일 판단
-//	private boolean checkImageType(File file) {
-//		try {
-//			String contentType = Files.probeContentType(file.toPath());
-//			return contentType.startsWith("image");
-//		}catch(IOException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
+	private boolean checkImageType(File file) {
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			return contentType.startsWith("image");
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	//섬네일 데이터 전송하기
 	@GetMapping("/display")
+	@ResponseBody
     public ResponseEntity<byte[]> getFile(String fileName) {
         System.out.println("fileName: " + fileName);
         File file = new File("C:\\upload\\" + fileName);
@@ -318,30 +308,44 @@ public class Controller {
 		return str.replace("-", File.separator);
 	}
 	
-	@PostMapping("/uploadAjaxAction")
+	@PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public void uploadAjaxPost(MultipartFile[] uploadFile) {
-		System.out.println("update ajax post.........");
+	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+		List<AttachFileVO> list = new ArrayList<AttachFileVO>();
 		String uploadFolder = "c:\\upload";
-		//File uploadPath = new File(uploadFolder, getFolder());
-		//if(uploadPath.exists() == false) {
-			//uploadPath.mkdirs();
-		//}
+		String uploadFolderPath = getFolder();
+		
+		File uploadPath = new File(uploadFolder, getFolder());
+	
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
 		for (MultipartFile multipartFile : uploadFile) {
-			System.out.println("upload file name: " + multipartFile.getOriginalFilename());
-			System.out.println("upload file size:" +multipartFile.getSize());
+			AttachFileVO attachVO = new AttachFileVO();
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 			System.out.println("only file name :" +uploadFileName);
-			//UUID uuid = UUID.randomUUID();
-			//uploadFileName = uuid.toString()+"_" +uploadFileName;
-			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+			attachVO.setFileName(uploadFileName);
+			UUID uuid = UUID.randomUUID();
+			uploadFileName = uuid.toString()+"_" +uploadFileName;
+			
 			try {
+				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
+				attachVO.setUuid(uuid.toString());
+				attachVO.setUploadPath(uploadFolderPath);
+				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
+				BufferedImage bo_image = ImageIO.read(saveFile);
+					double ratio = 2;
+					int width = (int) (bo_image.getWidth()/ratio);
+					int height = (int) (bo_image.getHeight()/ratio);
+				Thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
+			list.add(attachVO);
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		return new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
 	}
 	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
