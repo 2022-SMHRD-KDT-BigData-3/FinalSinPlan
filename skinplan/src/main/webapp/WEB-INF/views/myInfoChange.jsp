@@ -28,8 +28,17 @@
     <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#7952b3">
 
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
 
     <style>
+        body{
+            font-family: 'Jua', sans-serif;
+        }
+        .b
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -55,20 +64,10 @@
 
 </head>
 
-<body class="bg-light">
+<body class="bg-info bg-opacity-25">
 
     <div class="container">
         <main>
-            <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72"
-                    height="57">
-                <h2>Checkout form</h2>
-                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required
-                    form group has a validation state that can be triggered by attempting to submit the form without
-                    completing it.</p>
-            </div>
-
-
 
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">정보 수정</h4>
@@ -91,33 +90,7 @@
                         </div>
 
 
-                        <div class="col-md-5">
-                            <label for="skinType" class="form-label">피부 타입</label>
-                            <select class="form-select" id="skinType" required>
-                                <option value="">목록</option>
-                                <option>건성</option>
-                                <option>지성</option>
-                                <option>중성</option>
-                                <option>복합성</option>
 
-                            </select>
-                            <div class="invalid-feedback">
-                                피부타입을 선택해주세요.
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="state" class="form-label">피부 특징</label>
-                            <select class="form-select" id="state" required>
-                                <option value="">목록</option>
-                                <option>아토피</option>
-                                <option>홍조</option>
-                                <option>여드름</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                피부 특징을 선택해주세요.
-                            </div>
-                        </div>
                     </div>
 
             </div>
@@ -133,12 +106,8 @@
     </main>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017–2022 Company Name</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
+        <p class="mb-1">&copy; 2022–2022 SkinPlan<p>
+
     </footer>
     </div>
 
