@@ -22,10 +22,15 @@
   <!-- Custom styles for this template -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script
+	 src="https://code.jquery.com/jquery-3.4.1.js"
+ 	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+ 	 crossorigin="anonymous"></script>>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   ﻿﻿
   <!-- Favicons -->
   <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
   <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -111,10 +116,6 @@
     }
 	
   </style>
-    <script
- 		src="https://code.jquery.com/jquery-3.4.1.js"
- 		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  		crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -167,8 +168,28 @@
       </select>
     </fieldset>
     <!-- 파일 업로드 -->
+<!--     <div class ="row">
+    	<div class="col-lg-12">
+    		<div class="panel panel-default">
+    		<div class="panel-heading">File Attach</div>
+    		<div class="panel-body">
+    			<div class="form-group uploadDiv">
+    			<input type="file" name='uploadFile' multiple>
+    			</div>
+    			<div class='uploadResult'>
+    				<ul>
+    				</ul>
+    			</div>
+    		</div>
+    	</div>
+    	</div>
+    </div> -->
+    <div class="uploadDiv">
+		<input type="file" name="uploadFile" multiple>
+	</div>	
+	<button id="uploadBtn">Upload</button>
     
-	<h1>Upload with Ajax</h1>
+ 	<!-- <h1>Upload with Ajax</h1>
 	<form action="uploadAjaxAction" method="post" enctype="multipart/form-data">
 	<div class="uploadDiv">
 		<input type="file" name="uploadFile" multiple>
@@ -180,19 +201,44 @@
 	</div>	
 	<button id="uploadBtn">Upload</button>
 	</form>
-		
+		 -->
     <div class="d-flex justify-content-end mx-4">
       <button type="submit" class="btn btn-primary mx-1" id="btn">게시글 작성</button>
       <a href="cancel" class="btn btn-primary " id="cancelbtn">취소</a>
     </div>
 
-<script>
-$(document).ready(function(e){
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#uploadBtn").on("click", function(e){
+		var formData = new FormData();
+		var inputFile = $("input[name='uploadFile']");
+		var files = inputFile[0].files;
+		console.log(files);
+		//add File Data to formData
+		 for(var i=0; i<files.length; i++){
+			formData.append("uploadFile", files[i]);
+		}
+		
+		 $.ajax({
+			url : 'uploadAjaxAction',
+			rocessData : false,
+			contentType: false,
+			data : formData,
+			type : 'POST',
+			success : function(result){
+				alert("uploaded");
+			}
+		 });
+	});
+});
+		
+/* $(document).ready(function(e){
 	var formObj = $("form[role='form']");
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
 		console.log("submit clicked");
 	});
+});
 var regex = new RegExp("(.*?)\.(exe|zip)$");
 var maxSize = 5242880; //5MB
 
@@ -217,6 +263,7 @@ $("input[type='file']").change(function(e){
 		}
 		formData.append("uploadFile", files[i]);
 	}
+	
 	$.ajax({
 		url : '/uploadAjaxAction',
 		processData : false,
@@ -226,7 +273,8 @@ $("input[type='file']").change(function(e){
 		dataType: 'json',
 		success: function(result){
 			console.log(result);
-			showUploadResult(result); //업로드 결과 처리 함수
+			alert("ddd")
+			//showUploadResult(result); //업로드 결과 처리 함수
 		}
 	});
 })
@@ -295,8 +343,8 @@ $("button[type='submit']").on("click",function(e){
 		str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("fileType")+"'>";
 	});
 	formObj.append(str).submit();
-});
-
+})
+ */
 /* $(document).ready(function(){
 	var cloneObj = $(".uploadDiv").clone();
 	$("#uploadBtn").on("click", function(e){

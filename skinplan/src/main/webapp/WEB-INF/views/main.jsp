@@ -203,8 +203,9 @@
           <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col">
+              	<a href="boardView.html">
                 <div class="card shadow-sm">
-                  <a href="/boardView.html">
+                 
                     <div class="card" style="width: 100%;">
                       <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..."
                         style="height: 300px; width: 300px">

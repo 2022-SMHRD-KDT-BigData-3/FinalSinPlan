@@ -30,11 +30,6 @@ drop table board cascade constraints;
 create sequence seq_board;
 select * from board;
 select * from TBL_ATTACH;
-select * from put_image;
 select * from MEMBER;
 drop table board;
-insert into member values('123','123','123','123','1','123',sysdate);
-
-DROP TABLE member CASCADE CONSTRAINTS;
-
 

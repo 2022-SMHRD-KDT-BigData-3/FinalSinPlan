@@ -42,11 +42,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.board.mapper.Mapper;
 import kr.main.entity.AttachFileVO;
+import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
@@ -141,13 +143,21 @@ public class Controller {
 	public String boardcancel() {
 		return "main";
 	}
-
-	// 게시판 글쓰기페이지로 이동
-	@RequestMapping("/boardView.html")
-	public String boardView() {
-		return "main";
+	@RequestMapping("/boardView")
+	public String boardView_() {
+		return "boardView";
 	}
 
+	// 게시판 글쓰기페이지로 이동
+//	@RequestMapping("/boardView.html")
+//	public String boardView() {
+//		return "main";
+//	}
+	//썸네일 카드 선택
+	@RequestMapping("/boardView.html")
+	public String board_View() {
+		return "boardView";
+	}
 	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
 	@RequestMapping("/rBoardView")
 	public String rboardView() {
@@ -172,9 +182,9 @@ public class Controller {
 //		return str.replace("-", File.separator);
 //	}
 	//uploadAjax페이지 파일업로드 form태그
-	@PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value="/uploadAjaxAction__", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost__(MultipartFile[] uploadFile) {
 		/* 이미지 파일 체크 */
 		for(MultipartFile multipartFile: uploadFile) {
 			File checkfile = new File(multipartFile.getOriginalFilename());
@@ -284,16 +294,16 @@ public class Controller {
     	}
     	return new ResponseEntity<String>("deleted", HttpStatus.OK);
     }
-    @PostMapping("/uploadAjax")
-    public String uploadAjax(boardVO board, RedirectAttributes rttr) {
-    	System.out.println("==============");
-    	System.out.println("register: "+board);
-    	if(board.getAttachList() != null) {
-    		board.getAttachList().forEach(attach -> System.out.println(attach));
-    	}
-    	System.out.println("==========");
-    	return "redirect:/uploadAjax";
-    	}
+//    @PostMapping("/uploadAjax")
+//    public String uploadAjax(boardVO board, RedirectAttributes rttr) {
+//    	System.out.println("==============");
+//    	System.out.println("register: "+board);
+//    	if(board.getAttachList() != null) {
+//    		board.getAttachList().forEach(attach -> System.out.println(attach));
+//    	}
+//    	System.out.println("==========");
+//    	return "redirect:/uploadAjax";
+//    	}
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -301,20 +311,23 @@ public class Controller {
 		return str.replace("-", File.separator);
 	}
 	
-	@PostMapping("/ex_uploadAjax")
-	public void uploadAjaxPost_ex(MultipartFile[] uploadFile) {
+	@PostMapping("/uploadAjaxAction")
+	@ResponseBody
+	public void uploadAjaxPost(MultipartFile[] uploadFile) {
+		System.out.println("update ajax post.........");
 		String uploadFolder = "c:\\upload";
-		File uploadPath = new File(uploadFolder, getFolder());
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
-		}
+		//File uploadPath = new File(uploadFolder, getFolder());
+		//if(uploadPath.exists() == false) {
+			//uploadPath.mkdirs();
+		//}
 		for (MultipartFile multipartFile : uploadFile) {
 			System.out.println("upload file name: " + multipartFile.getOriginalFilename());
 			System.out.println("upload file size:" +multipartFile.getSize());
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			UUID uuid = UUID.randomUUID();
-			uploadFileName = uuid.toString()+"_" +uploadFileName;
+			System.out.println("only file name :" +uploadFileName);
+			//UUID uuid = UUID.randomUUID();
+			//uploadFileName = uuid.toString()+"_" +uploadFileName;
 			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
 			try {
 				multipartFile.transferTo(saveFile);
@@ -323,5 +336,13 @@ public class Controller {
 			}
 		}
 	}
-    }
+	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		System.out.println("getAttachList " + bno);
+		return new ResponseEntity<>(memberservice.getAttachList(bno),HttpStatus.OK);
+	}
+	
+	
+} //controller end
 	
