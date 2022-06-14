@@ -36,8 +36,16 @@
     <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#7952b3">
 
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
 
     <style>
+        body{
+            font-family: 'Jua', sans-serif;
+        }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -71,7 +79,7 @@
 
 </head>
 
-<body>
+<body class=" bg-info bg-opacity-25">
     <!-- 상단 네비바 -->
     <div>
         <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
@@ -90,6 +98,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="infochange">내 정보 변경</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">화장품 정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logout">로그아웃</a>
@@ -155,7 +166,7 @@
             <label for="content">Content</label>
         </div>
            		
-        <div class="d-flex justify-content-end mx-4 mt-4">
+        <div class="d-flex justify-content-end mx-4 my-4">
             <a href="#" class="btn btn-primary mx-1 ">수정하기</a>
             <a href="rBoardView" class="btn btn-primary ">돌아가기</a>
         </div>

@@ -145,7 +145,7 @@ public class Controller {
 	// 게시판 글쓰기페이지로 이동
 	@RequestMapping("/boardView.html")
 	public String boardView() {
-		return "main";
+		return "boardView";
 	}
 
 	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
