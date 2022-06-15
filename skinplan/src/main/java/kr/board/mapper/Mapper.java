@@ -21,34 +21,21 @@ public interface Mapper {
 	public memberVO memberLogin(memberVO member);
 
 	public List<boardVO> getList();
-	
-	public void insert(BoardAttachVO vo);
-	//public void insert(boardVO board);
-	public void insertSelectKey(boardVO board);
-	public void delete(String uuid);
-	public List<BoardAttachVO> findByBno(Long bno);
+	public void uploadAjax(boardVO boardvo);	
 	public boardVO read(Long bno);
 	public int delete(Long bno);
 	
-	//게시글 등록
-//	public void boardEnroll(boardVO board);
-			
-	//이미지 데이터 반환 	
+	public void board(boardVO vo);
+	//첨부파일 업로드
+	public void insert(BoardAttachVO vo);
+	public void delete(String uuid);
+	public List<BoardAttachVO> findByBno(Long bno);
 	
-	
-	//게시판 사진 등록
-	
-	//게시글 등록2
-	public void board(boardVO board);
-	
-	//게시판 리스트
-//	@Select("select * from board order by idx desc")
-//	public List<boardVO> getAllList();
-	
-	//게시글 등록(내용) view페이지로 값 받아오기
-//	public boardVO boardContent(boardVO boardvo);
+	public void insert(boardVO board);
+	public void insertSelectKey(boardVO board);
+	public List<BoardAttachVO> getAttachList(Long bno);
+	public void upload(boardVO boardvo);
 
-	//게시글 이미지 파일 불러오기
 	
 }
 

@@ -149,8 +149,7 @@
     </nav>
   </div>
  
-  <form role="form"> 
-  
+  <form role="form" action="upload" method="post"> 
     <div class="row mb-3">
       <label for="title" class="col-sm-2 col-form-label">제목</label>
       <div class="col-sm-10">
@@ -170,8 +169,13 @@
         <option value="4">중성</option>
       </select>
     </fieldset>
+
+    <div class="d-flex justify-content-end mx-4">
+      <button type="submit" class="btn btn-primary mx-1" id="btn">게시글 작성</button> 
+      <a href="cancel" class="btn btn-primary " id="cancelbtn">취소</a>
+    </div>
  </form>
-    <!-- 파일 업로드 -->
+  <!-- 파일 업로드 -->
      <div class ="row">
     	<div class="col-lg-12">
     		<div class="panel panel-default">
@@ -179,38 +183,15 @@
     		<div class="panel-body">
     			<div class="uploadDiv">
 					<input type="file" name="uploadFile" multiple>
-				</div>	
-
+				</div>
     				<div class='uploadResult'>
 						<ul>
-		
 						</ul>
 					</div>
-				<button id="uploadBtn">Upload</button>
     		</div>
     	</div>
     	</div>
     </div> 
-    
-	
-    
- 	<!-- <h1>Upload with Ajax</h1>
-	<form action="uploadAjaxAction" method="post" enctype="multipart/form-data">
-	<div class="uploadDiv">
-		<input type="file" name="uploadFile" multiple>
-	</div>	
-	<div class='uploadResult'>
-		<ul>
-		
-		</ul>
-	</div>	
-	<button id="uploadBtn">Upload</button>
-	</form>
-		 -->
-    <div class="d-flex justify-content-end mx-4">
-      <button type="" class="btn btn-primary mx-1" id="btn">게시글 작성</button> 
-      <a href="cancel" class="btn btn-primary " id="cancelbtn">취소</a>
-    </div>
 
 <script type="text/javascript">
  $(document).ready(function(e){
@@ -218,8 +199,19 @@
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
 		console.log("submit clicked");
+		var str ="";
+		$(".uploadResult ul li").each(function(i,obj){
+			var jobj = $(obj);
+			console.dir(jobj);
+			str += "<input type='hidden' name='attachList["+i+"].fileName'value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uuid'value='"+jobj.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath'value='"+jobj.data("path")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("type")+"'>";
+		});
+		formObj.append(str).submit(); 
 	});
-}); 
+});
+
 var regex = new RegExp("(.*?)\.(exe|zip)$");
 var maxSize = 5242880; //5MB
 
@@ -265,9 +257,9 @@ function showUploadResult(uploadResultArr){
 		//image type
 		$(uploadResultArr).each(function(i,obj){
 			if(!obj.image){
-				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				var fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
 				str += "<li data-path='"+obj.uploadPath+"'";
-				str += " data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"'data-type='"+obj.image+"'"
+				str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
 				str +" ><div>";
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
@@ -373,17 +365,7 @@ var formObj = $("form[role='form']");
 $("button[type='submit']").on("click",function(e){
 	e.preventDefault();
 	console.log("submit clicked");
-	var str ="";
-	$(".uploadResult ul li").each(function(i,obj){
-		var jobj = $(obj);
-		console.eir(jobj);
-		str += "<input type='hidden' name='attachList["+i+"].fileName'value='"+jobj.data("filename")+"'>";
-		str += "<input type='hidden' name='attachList["+i+"].uuid'value='"+jobj.data("uuid")+"'>";
-		str += "<input type='hidden' name='attachList["+i+"].uploadPath'value='"+jobj.data("uploadPath")+"'>";
-		str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("fileType")+"'>";
-	});
-	formObj.append(str).submit();
-})
+	
  */
 /* $(document).ready(function(){
 	var cloneObj = $(".uploadDiv").clone();

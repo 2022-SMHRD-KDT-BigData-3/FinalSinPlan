@@ -128,16 +128,24 @@
     </div>
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-             <div class="panel-body">
-             	<div class='uploadResult'>
-             		<ul>
-             		</ul>
-             	</div>
-             </div>
-            	<div class = 'bigPictureWrapper'>
-            		<div class='bigPicture'></div>
-            	</div>
+                 <div class ="row">
+    				<div class="col-lg-12">
+    					<div class="panel panel-default">
+    						<div class="panel-heading">File Attach</div>
+    					<div class="panel-body">
+    				<div class="uploadDiv">
+						<input type="file" name="uploadFile" multiple>
+					</div>	
+
+    				<div class='uploadResult'>
+						<ul>
+		
+						</ul>
+					</div>
+    		</div>
+    	</div>
+    	</div>
+    </div> 
                 <img src="${vo.uploadFile}" class="d-block w-100" height=300px
                     alt="...">
             </div>
@@ -199,15 +207,16 @@
 $(document).ready(function(){
 	(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
-		$.getJSON("/getAttachList", {bno:bno}, function(arr){
+		$.getJSON("getAttachList", {bno:bno}, function(arr){
 			console.log(arr);
 			var str = "";
 			$(arr).each(function(i, attach){
 				//image type
 				if(attach.fileType){
 					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
-					str += "img src='/display?fileName="+fileCallPath+"'>";
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "img src='/controller/display?fileName="+fileCallPath+"'>";
 					str += "</div>";
 					str += "</li>";
 				}else{
@@ -217,7 +226,7 @@ $(document).ready(function(){
 					str += "</div>";
 					str += "</li>";
 				}
-			})
+			});
 			
 			$(".uploadResult ul").html(str);
 			

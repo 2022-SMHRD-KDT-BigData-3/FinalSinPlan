@@ -376,13 +376,6 @@ a {
         </main>
       </div>
     </div>
-=======
-			</main>
-		</div>
-	</div>
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
-
-
 
 	<ul class="nav fixed-bottom nav-pills mb-3 nav-fill bg-light"
 		id="pills-tab" role="tablist">

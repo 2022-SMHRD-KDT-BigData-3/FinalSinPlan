@@ -18,14 +18,14 @@ public interface MemberService {
 
 	public void uploadAjax(boardVO boardvo);
 	
+	public void insert(BoardAttachVO vo);
+	public void delete(String uuid);
+	public List<BoardAttachVO> findByBno(Long bno);
+	
+	public void insertSelectKey(boardVO board);
+	public void upload(boardVO boardvo);
+	public void insert(boardVO board);	
+	
 	public List<BoardAttachVO> getAttachList(Long bno);
-	
-	//이미지 데이터 변환 
-//	public List<AttachFileVO> getAttackList(int imageId);
-	
-	//이미지 등록
-	//public void imageEnroll(AttachFileVO vo);
-	
-	//게시글 등록
-	//	public void boardEnroll(boardVO board);
+
 }
