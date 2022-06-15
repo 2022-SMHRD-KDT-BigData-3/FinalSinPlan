@@ -50,8 +50,13 @@ drop sequence seq_board;
 select * from board;
 select * from TBL_ATTACH;
 select * from MEMBER;
+<<<<<<< HEAD
 drop table memeber;
 drop table board;
+=======
+
+drop table board;
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 
 insert into member values('123','123','123','123','1','123',sysdate);
 

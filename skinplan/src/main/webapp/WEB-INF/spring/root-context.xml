@@ -11,6 +11,8 @@
 	<!-- mybatis (config.xml) -->
 	<!-- API(HikariCP-히카리CP -->
 	
+
+	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	    <property name="jdbcUrl" value="jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe"/>
@@ -33,5 +35,10 @@
 	<mybatis-spring:scan base-package="kr.board.mapper"/>
 	
 	<!-- mybatis-spring(접두사) xmlns를 걸어주어야 함-> 안에있는 태그를 쓰기 위해서 -->
+	
+
+
+
+
 	
 </beans>

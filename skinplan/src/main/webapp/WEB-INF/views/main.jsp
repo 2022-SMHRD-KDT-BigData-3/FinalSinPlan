@@ -55,6 +55,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
 	rel="stylesheet">
 
+<!-- jQuery form -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 
 <style>
 body {
@@ -119,10 +121,6 @@ a {
 						<li class="nav-item"><a class="nav-link" href="logout">로그아웃</a>
 						</li>
 					</ul>
-					<form>
-						<input class="form-control" type="text" placeholder="Search"
-							aria-label="Search">
-					</form>
 				</div>
 			</div>
 		</nav>
@@ -164,7 +162,7 @@ a {
 					<p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
 					<p class="card-text">등록해주세요.</p>
 					<div class="mb-3">
-						<input type='file' id='btnAtt' multiple='multiple'
+						<input type='file' id='btnAtt' multiple='multiple' name="files[]"
 							accept='image/*' />
 						<div class="mx-auto" id='att_zone'
 							data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
@@ -199,6 +197,12 @@ a {
 								<input type="text" id="datepicker2" style="width: 150px;">
 							</div>
 						</div>
+						            <div class="row">
+              <div class="col-7"></div>
+              <div class="col-5">
+                <input type="submit" class="btn btn-primary mt-2" value="날짜 검색">
+              </div>
+            </div>
 					</div>
 				</form>
 				<div class="album pt-3 bg-light">
@@ -321,36 +325,7 @@ a {
         
         </main>
       </div>
-<!-- 피부 게시판 -->
-      <div class="tab-pane fade" id="pills-comunity" role="tabpanel" aria-labelledby="pills-comunity-tab">
-        <main>
-          <!-- 글쓰기 -->
-          <div class="d-grid gap-2 bg-light">
-            <a href="uploadAjax" class="btn btn-primary" tabindex="-1" role="button">글쓰기</a>
-          </div>
-          <!-- 게시글 썸네일 카드 -->
-         <div class="album py-2 bg-light">
-          <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="col">
-              	<a href="boardView.html">
-                <div class="card shadow-sm">
-                 
-                    <div class="card" style="width: 100%;">
-                      <img src="./img/amazing.png" class="card-img-top mx-auto" alt="..."
-                        style="height: 300px; width: 300px">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                          the card's content.</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
         
 <!--           <nav aria-label="Page navigation example" style="padding-bottom: 50px">
             <ul class="pagination justify-content-center bg-light">
@@ -376,6 +351,11 @@ a {
         </main>
       </div>
     </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 
 	<ul class="nav fixed-bottom nav-pills mb-3 nav-fill bg-light"
 		id="pills-tab" role="tablist">
