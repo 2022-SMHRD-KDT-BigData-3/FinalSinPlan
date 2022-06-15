@@ -150,7 +150,6 @@
  </form>
   <!-- 파일 업로드 -->
      <div class ="row">
-<<<<<<< HEAD
     	<div class="col-lg-12">
     		<div class="panel panel-default">
     		<div class="panel-heading">File Attach</div>
@@ -166,27 +165,9 @@
     	</div>
     	</div>
     </div> 
-=======
-       <div class="col-lg-12">
-          <div class="panel panel-default">
-          <div class="panel-heading">File Attach</div>
-          <div class="panel-body">
-             <div class="uploadDiv">
-               <input type="file" name="uploadFile" multiple>
-            </div>
-                <div class='uploadResult'>
-                  <ul>
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
-
-                  </ul>
-               </div>
-          </div>
-       </div>
-       </div>
-    </div> 
+   
 <script type="text/javascript">
  $(document).ready(function(e){
-<<<<<<< HEAD
 	var formObj = $("form[role='form']");
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
@@ -202,23 +183,6 @@
 		});
 		formObj.append(str).submit(); 
 	});
-=======
-   var formObj = $("form[role='form']");
-   $("button[type='submit']").on("click", function(e){
-      e.preventDefault();
-      console.log("submit clicked");
-      var str ="";
-      $(".uploadResult ul li").each(function(i,obj){
-         var jobj = $(obj);
-         console.dir(jobj);
-         str += "<input type='hidden' name='attachList["+i+"].fileName'value='"+jobj.data("fileName")+"'>";
-         str += "<input type='hidden' name='attachList["+i+"].uuid'value='"+jobj.data("uuid")+"'>";
-         str += "<input type='hidden' name='attachList["+i+"].uploadPath'value='"+jobj.data("uploadPath")+"'>";
-         str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("fileType")+"'>";
-      });
-      formObj.append(str).submit(); 
-   });
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 });
 
 var regex = new RegExp("(.*?)\.(exe|zip)$");
@@ -259,7 +223,6 @@ $("input[type='file']").change(function(e){
     });//$.ajax       
 });
 function showUploadResult(uploadResultArr){
-<<<<<<< HEAD
 	if(!uploadResultArr || uploadResultArr.length == 0){return;}
 	var uploadUL = $(".uploadResult ul");
 	var str = "";
@@ -293,41 +256,6 @@ function showUploadResult(uploadResultArr){
 		});
 		uploadUL.append(str);
 	});
-=======
-   if(!uploadResultArr || uploadResultArr.length == 0){return;}
-   var uploadUL = $(".uploadResult ul");
-   var str = "";
-   $(uploadResultArr).each(function(i, obj){
-      //image type
-      $(uploadResultArr).each(function(i,obj){
-         if(!obj.image){
-            var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-            str += "<li data-path='"+obj.uploadPath+"'";
-            str += " data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"'data-type='"+obj.image+"'"
-            str +" ><div>";
-            str += "<span> "+ obj.fileName+"</span>";
-            str += "<button type='button' data-file=\'"+fileCallPath+"\' "
-            str += "data-type='image' class='btn'><img src='resources/img/remove.png'></button><br>";
-            str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
-            str += "</div>";
-            str += "</li>";
-            }else{
-            var fileCallPath = encodeURIComponent(obj.uploadPath + "/" 
-                           + obj.uuid + "_" + obj.fileName);
-            var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-            str += "<li "
-            str += "data-path='"+obj.uploadPath+"'data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
-            str += "<span>" + obj.fileName+"</span>";
-            str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' "
-            str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-            str += "<img src='/resources/img/attach.png'></a>";
-            str += "</div>";
-            str += "</li>";
-         }
-      });
-      uploadUL.append(str);
-   });
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 }
 $(".uploadResult").on("click", "button", function(e){
    console.log("delete file");
@@ -346,114 +274,6 @@ $(".uploadResult").on("click", "button", function(e){
       }
    });//$.ajax
 });
-/* $(document).ready(function(){
-   var cloneObj = $(".uploadDiv").clone();
-   $("#uploadBtn").on("click", function(e){
-      var formData = new FormData();
-      var inputFile = $("input[name='uploadFile']");
-      var files = inputFile[0].files;
-      console.log(files);
-      //add File Data to formData
-       for(var i=0; i<files.length; i++){
-         formData.append("uploadFile", files[i]);
-      }
-       var uploadResult = $(".uploadResult ul");
-         function showUploadedFile(uploadResultArr){
-            var str = "";
-            $(uploadResultArr).each(function(i, obj){
-               if(obj.image){
-                  var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-                  str += "<li><img src='./resources/img/attach.png'>"+obj.fileName+"</li>";
-               }else{
-                  //str += "<li>" + obj.fileName + "</li>";
-                  var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-                  str += "<li><img src='display?fileName="+fileCallPath+"'>"+"<span data-file=\'"+fileCallPath+"\' data-type='image'>X</span>"+"<li>";
-               }
-            });
-            uploadResult.append(str);
-         }
-      
-      
-   
-   });
-});
- */      
-/* $(document).ready(function(e){
-   var formObj = $("form[role='form']");
-   $("button[type='submit']").on("click", function(e){
-      e.preventDefault();
-      console.log("submit clicked");
-   });
-});
-
-
-   
-})
-
-$(".uploadResult").on("click", "button", function(e){
-   console.log("delete file");
-   var targetFile = $(this).data("file");
-   var type = $(this).data("type");
-   var targetLi = $(this).closest("li");
-   $.ajax({
-      url: '/deleteFile',
-      data: {fileName: targetFile, type:type},
-      dataType:'text',
-      type:'POST',
-      success: function(result){
-         alert(result);
-         targetLi.remove();
-      }
-   });//$.ajax
-});
-var formObj = $("form[role='form']");
-$("button[type='submit']").on("click",function(e){
-<<<<<<< HEAD
-	e.preventDefault();
-	console.log("submit clicked");
-	
-=======
-   e.preventDefault();
-   console.log("submit clicked");
-   
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
- */
-/* $(document).ready(function(){
-   var cloneObj = $(".uploadDiv").clone();
-   $("#uploadBtn").on("click", function(e){
-      var formData = new FormData();
-      var inputFile = $("input[name='uploadFile']");
-      var files = inputFile[0].files;
-      console.log(files);
-      //add File Data to formData
-   /*    for(var i=0; i<files.length; i++){
-          if(!checkExtension(file[i].name, files[i].size) ){
-            return false;
-         } 
-         formData.append("uploadFile", files[i]);
-      }
-   }
-}
-      $.ajax({
-         url : "/uploadAjaxAction",
-         processData : false,
-         contentType: false,
-         data : formData,
-         enctype : "multipart/form-data",
-            type : "POST",
-            dataType : "JSON",
-            success : function(result){
-               console.log(result);
-               showUploadeFile(result);
-               $(".uploadDiv").html(cloneObj.html());
-            },
-            error : function(result){
-               alert("이미지 파일이 아닙니다.");
-            }
-      }); //$.ajax
-   });
-});
-*/
 
 </script>
 
