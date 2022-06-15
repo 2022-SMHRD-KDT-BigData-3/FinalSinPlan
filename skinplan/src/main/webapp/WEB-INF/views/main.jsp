@@ -55,6 +55,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
 	rel="stylesheet">
 
+<!-- jQuery form -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 
 <style>
 body {
@@ -160,7 +162,7 @@ a {
 					<p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
 					<p class="card-text">등록해주세요.</p>
 					<div class="mb-3">
-						<input type='file' id='btnAtt' multiple='multiple'
+						<input type='file' id='btnAtt' multiple='multiple' name="files[]"
 							accept='image/*' />
 						<div class="mx-auto" id='att_zone'
 							data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
