@@ -197,6 +197,12 @@ a {
 								<input type="text" id="datepicker2" style="width: 150px;">
 							</div>
 						</div>
+						            <div class="row">
+              <div class="col-7"></div>
+              <div class="col-5">
+                <input type="submit" class="btn btn-primary mt-2" value="날짜 검색">
+              </div>
+            </div>
 					</div>
 				</form>
 				<div class="album pt-3 bg-light">
