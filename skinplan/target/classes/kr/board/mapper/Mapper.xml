@@ -12,8 +12,18 @@
     
     <select id = "getList" resultType="kr.main.entity.boardVO">
         <![CDATA[
-        select * from board where bno>0
+        select * from board where bno > 0
         ]]>
+    </select>
+    
+    <!-- 첨부파일 업로드 -->
+    <insert id="insert">
+        insert into tbl_attach (uuid, uploadPath, fileName, fileType, bno)
+        values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
+    </insert>
+    
+    <select id="findByBno" resultType="kr.main.entity.BoardAttachVO">
+		select * from tbl_attach where bno = #{bno}        
     </select>
 
     <insert id="insertSelectKey" parameterType="kr.main.entity.boardVO" useGeneratedKeys="true" keyProperty="bno">
@@ -27,19 +37,19 @@
     <select id="read" resultType="kr.main.entity.boardVO">
         select * from board where bno = #{bno}
     </select>
-
-    <!-- 첨부파일 업로드 -->
-    <insert id="insert">
-        insert into tbl_attach (uuid, uploadPath, fileName, fileType, bno)
-        values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
-    </insert>
     
-	<delete id="delete">
-        delete from tbl_attach where uuid = #{uuid}
+    <delete id="delete">
+        delete from board where bno = #{bno}
     </delete>
     
-    <select id="findByBno" resultType="kr.main.entity.BoardAttachVO">
-		select * from tbl_attach where bno = #{bno}        
-    </select>
+    <update id="update">
+        update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
+    </update>
+    
+  <!--   <delete id="delete">
+        delete from tbl_attach where uuid = #{uuid}
+    </delete> -->
+
+    
 	
 </mapper>

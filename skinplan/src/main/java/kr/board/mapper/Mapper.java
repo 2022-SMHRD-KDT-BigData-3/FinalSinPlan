@@ -21,18 +21,23 @@ public interface Mapper {
 	public memberVO memberLogin(memberVO member);
 
 	public List<boardVO> getList();
-	public void uploadAjax(boardVO boardvo);	
+	
+	public void insert(boardVO board);
+	public void insertSelectKey(boardVO board);
 	public boardVO read(Long bno);
 	public int delete(Long bno);
+	public int update(boardVO board);
 	
+	
+	
+	public void uploadAjax(boardVO boardvo);	
+
 	public void board(boardVO vo);
 	//첨부파일 업로드
 	public void insert(BoardAttachVO vo);
 	public void delete(String uuid);
 	public List<BoardAttachVO> findByBno(Long bno);
 	
-	public void insert(boardVO board);
-	public void insertSelectKey(boardVO board);
 	public List<BoardAttachVO> getAttachList(Long bno);
 	public void upload(boardVO boardvo);
 

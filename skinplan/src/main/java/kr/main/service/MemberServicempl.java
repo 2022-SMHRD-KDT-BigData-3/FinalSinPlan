@@ -47,6 +47,16 @@ public class MemberServicempl implements MemberService{
 		return mapper.findByBno(bno);
 	}
 	@Override
+	public List<boardVO> getList(){
+		System.out.println("getList........");
+		return mapper.getList();
+	}
+	@Override
+	public boardVO get(Long bno) {
+		System.out.println("get...."+bno);
+		return mapper.read(bno);
+	}
+	@Override
 	public void insert(BoardAttachVO vo) {
 		// TODO Auto-generated method stub
 		
@@ -77,4 +87,15 @@ public class MemberServicempl implements MemberService{
 		
 	}
 
+	@Override
+	public boolean modify(boardVO board) {
+		System.out.println("modify....."+board);
+		return mapper.update(board) ==1;
+	}
+	@Override
+	public boolean remove(Long bno) {
+		System.out.println("remove....."+bno);
+		return mapper.delete(bno)==1;
+	}
+	
 }

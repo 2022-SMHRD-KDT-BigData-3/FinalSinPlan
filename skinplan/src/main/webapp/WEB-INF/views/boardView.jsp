@@ -172,10 +172,10 @@
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>${vo.nickname}</h3>      
+                            <h3>닉네임</h3>      
                         </blockquote>
                         <figcaption class="blockquote-footer">
-                           	 피부 타입 : ${vo.skintype}
+                           	 피부 타입 :
                         </figcaption>
                     </figure>
                 </div>
@@ -184,7 +184,7 @@
     </header>
     <form>
         <div class="row mb-3">
-            <label for="title" class="col-sm-2 col-form-label mx-1">${vo.title}</label>
+            <label for="title" class="col-sm-2 col-form-label mx-1"></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control-plaintext mx-4" id="title" value="나만의 피부관리 꿀팁" disabled>
             </div>
@@ -192,7 +192,7 @@
 
         <div class="form-floating">
             <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"
-                disabled>${vo.content}</textarea>
+                disabled></textarea>
             <label for="content">Content</label>
         </div>
            		
@@ -209,7 +209,7 @@ $(document).ready(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){
 			console.log(arr);
-			var str = "";
+ 			/* var str = "";
 			$(arr).each(function(i, attach){
 				//image type
 				if(attach.fileType){
@@ -228,8 +228,8 @@ $(document).ready(function(){
 				}
 			});
 			
-			$(".uploadResult ul").html(str);
-			
+			$(".uploadResult ul").html(str); 
+			 */
 		});//end getjson
 	});
 });

@@ -143,6 +143,10 @@ public class Controller {
 	public String boardView() {
 		return "boardView";
 	}
+	@RequestMapping("/boardView")
+	public String boardVIEW() {
+		return "boardView";
+	}
 	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
 	@RequestMapping("/rBoardView")
 	public String rboardView() {
@@ -156,6 +160,35 @@ public class Controller {
 	@RequestMapping("/uploadAjax")
 	public String uploadAJAX() {
 		return "uploadAjax";
+	}
+	//게시판 목록
+	@GetMapping("/list")
+	public void list(Model model) {
+		System.out.println("list");
+		model.addAttribute("list",mapper.getList());
+	}
+	//get
+	@GetMapping("/get")
+	public void get(@RequestParam("bno") Long bno, Model model) {
+		System.out.println("/get");
+		model.addAttribute("board", memberservice.get(bno));
+	}
+	//수정
+	@PostMapping("/modify")
+	public String modify(boardVO board, RedirectAttributes rttr) {
+		System.out.println("modify:" + board);
+		if(memberservice.modify(board)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "main";
+	}
+	@PostMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		System.out.println("remove...."+bno);
+		if(memberservice.remove(bno)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "main";
 	}
 	//Ajax를 이용한 파일 업로드
 	@PostMapping("/upload")

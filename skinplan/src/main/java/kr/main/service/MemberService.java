@@ -16,16 +16,22 @@ public interface MemberService {
 	//로그인
 	public memberVO memberLogin(memberVO member) throws Exception;
 
-	public void uploadAjax(boardVO boardvo);
+	public void upload(boardVO boardvo);
+
+	public boardVO get(Long bno);
+	public boolean modify(boardVO board);
+	public boolean remove(Long bno);
+	public List<boardVO> getList();
 	
+	public void uploadAjax(boardVO boardvo);
 	public void insert(BoardAttachVO vo);
+	public void insertSelectKey(boardVO board);
 	public void delete(String uuid);
 	public List<BoardAttachVO> findByBno(Long bno);
 	
-	public void insertSelectKey(boardVO board);
-	public void upload(boardVO boardvo);
-	public void insert(boardVO board);	
-	
+	public void insert(boardVO board);
 	public List<BoardAttachVO> getAttachList(Long bno);
+	
+	
 
 }
