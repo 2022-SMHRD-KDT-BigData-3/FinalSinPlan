@@ -12,39 +12,44 @@
     
     <select id = "getList" resultType="kr.main.entity.boardVO">
         <![CDATA[
-        select * from board where bno>0
+        select * from board where bno > 0
         ]]>
     </select>
     
-   	<insert id="insert">
-        insert into tbl_attach (uuid, uploadPath, filename, filetype, bno)
-        values (#{uuid},#{uploadPath},#{fileName},#{fileType},#{bno})
+    <!-- 첨부파일 업로드 -->
+    <insert id="insert">
+        insert into tbl_attach (uuid, uploadPath, fileName, fileType, bno)
+        values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
     </insert>
-<!--     <insert id="insert">
-        insert into board(bno, title, content, skintype)
-        values (seq_board.nextval, #{title}, #{content}, #{skintype})
-    </insert>  -->
-    <insert id="insertSelectKey">
-        <selectKey keyProperty="bno" order="BEFORE" resultType="long">
-            select seq_board.nextval from dual
-        </selectKey>
-        insert into board (bno, title, content, skintype)
-        values (#{bno},#{title},#{content},#{skintype})
-    </insert>
-    
-    <delete id="delete">
-        delete from tbl_attach where uuid = #{uuid}
-    </delete>
     
     <select id="findByBno" resultType="kr.main.entity.BoardAttachVO">
 		select * from tbl_attach where bno = #{bno}        
     </select>
+
+    <insert id="insertSelectKey" parameterType="kr.main.entity.boardVO" useGeneratedKeys="true" keyProperty="bno">
+        <selectKey keyProperty="bno" order="BEFORE" resultType="long">
+            select seq_board.nextval from dual
+        </selectKey>
+        insert into board (bno, title, content, skintype)
+        values (#{bno}, #{title}, #{content}, #{skintype})
+    </insert>
     
     <select id="read" resultType="kr.main.entity.boardVO">
         select * from board where bno = #{bno}
     </select>
-<!--     <delete id="delete">
+    
+    <delete id="delete">
         delete from board where bno = #{bno}
+    </delete>
+    
+    <update id="update">
+        update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
+    </update>
+    
+  <!--   <delete id="delete">
+        delete from tbl_attach where uuid = #{uuid}
     </delete> -->
+
+    
 	
 </mapper>

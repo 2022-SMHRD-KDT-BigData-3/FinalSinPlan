@@ -35,6 +35,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -126,32 +127,24 @@ public class Controller {
 		return "boardWrite";
 	}
 	
-	 //게시글 전송 
+	 //게시글 이동
 	 @RequestMapping("/boardInsert") 
 	 public String boardInsert(boardVO boardvo) {
 		 mapper.board(boardvo); 
 	 return "boardView"; }
-	
-	 //게시글 등록
-//	 @PostMapping("/boardInsert") public String board(boardVO board,
-//	  RedirectAttributes rttr) { System.out.println("boardInsert......"+board);
-//	  memberservice.boardEnroll(board); rttr.addFlashAttribute("enroll_result",
-//	  board.getIdx()); return "boardView"; }
-		 
+	 
 	// 게시판 글쓰기 취소
 	@RequestMapping("/cancel")
 	public String boardcancel() {
 		return "main";
 	}
-
-	// 게시판 글쓰기페이지로 이동
-//	@RequestMapping("/boardView.html")
-//	public String boardView() {
-//		return "main";
-//	}
 	//썸네일 카드 선택
 	@RequestMapping("/boardView.html")
 	public String boardView() {
+		return "boardView";
+	}
+	@RequestMapping("/boardView")
+	public String boardVIEW() {
 		return "boardView";
 	}
 	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
@@ -164,83 +157,52 @@ public class Controller {
 	public void uploadForm() {
 		System.out.println("upload form");
 	}
-	//Ajax를 이용한 파일 업로드
 	@RequestMapping("/uploadAjax")
-	public String uploadAjax() {
-		System.out.println("upload ajax");
+	public String uploadAJAX() {
 		return "uploadAjax";
 	}
-	//오늘 날짜의 경로 문자열로 생성
-//	private String getFolder() {
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = new Date();
-//		String str = sdf.format(date);
-//		return str.replace("-", File.separator);
-//	}
-	//uploadAjax페이지 파일업로드 form태그
-	@PostMapping(value="/uploadAjaxAction__", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost__(MultipartFile[] uploadFile) {
-		/* 이미지 파일 체크 */
-		for(MultipartFile multipartFile: uploadFile) {
-			File checkfile = new File(multipartFile.getOriginalFilename());
-			String type = null;		
-			try {
-				type = Files.probeContentType(checkfile.toPath());
-				System.out.println("MIME TYPE : "+type);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(!type.startsWith("image")) {
-				List<AttachFileVO> list = null;
-				return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
-			}
+	//게시판 목록
+	@GetMapping("/list")
+	public void list(Model model) {
+		System.out.println("list");
+		model.addAttribute("list",mapper.getList());
+	}
+	//get
+	@GetMapping("/get")
+	public void get(@RequestParam("bno") Long bno, Model model) {
+		System.out.println("/get");
+		model.addAttribute("board", memberservice.get(bno));
+	}
+	//수정
+	@PostMapping("/modify")
+	public String modify(boardVO board, RedirectAttributes rttr) {
+		System.out.println("modify:" + board);
+		if(memberservice.modify(board)) {
+			rttr.addFlashAttribute("result", "success");
 		}
-		String uploadFolder = "c:\\upload";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String str = sdf.format(date);
-		String datePath = str.replace("-", File.separator);
-		//String uploadFolderPath = getFolder();
-		//make folder
-		File uploadPath = new File(uploadFolder, datePath);
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
+		return "main";
+	}
+	@PostMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		System.out.println("remove...."+bno);
+		if(memberservice.remove(bno)) {
+			rttr.addFlashAttribute("result", "success");
 		}
-		List<AttachFileVO> list = new ArrayList<AttachFileVO>();
-		//make yyyy-MM-dd forder
-		for (MultipartFile multipartFile : uploadFile) {
-			AttachFileVO attachVO = new AttachFileVO();
-			String uploadFileName = multipartFile.getOriginalFilename();
-			attachVO.setFileName(uploadFileName);
-			attachVO.setUploadPath(datePath);
-			// IE has file path
-			//uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			System.out.println("only file name : " + uploadFileName);
-			//UUID uuid = UUID.randomUUID();
-			String uuid = UUID.randomUUID().toString();
-			attachVO.setUuid(uuid);
-			uploadFileName = uuid+ "_" + uploadFileName;
-			File saveFile = new File(uploadPath, uploadFileName);	
-			try {
-				multipartFile.transferTo(saveFile);
-				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
-				BufferedImage bo_image = ImageIO.read(saveFile);
-					double ratio = 3;
-					int width = (int) (bo_image.getWidth()/ratio);
-					int height = (int) (bo_image.getHeight()/ratio);
-				Thumbnails.of(saveFile).size(width, height).toFile(thumbnailFile);
-		
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			//add to List
-			list.add(attachVO);
-		}//end for
-		ResponseEntity<List<AttachFileVO>> result = new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
-		return result;
-		//return new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
+		return "main";
+	}
+	//Ajax를 이용한 파일 업로드
+	@PostMapping("/upload")
+	public String upload(boardVO board, RedirectAttributes rttr) {
+		System.out.println("==============");
+		System.out.println("register: " +board);
+		if(board.getAttachList() != null) {
+			board.getAttachList().forEach(attach ->
+			System.out.println(attach));
+		}
+		System.out.println("=============");
+		memberservice.upload(board);
+		rttr.addFlashAttribute("result", board.getBno());
+		return "boardView";
 	}
 	//이미지 파일 판단
 	private boolean checkImageType(File file) {
@@ -291,16 +253,7 @@ public class Controller {
     	}
     	return new ResponseEntity<String>("deleted", HttpStatus.OK);
     }
-//    @PostMapping("/uploadAjax")
-//    public String uploadAjax(boardVO board, RedirectAttributes rttr) {
-//    	System.out.println("==============");
-//    	System.out.println("register: "+board);
-//    	if(board.getAttachList() != null) {
-//    		board.getAttachList().forEach(attach -> System.out.println(attach));
-//    	}
-//    	System.out.println("==========");
-//    	return "redirect:/uploadAjax";
-//    	}
+
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();

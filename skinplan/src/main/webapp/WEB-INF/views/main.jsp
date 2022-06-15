@@ -353,7 +353,6 @@ a {
     </div>
 
 
-
 	<ul class="nav fixed-bottom nav-pills mb-3 nav-fill bg-light"
 		id="pills-tab" role="tablist">
 		<li class="nav-item" role="presentation"><a
