@@ -40,8 +40,16 @@
   <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#7952b3">
 
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-  <style>
+
+    <style>
+    body{
+            font-family: 'Jua', sans-serif;
+    }
     .bd-placeholder-img {
       font-size: 1.125rem;
       text-anchor: middle;
@@ -82,8 +90,8 @@
         height: 200px;
     }
     .uploadResult ul li button img{
-    	width: 32px;
-    	height: 32px;
+    	width: 16px;
+    	height: 16px;
     }
     .uploadResult ul li button{
     	padding: 0;
@@ -93,7 +101,7 @@
   </style>
 </head>
 
-<body>
+<body class=" bg-info bg-opacity-25">
   <!-- 상단 네비바 -->
    <div>
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
@@ -111,6 +119,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="infochange">내 정보 변경</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#">화장품 정보</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="logout">로그아웃</a>
@@ -133,7 +144,7 @@
       <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"></textarea>
       <label for="content">Content</label>
     </div>
-    <fieldset class="row mb-3">
+    <fieldset class="row mb-3 mx-auto">
       <select class="form-select" aria-label="Default select example" name="skintype">
         <option selected>피부 타입</option>
         <option value="1">건성</option>
@@ -152,10 +163,10 @@
      <div class ="row">
     	<div class="col-lg-12">
     		<div class="panel panel-default">
-    		<div class="panel-heading">File Attach</div>
+    		<div class="panel-heading"></div>
     		<div class="panel-body">
     			<div class="uploadDiv">
-					<input type="file" name="uploadFile" multiple>
+					<input type="file" name="uploadFile" multiple accept="image/*">
 				</div>
     				<div class='uploadResult'>
 						<ul>

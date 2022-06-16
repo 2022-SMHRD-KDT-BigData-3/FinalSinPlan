@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, 그리고 Bootstrap 기여자들">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Jumbotron example · Bootstrap v5.1</title>
+  <title>Skin Plan</title>
 
   <link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/jumbotron/">
 
@@ -104,9 +104,7 @@
               <a class="nav-link" href="#">로그아웃</a>
             </li>
           </ul>
-          <form>
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-          </form>
+
         </div>
       </div>
     </nav>
