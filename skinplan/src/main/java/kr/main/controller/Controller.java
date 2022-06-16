@@ -54,6 +54,7 @@ import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
 import kr.main.entity.boardVO;
+import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
 import lombok.Getter;
@@ -238,7 +239,8 @@ public class Controller {
 	@ResponseBody
     public ResponseEntity<byte[]> getFile(String fileName) {
         System.out.println("fileName: " + fileName);
-        File file = new File("C:\\upload\\" + fileName);
+        //File file = new File("C:\\upload\\" + fileName);
+        File file = new File(fileName);
         System.out.println("file : " + file);
         ResponseEntity<byte[]> result = null;
         
@@ -333,12 +335,32 @@ public class Controller {
 	public String uploadAction() {
 		return "main_scan";
 	}
+	//섬네일 데이터 전송하기
+	@GetMapping("/Display")
+	@ResponseBody
+    public ResponseEntity<byte[]> getimgFile(String fileName) {
+        System.out.println("fileName: " + fileName);
+        //File file = new File("C:\\upload\\" + fileName);
+        File file = new File(fileName);
+        System.out.println("file : " + file);
+        ResponseEntity<byte[]> result = null;
+        
+        try {
+            HttpHeaders header = new HttpHeaders();
+            header.add("Content-Type",  Files.probeContentType(file.toPath()));
+            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),
+                    header, HttpStatus.OK);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 	//피부진단 파일
 	@PostMapping(value="/uploadimgAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadFile(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<imgFileVO>> uploadFile(MultipartFile[] uploadFile) {
 
-		List<AttachFileVO> list = new ArrayList<AttachFileVO>();
+		List<imgFileVO> list = new ArrayList<imgFileVO>();
 		String uploadFolder = "c:\\upload";
 		String uploadFolderPath = get_Folder();
 		//make folder
@@ -348,19 +370,19 @@ public class Controller {
 		}
 		// make yyyy/mm/dd folder
 		for (MultipartFile multipartFile : uploadFile) {
-			AttachFileVO attachVO = new AttachFileVO();
+			imgFileVO attachVO = new imgFileVO();
 			String uploadFileName = multipartFile.getOriginalFilename();
 			//file path
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 			System.out.println("only file name :" +uploadFileName);
 			attachVO.setFileName(uploadFileName);
-			UUID uuid = UUID.randomUUID();
-			uploadFileName = uuid.toString()+"_" +uploadFileName;	
+			//UUID uuid = UUID.randomUUID();
+			//uploadFileName = uuid.toString()+"_" +uploadFileName;	
 		
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
-				attachVO.setUuid(uuid.toString());
+				//attachVO.setUuid(uuid.toString());
 				attachVO.setUploadPath(uploadFolderPath);
 				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
 				BufferedImage bo_image = ImageIO.read(saveFile);
@@ -373,7 +395,7 @@ public class Controller {
 				e.printStackTrace();
 			}
 		}//end for
-		return new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<imgFileVO>>(list, HttpStatus.OK);
 	}
 	
 //	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
