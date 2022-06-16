@@ -176,7 +176,7 @@ a {
 							<option value="4">중성</option>
 						</select>
 					</fieldset>
-					<input type="submit" class="btn btn-primary" value="피부 진단 받기">
+					<input type="submit" class="btn btn-primary mb-5" value="피부 진단 받기">
 				</div>
 			</form>
 		</div>

@@ -236,7 +236,7 @@ function showUploadResult(uploadResultArr){
 				str +" ><div>";
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
-				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "data-type='image' class='btn'><img src='resources/img/remove.png'></button><br>";
 				str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
 				str += "</li>";
