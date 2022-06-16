@@ -79,13 +79,24 @@
       color: #999;
       font-size: .9em;
     }
+    .uploadResult ul {
+        display:flex;
+        flex-flow: column;
+        justify-contetn: center;
+        align-items: center;
+        padding: 0;
+    }
+    .uploadResult ul li {
+        list-style: none;
+        padding: 10px;
+    }
     .uploadResult ul li img{
         width: 200px;
         height: 200px;
     }
     .uploadResult ul li button img{
-    	width: 32px;
-    	height: 32px;
+    	width: 16px;
+    	height: 16px;
     }
     .uploadResult ul li button{
     	padding: 0;
@@ -158,7 +169,7 @@
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
             <div class="uploadDiv">
-              <input type='file' name="uploadFile" multiple>
+              <input type='file' name="uploadFile" multiple accept="image/*">
 
               <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
              <div class='uploadResult'>
@@ -270,7 +281,7 @@ var uploadResult = $(".uploadResult ul");
 				str +" ><div>";
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
-				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "data-type='image' class='btn'><img src='resources/img/remove.png'></button><br>";
 				str += "<img src ='/controller/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
 				str += "</li>";

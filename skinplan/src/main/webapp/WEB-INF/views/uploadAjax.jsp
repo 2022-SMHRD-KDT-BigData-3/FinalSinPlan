@@ -82,8 +82,8 @@
         height: 200px;
     }
     .uploadResult ul li button img{
-    	width: 32px;
-    	height: 32px;
+    	width: 16px;
+    	height: 16px;
     }
     .uploadResult ul li button{
     	padding: 0;
@@ -155,7 +155,7 @@
     		<div class="panel-heading">File Attach</div>
     		<div class="panel-body">
     			<div class="uploadDiv">
-					<input type="file" name="uploadFile" multiple>
+					<input type="file" name="uploadFile" multiple accept="image/*">
 				</div>
     				<div class='uploadResult'>
 						<ul>
