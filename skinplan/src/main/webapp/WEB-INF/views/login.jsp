@@ -84,7 +84,7 @@
             
             <div class="col-md-7 col-lg-12 mt-5">
                 <h4 class="mb-3">로그인</h4>
-                <form id="login_Form" class="needs-validation" action="memberlogin" novalidate method="post">
+                <form class="needs-validation" action="memberlogin" novalidate method="post">
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
@@ -126,12 +126,12 @@
     </div>
 <script>
 	//로그인 버튼 클릭 메서드
-	$("#login_button").click(function(){
+	/* $("#login_button").click(function(){ */
 		/* alert("로그인 버튼 작동"); */
 		//로그인 메서드 서버 요청
-		$(".login_form").attr("action", "/member/login");
+/* 		$(".login_form").attr("action", "/member/login");
 		$(".login_form").submit();
-	})
+	})  */
 </script>
 
 

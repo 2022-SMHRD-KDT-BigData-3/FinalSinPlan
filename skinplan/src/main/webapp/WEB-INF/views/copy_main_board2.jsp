@@ -126,38 +126,35 @@
         <div class="album pt-3 bg-light">
           <div class="container bg-info bg-opacity-25">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            
               <div class="col">
                 <div class="card shadow-sm">
-                  <a href="boardView.html">
+                  <a href="/boardView.html">
                     <div class="card" style="width: 100%;">
-                      <img src="" alt="..."
+                      <img src="./img/HF_01.jpg" class="card-img-top mx-auto" alt="..."
                         style="height: 300px; width: 300px">
                       <div class="card-body">
-                        <h3 class="card-title"></h5>
-                        <p class="card-text"></p>
+                        <h3 class="card-title">여드름에 좋은 클렌징 제품!!</h5>
+                        <p class="card-text">내돈내산 리뷰로 정말 좋은 제품 추천드려요!</p>
                           </div>
                     </div>
                   </a>
                 </div>
               </div>
-            <c:forEach items="${board}" var="board" >            
               <div class="col">
                 <div class="card shadow-sm">
-                  <a href="boardView.html">
+                  <a href="/boardView.html">
                     <div class="card" style="width: 100%;">
-                      <img class="" alt="..."
+                      <img class="card-img-top mx-auto" alt="..."
                         style="height: 300px; width: 300px">
                       <div class="card-body">
-                        <h5 class="card-title"><c:out value="${board.title}"/></h5>
-                        <p class="card-text"><c:out value="${board.skintype}"/></p>
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                          the card's content.</p>
                       </div>
                     </div>
                   </a>
                 </div>
               </div>
-             </c:forEach> 
-                 
             </div>
           </div>
         </div>

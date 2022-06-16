@@ -20,7 +20,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+     integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+     crossorigin="anonymous"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Favicons -->
   <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
   <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -75,6 +79,18 @@
       color: #999;
       font-size: .9em;
     }
+    .uploadResult ul li img{
+        width: 200px;
+        height: 200px;
+    }
+    .uploadResult ul li button img{
+    	width: 32px;
+    	height: 32px;
+    }
+    .uploadResult ul li button{
+    	padding: 0;
+    	
+    }
   </style>
 
 </head>
@@ -120,12 +136,12 @@
           <div class="carousel-item active">
             <img src="./img/front.jpg" class="d-block w-100" alt="..." height=400px>
           </div>
-          <div class="carousel-item">
+<!--           <div class="carousel-item">
             <img src="./img/left.jpg" class="d-block w-100" alt="..." height=400px>
           </div>
           <div class="carousel-item">
             <img src="./img/right.jpg" class="d-block w-100" alt="..." height=400px>
-          </div>
+          </div> -->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -136,15 +152,19 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-      <form action="#" method="post" enctype="multipart/form-data" class="card text-center">
+       <form role="form" action="uploadAction" method="post" enctype="multipart/form-data" class="card text-center"> 
         <div class="card-body bg-info bg-opacity-25">
           <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
-            <div id='image_preview'>
-              <input type='file' id='btnAtt' multiple='multiple' />
+            <div class="uploadDiv">
+              <input type='file' name="uploadFile" multiple>
               <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
             </div>
+          <div class='uploadResult'>
+      		<ul>
+			</ul>
+		 </div>
           </div>
           <fieldset class="row mb-3 ">
             <select class="form-select" aria-label="Default select example">
@@ -155,13 +175,12 @@
               <option value="4">중성</option>
             </select>
           </fieldset>
-          <input type="submit" class="btn btn-primary mb-5" value="피부 진단 받기">
+       <button class="btn btn-primary mb-5">submit</button>
         </div>
       </form>
+
     </div> 
   </div>
-
-
   <ul class="nav fixed-bottom nav-pills mb-3 nav-fill bg-light" id="pills-tab" >
     <li class="nav-item" role="presentation">
       <a href="#" class="nav-link active" aria-selected="true">피부 진단</a>
@@ -175,108 +194,116 @@
   </ul>
 </body>
 
-<script>
-  ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
-    imageView = function imageView(att_zone, btn) {
+<script type="text/javascript">
+$(document).ready(function(e){
+	var formObj = $("form[role='form']");
+	$("button[type='submit']").on("click", function(e){
+		e.preventDefault();
+		console.log("submit clicked");
+		var str ="";
+		$(".uploadResult ul li").each(function(i,obj){
+			var jobj = $(obj);
+			console.dir(jobj);
+			str += "<input type='hidden' name='attachList["+i+"].fileName'value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uuid'value='"+jobj.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath'value='"+jobj.data("path")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("type")+"'>";
+		});
+		formObj.append(str).submit(); 
+	});
 
-      var attZone = document.getElementById(att_zone);
-      var btnAtt = document.getElementById(btn)
-      var sel_files = [];
+var regex = new RegExp("(.*?)\.(exe|zip)$");
+var maxSize = 5242880; //5MB
 
-      // 이미지와 체크 박스를 감싸고 있는 div 속성
-      var div_style = 'display:inline-block;position:relative;'
-        + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
-      // 미리보기 이미지 속성
-      var img_style = 'width:100%;height:100%;z-index:none';
-      // 이미지안에 표시되는 체크박스의 속성
-      var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
-        + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+function checkExtension(fileName, fileSize){
+ if(fileSize >= maxSize){
+    alert("파일 사이즈 초과");
+    return false;
+	 }
+ if(regex.test(fileName)){
+    alert("해당 종류의 파일은 업로드할 수 없습니다.");
+    return false;
+	}
+  return true;
+}
+$("input[type='file']").change(function(e){
+	  var formData = new FormData();
+	  var inputFile = $("input[name='uploadFile']");
+	  var files = inputFile[0].files;
+	  //var cloneObj = $(".uploadDiv").clone();
+	//$("#uploadBtn").on("click", function(e){
+		
+ 		for(var i=0; i < files.length; i++){
+		   if(!checkExtension(files[i].name, files[i].size)){
+			       return false;
+			}  
+			formData.append("uploadFile", files[i]);
+	}
 
-      btnAtt.onchange = function (e) {
-        var files = e.target.files;
-        var fileArr = Array.prototype.slice.call(files)
-        for (f of fileArr) {
-          imageLoader(f);
-        }
-      }
-
-
-      // 탐색기에서 드래그앤 드롭 사용
-      attZone.addEventListener('dragenter', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }, false)
-
-      attZone.addEventListener('dragover', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-      }, false)
-
-      attZone.addEventListener('drop', function (e) {
-        var files = {};
-        e.preventDefault();
-        e.stopPropagation();
-        var dt = e.dataTransfer;
-        files = dt.files;
-        for (f of files) {
-          imageLoader(f);
-        }
-
-      }, false)
-
-
-
-      /*첨부된 이미리즐을 배열에 넣고 미리보기 */
-      imageLoader = function (file) {
-        sel_files.push(file);
-        var reader = new FileReader();
-        reader.onload = function (ee) {
-          let img = document.createElement('img')
-          img.setAttribute('style', img_style)
-          img.src = ee.target.result;
-          attZone.appendChild(makeDiv(img, file));
-        }
-
-        reader.readAsDataURL(file);
-      }
-
-      /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
-      makeDiv = function (img, file) {
-        var div = document.createElement('div')
-        div.setAttribute('style', div_style)
-
-        var btn = document.createElement('input')
-        btn.setAttribute('type', 'button')
-        btn.setAttribute('value', 'x')
-        btn.setAttribute('delFile', file.name);
-        btn.setAttribute('style', chk_style);
-        btn.onclick = function (ev) {
-          var ele = ev.srcElement;
-          var delFile = ele.getAttribute('delFile');
-          for (var i = 0; i < sel_files.length; i++) {
-            if (delFile == sel_files[i].name) {
-              sel_files.splice(i, 1);
-            }
-          }
-
-          dt = new DataTransfer();
-          for (f in sel_files) {
-            var file = sel_files[f];
-            dt.items.add(file);
-          }
-          btnAtt.files = dt.files;
-          var p = ele.parentNode;
-          attZone.removeChild(p)
-        }
-        div.appendChild(img)
-        div.appendChild(btn)
-        return div
-      }
-    }
-  )('att_zone', 'btnAtt')
-
-  
+	 $.ajax({
+		   url : 'uploadimgAction',
+		   processData : false,
+		   contentType: false,
+		   data : formData,
+		   type : 'POST',
+		   dataType: 'json', 
+		   success : function(result){
+		   	 console.log(result);
+		   	 showUploadedFile(result);
+		 }
+	 }); //$.ajax  
+});
+var uploadResult = $(".uploadResult ul");
+	function showUploadedFile(uploadResultArr){
+		if(!uploadResultArr || uploadResultArr.length == 0){return;}
+		var uploadUL = $(".uploadResult ul");
+		var str = "";
+		$(uploadResultArr).each(function(i, obj){
+			//image type
+			if(!obj.image){
+				var fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
+				str += "<li data-path='"+obj.uploadPath+"'";
+				str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
+				str +" ><div>";
+				str += "<span> "+ obj.fileName+"</span>";
+				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
+				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "<img src ='/controller/display?fileName="+fileCallPath+"'>";
+				str += "</div>";
+				str += "</li>";
+				}else{
+				var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+				var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+				str += "<li "
+				str += "data-path='"+obj.uploadPath+"'data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
+				str += "<span>" + obj.fileName+"</span>";
+				str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' "
+				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "<img src='/resources/img/attach.png'></a>";
+				str += "</div>";
+				str += "</li>";
+			}			
+		});
+		uploadResult.append(str);
+	}
+	$(".uploadResult").on("click", "button", function(e){	  
+		console.log("delete file");
+		  var targetFile = $(this).data("file");
+		  var type = $(this).data("type");
+		  var targetLi = $(this).closest("li");
+		  
+		  $.ajax({
+		     url: 'deleteFile',
+		     data: {fileName: targetFile, type:type},
+		     dataType:'text',
+		     type:'POST',
+		     success: function(result){
+		        alert(result);
+		        targetLi.remove();
+		     }
+		  });//$.ajax
+		});
+});
 
 </script>
 

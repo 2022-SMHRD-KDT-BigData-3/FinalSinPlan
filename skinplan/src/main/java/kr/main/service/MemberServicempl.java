@@ -9,6 +9,8 @@ import kr.board.mapper.Mapper;
 import kr.main.entity.AttachFileVO;
 import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
+import kr.main.entity.SkinAttachVO;
+import kr.main.entity.Test_ImgVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 import lombok.Setter;
@@ -28,6 +30,7 @@ public class MemberServicempl implements MemberService{
 	public memberVO memberLogin(memberVO member) throws Exception{
 		return mapper.memberLogin(member);
 	}
+	//게시판 등록
 	@Transactional
 	@Override
 	public void upload(boardVO board) {
@@ -46,6 +49,26 @@ public class MemberServicempl implements MemberService{
 		System.out.println("get Attach list by bno" +bno);
 		return mapper.findByBno(bno);
 	}
+	//피부진단 등록
+	@Transactional
+	@Override
+	public void img_Upload(Test_ImgVO vo) {
+		System.out.println("img_upload" + vo);
+		mapper.testInsert(vo);
+		if(vo.getSkinList()==null || vo.getSkinList().size() <= 0) {
+			return;
+		}
+		vo.getSkinList().forEach(skin->{
+			skin.setTest_id(vo.getIno());
+			mapper.fileInsert(skin);
+		});
+	}
+	@Override
+	public List<SkinAttachVO> getImgList(Long test_id){
+		System.out.println("test_img " + test_id);
+		return mapper.fileBno(test_id);
+	}
+	//게시판 목록
 	@Override
 	public List<boardVO> getList(){
 		System.out.println("getList........");
@@ -96,6 +119,16 @@ public class MemberServicempl implements MemberService{
 	public boolean remove(Long bno) {
 		System.out.println("remove....."+bno);
 		return mapper.delete(bno)==1;
+	}
+	@Override
+	public void fileInsert(SkinAttachVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void fileInsert(Test_ImgVO vo) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

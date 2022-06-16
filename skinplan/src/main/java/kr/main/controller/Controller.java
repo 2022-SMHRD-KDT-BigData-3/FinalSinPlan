@@ -51,6 +51,8 @@ import kr.board.mapper.Mapper;
 import kr.main.entity.AttachFileVO;
 import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
+import kr.main.entity.SkinAttachVO;
+import kr.main.entity.Test_ImgVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
@@ -93,7 +95,7 @@ public class Controller {
 	@RequestMapping("/memberlogin")
 	public String loginPOST(HttpServletRequest request, memberVO member, RedirectAttributes rttr) throws Exception {
 //		System.out.println("login 메서드 진입");
-//		System.out.println("전달된 데이터 : "+member);
+		System.out.println("전달된 데이터 : "+member);
 
 		HttpSession session = request.getSession();
 		memberVO lvo = memberservice.memberLogin(member);
@@ -104,7 +106,7 @@ public class Controller {
 			return "login";
 		}
 		session.setAttribute("member", lvo); // 일치하는 아이디, 비밀번호 경우(로그인 성공)
-		return "main";
+		return "main_scan";
 	}
 
 	// 메인페이지,상단네비바에서 로그아웃
@@ -147,6 +149,20 @@ public class Controller {
 	public String boardVIEW() {
 		return "boardView";
 	}
+	@RequestMapping("/main_board")
+	public String main_board() {
+		return "main_board";
+	}
+	//게시판에서 피부일기탭
+	@RequestMapping("/main_log.html")
+	public String main_log() {
+		return "main_log";
+	}
+	//게시판에서 피부진단탭
+	@RequestMapping("/main_scan.html")
+	public String main_scan() {
+		return "main_scan";
+	}
 	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
 	@RequestMapping("/rBoardView")
 	public String rboardView() {
@@ -157,17 +173,20 @@ public class Controller {
 	public void uploadForm() {
 		System.out.println("upload form");
 	}
+	//게시판업로드
 	@RequestMapping("/uploadAjax")
 	public String uploadAJAX() {
 		return "uploadAjax";
 	}
+	//피부진단탭
+
 	//게시판 목록
 	@GetMapping("/list")
 	public void list(Model model) {
-		System.out.println("list");
-		model.addAttribute("list",mapper.getList());
+		System.out.println("게시판 목록");
+		model.addAttribute("list",memberservice.getList());
 	}
-	//get
+	//게시물 조회
 	@GetMapping("/get")
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		System.out.println("/get");
@@ -180,7 +199,7 @@ public class Controller {
 		if(memberservice.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "main";
+		return "main_board";
 	}
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
@@ -188,7 +207,7 @@ public class Controller {
 		if(memberservice.remove(bno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "main";
+		return "main_board";
 	}
 	//Ajax를 이용한 파일 업로드
 	@PostMapping("/upload")
@@ -202,7 +221,7 @@ public class Controller {
 		System.out.println("=============");
 		memberservice.upload(board);
 		rttr.addFlashAttribute("result", board.getBno());
-		return "boardView";
+		return "redirect:/main_board";
 	}
 	//이미지 파일 판단
 	private boolean checkImageType(File file) {
@@ -300,13 +319,89 @@ public class Controller {
 		}
 		return new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
 	}
-	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	private String get_Folder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String str = sdf.format(date);
+		return str.replace("-", File.separator);
+	}
+	@GetMapping("/main_scan")
+	public void mainscan() {
+		System.out.println("upload form");
+	}
+	@RequestMapping("uploadAction")
+	public String uploadAction() {
+		return "main_scan";
+	}
+	//피부진단 파일
+	@PostMapping(value="/uploadimgAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
-		System.out.println("getAttachList " + bno);
-		return new ResponseEntity<>(memberservice.getAttachList(bno),HttpStatus.OK);
+	public ResponseEntity<List<AttachFileVO>> uploadFile(MultipartFile[] uploadFile) {
+
+		List<AttachFileVO> list = new ArrayList<AttachFileVO>();
+		String uploadFolder = "c:\\upload";
+		String uploadFolderPath = get_Folder();
+		//make folder
+		File uploadPath = new File(uploadFolder, getFolder());
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+		// make yyyy/mm/dd folder
+		for (MultipartFile multipartFile : uploadFile) {
+			AttachFileVO attachVO = new AttachFileVO();
+			String uploadFileName = multipartFile.getOriginalFilename();
+			//file path
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			System.out.println("only file name :" +uploadFileName);
+			attachVO.setFileName(uploadFileName);
+			UUID uuid = UUID.randomUUID();
+			uploadFileName = uuid.toString()+"_" +uploadFileName;	
+		
+			try {
+				File saveFile = new File(uploadPath, uploadFileName);
+				multipartFile.transferTo(saveFile);
+				attachVO.setUuid(uuid.toString());
+				attachVO.setUploadPath(uploadFolderPath);
+				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
+				BufferedImage bo_image = ImageIO.read(saveFile);
+					double ratio = 2;
+						int width = (int) (bo_image.getWidth()/ratio);
+						int height = (int) (bo_image.getHeight()/ratio);
+				Thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
+				list.add(attachVO);
+				}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}//end for
+		return new ResponseEntity<List<AttachFileVO>>(list, HttpStatus.OK);
 	}
 	
+//	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	@ResponseBody
+//	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+//		System.out.println("getAttachList " + bno);
+//		return new ResponseEntity<>(memberservice.getAttachList(bno),HttpStatus.OK);
+//	}
+	//피부진단
+	@PostMapping("/uploadAction")
+	public String skinsacn(Test_ImgVO vo, RedirectAttributes rttr) {
+		System.out.println("==============");
+		System.out.println("register: " +vo);
+		if(vo.getSkinList() != null) {
+			vo.getSkinList().forEach(skin ->
+			System.out.println(skin));
+		}
+		System.out.println("=============");
+		memberservice.img_Upload(vo);
+		rttr.addFlashAttribute("result", vo.getIno());
+		return "redirect:/loading";
+	}
+//	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	@ResponseBody
+//	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
+//		System.out.println("getImgList " + test_id);
+//		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
+//	}
 	
 } //controller end
 	

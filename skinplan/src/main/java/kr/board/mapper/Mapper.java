@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Select;
 import kr.main.entity.AttachFileVO;
 import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
+import kr.main.entity.SkinAttachVO;
+import kr.main.entity.Test_ImgVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 
@@ -19,7 +21,7 @@ public interface Mapper {
 	
 	//로그인
 	public memberVO memberLogin(memberVO member);
-
+	//게시판 목록
 	public List<boardVO> getList();
 	
 	public void insert(boardVO board);
@@ -27,8 +29,12 @@ public interface Mapper {
 	public boardVO read(Long bno);
 	public int delete(Long bno);
 	public int update(boardVO board);
-	
-	
+	//피부진단========================
+	public void fileInsert(SkinAttachVO vo);
+	public void img_delete(String uuid);
+	public List<SkinAttachVO> fileBno(Long bno);
+
+	public void testInsert(Test_ImgVO vo);
 	
 	public void uploadAjax(boardVO boardvo);	
 
@@ -40,6 +46,8 @@ public interface Mapper {
 	
 	public List<BoardAttachVO> getAttachList(Long bno);
 	public void upload(boardVO boardvo);
+	//피부진단파일업로드
+	public void fileInsert(Test_ImgVO vo);
 
 	
 }

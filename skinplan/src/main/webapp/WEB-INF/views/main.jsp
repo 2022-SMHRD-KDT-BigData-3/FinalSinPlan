@@ -156,7 +156,7 @@ a {
 					<span class="visually-hidden">Next</span>
 				</button>
 			</div>
-			<form action="upload.php" method="post" enctype="multipart/form-data"
+			<form role="form" action="upload.php" method="post" enctype="multipart/form-data"
 				class="card text-center">
 				<div class="card-body bg-info bg-opacity-25">
 					<p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
@@ -363,14 +363,16 @@ a {
 			id="pills-log-tab" data-bs-toggle="pill" data-bs-target="#pills-log"
 			type="button" role="tab" aria-controls="pills-log"
 			aria-selected="false">피부 일기</a></li>
-		<li class="nav-item" role="presentation"><a class="nav-link"
+		<li class="nav-item" role="presentation">
+		<a class="nav-link" href="main_board"
 			id="pills-comunity-tab" data-bs-toggle="pill"
 			data-bs-target="#pills-comunity" type="button" role="tab"
 			aria-controls="pills-comunity" aria-selected="false">게시판</a></li>
 	</ul>
 </body>
 
-<script>
+<script type="text/javascript">
+
   ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
     imageView = function imageView(att_zone, btn) {
 

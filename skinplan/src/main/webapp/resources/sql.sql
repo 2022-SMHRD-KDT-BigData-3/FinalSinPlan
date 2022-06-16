@@ -27,6 +27,27 @@ create table tbl_attach(
  primary key(uuid)
 );
 
+select * from test_img;
+
+create table img_board(
+ ino number(10,0),
+ img varchar2(100),
+ email varchar2(30),
+ test_date date default sysdate not null,
+ primary key(ino)
+);
+alter table img_board add constraint fk_iboard_img foreign key (email) references member(email);
+create sequence seq_tboard;
+create table t_attach(
+ uuid varchar2(100) not null,
+ uploadPath varchar2(200) not null,
+ fileName varchar2(100) not null,
+ tiletpye char(1) default 'I',
+ test_id number(3),
+ primary key(uuid)
+);
+alter table t_attach add constraint fk_tboard_attach foreign key (test_id) references test_img(test_id);
+
 alter table tbl_attach add constraint pk_attach primary key (uuid);
 alter table tbl_attach add constraint fk_board_attach foreign key (bno) references board(bno);
 

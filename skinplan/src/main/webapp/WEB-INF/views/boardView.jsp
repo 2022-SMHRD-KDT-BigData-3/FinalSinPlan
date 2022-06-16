@@ -126,6 +126,9 @@
             </div>
         </nav>
     </div>
+    <div class="form-group">
+    <label>bno</label><input class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
+    
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
                  <div class ="row">
@@ -182,7 +185,6 @@
             </div>
         </div>
     </header>
-    <form>
         <div class="row mb-3">
             <label for="title" class="col-sm-2 col-form-label mx-1"></label>
             <div class="col-sm-10">
@@ -200,9 +202,6 @@
             <a href="#" class="btn btn-primary mx-1 ">수정하기</a>
             <a href="rBoardView" class="btn btn-primary ">돌아가기</a>
         </div>
-
-
-    </form>
 <script>
 $(document).ready(function(){
 	(function(){
@@ -233,6 +232,7 @@ $(document).ready(function(){
 		});//end getjson
 	});
 });
+
 </script>
 </body>
 
