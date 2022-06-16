@@ -159,12 +159,15 @@
           <div class="mb-3">
             <div class="uploadDiv">
               <input type='file' name="uploadFile" multiple>
-              <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
-            </div>
-          <div class='uploadResult'>
+
+              <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
+             <div class='uploadResult'>
       		<ul>
 			</ul>
 		 </div>
+              
+              </div>
+            </div>
           </div>
           <fieldset class="row mb-3 ">
             <select class="form-select" aria-label="Default select example">
