@@ -119,7 +119,7 @@
         <form action="">
           <div class="container text-center bg-info bg-opacity-25">
             <div class="row pt-3">
-              <!-- 달력부분 -->
+              <!-- 달력부분  -->
               <div class="col">
                 <input type="text" id="datepicker1" style="width: 150px;">
               </div>

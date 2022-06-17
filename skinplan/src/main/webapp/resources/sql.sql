@@ -71,7 +71,7 @@ drop sequence seq_board;
 select * from board;
 select * from TBL_ATTACH;
 select * from MEMBER;
-
+select * from TEST_IMG;
 drop table memeber;
 drop table board;
 
