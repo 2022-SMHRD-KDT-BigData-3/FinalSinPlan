@@ -85,16 +85,16 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
           <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">내 정보 변경</a>
+              <a class="nav-link" href="infochange">내 정보 변경</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">화장품 정보</a>
+              <a class="nav-link" href="cosmetic">화장품 정보</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">로그아웃</a>
+              <a class="nav-link" href="logout">로그아웃</a>
             </li>
           </ul>
 
@@ -186,7 +186,7 @@
   <div class="container bg-light">
     <div class="row">
       <div class="col-6">
-        <a href="">
+        <a href="cosmeticinfo">
           <div class="card my-3" style="height: 15rem;">
             <img src="https://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0016/A00000016664111ko.jpg?l=ko" class="card-img-top" alt="..."
               style="height: 10rem;">

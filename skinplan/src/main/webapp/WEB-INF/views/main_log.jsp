@@ -98,7 +98,7 @@
               <a class="nav-link" href="#">내 정보 변경</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">화장품 정보</a>
+              <a class="nav-link" href="cosmetic">화장품 정보</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">로그아웃</a>
@@ -139,7 +139,7 @@
           <div class="container bg-info bg-opacity-25">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col">
-                <a href="/boardView.html">
+                <a href="BoardView">
                   <div class="card" style="width: 100%;">
                     <img src="./img/tro.jpg" class="card-img-top mx-auto" alt="..."
                       style="height: 300px; width: 300px">
@@ -151,7 +151,7 @@
                 </a>
               </div>
               <div class="col">
-                <a href="/boardView.html">
+                <a href="BoardView">
                   <div class="card" style="width: 100%;">
                     <img src="./img/tro2.jpg" class="card-img-top mx-auto" alt="..."
                       style="height: 300px; width: 300px">

@@ -82,13 +82,13 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">내 정보 변경</a>
+                            <a class="nav-link" href="infochange">내 정보 변경</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">화장품 정보</a>
+                            <a class="nav-link" href="cosmetic">화장품 정보</a>
                           </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">로그아웃</a>
+                            <a class="nav-link" href="logout">로그아웃</a>
                         </li>
                     </ul>
                 </div>
@@ -246,7 +246,7 @@
             </div>
         </div>
         <div class="my-5">
-            <a href="#" class="w-100 btn btn-primary btn-lg">돌아가기</a>
+            <a href="remain" class="w-100 btn btn-primary btn-lg">돌아가기</a>
         </div>
     </div>
 
