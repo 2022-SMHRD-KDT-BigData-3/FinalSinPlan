@@ -21,6 +21,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileCacheImageOutputStream;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,8 +56,15 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+<<<<<<< HEAD
 import kr.main.entity.Vo2;
+=======
+<<<<<<< HEAD
+import kr.main.entity.Vo2;
+=======
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 import kr.main.entity.boardListVO;
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 import kr.main.entity.boardVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
@@ -75,6 +83,10 @@ public class Controller {
 	private MemberService memberservice;
 	@Autowired
 	private MemberServicempl memberservicempl;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 	@RequestMapping("/main.do")
 	public String index() {
 		return "index";
@@ -112,6 +124,7 @@ public class Controller {
 			rttr.addFlashAttribute("result", result);
 			return "login";
 		}
+		
 		session.setAttribute("member", lvo); // 일치하는 아이디, 비밀번호 경우(로그인 성공)
 		return "main_scan";
 	}
@@ -447,6 +460,62 @@ public class Controller {
 		rttr.addFlashAttribute("result", vo.getIno());
 		return "redirect:/loading";
 	}
+<<<<<<< HEAD
+//	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	@ResponseBody
+//	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
+//		System.out.println("getImgList " + test_id);
+//		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
+//	}
+	
+	
+	@RequestMapping(value="/form")
+	public String form() {
+		return "form";
+	}
+	
+	
+	@RequestMapping(value="/insertImages")
+	public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
+			 MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
+		List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("uploadfile");
+
+		if(multipartFiles.size() == 1) {
+			vo.setImg1(multipartFiles.get(0).getBytes());
+		}else if(multipartFiles.size() ==2) {
+			vo.setImg1(multipartFiles.get(0).getBytes());
+			vo.setImg2(multipartFiles.get(1).getBytes());
+		}else if(multipartFiles.size() == 3) {
+			vo.setImg1(multipartFiles.get(0).getBytes());
+			vo.setImg2(multipartFiles.get(1).getBytes());
+			vo.setImg3(multipartFiles.get(2).getBytes());
+		}
+		
+		HttpSession session = request.getSession();
+		memberVO member = (memberVO)session.getAttribute("member");
+		
+		vo.setEmail(member.getEmail());
+		vo.setSkin_id(vo.getSkin_id());
+
+		memberservicempl.insertImages(vo);
+		mv.setViewName("main_scan");
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+=======
 	//
 	@RequestMapping("/BoardView")
 	public String BoardView() {
@@ -464,6 +533,7 @@ public class Controller {
 	public String remain() {
 		return "main_log";
 	}
+<<<<<<< HEAD
 	//피부진단 업로드
 	@RequestMapping(value="/insertImages")
 	   public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
@@ -491,5 +561,8 @@ public class Controller {
 	      mv.setViewName("main_scan");
 	      return mv;
 	   }
+=======
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 } //controller end
 	

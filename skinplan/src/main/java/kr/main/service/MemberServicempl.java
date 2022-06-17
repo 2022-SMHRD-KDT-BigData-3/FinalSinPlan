@@ -155,4 +155,8 @@ public class MemberServicempl implements MemberService{
 		
 	}
 	
+	public void insertImages(Vo2 vo) {
+		mapper.insertImages(vo);
+	}
+	
 }
