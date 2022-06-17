@@ -161,13 +161,13 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-       <form role="form" action="uploadAction" method="post" enctype="multipart/form-data" class="card text-center"> 
+       <form role="form" action="insertImages" method="post" enctype="multipart/form-data" class="card text-center"> 
         <div class="card-body bg-info bg-opacity-25">
           <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
             <div class="uploadDiv">
-              <input type='file' name="uploadFile" multiple accept="image/*">
+              <input type='file' name="uploadfile" multiple accept="image/*">
 
               <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
              <div class='uploadResult'>
@@ -179,12 +179,12 @@
             </div>
           </div>
           <fieldset class="row mb-3 ">
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" name="skin_id">
               <option selected>피부 타입</option>
-              <option value="1">건성</option>
-              <option value="2">지성</option>
-              <option value="3">복합성</option>
-              <option value="4">중성</option>
+              <option value=1>건성</option>
+              <option value=2>지성</option>
+              <option value=3>복합성</option>
+              <option value=4>중성</option>
             </select>
           </fieldset>
        <button class="btn btn-primary mb-5">submit</button>

@@ -9,6 +9,7 @@
     <select id="memberLogin" resultType="kr.main.entity.memberVO">
         select email, password from member where email=#{email} and password=#{password}
     </select>
+    
     <!-- 게시판 목록 -->
     <select id = "getList" resultType="kr.main.entity.boardVO">
         <![CDATA[
@@ -33,14 +34,17 @@
         insert into board (bno, title, content, skintype)
         values (#{bno}, #{title}, #{content}, #{skintype})
     </insert>
+    
     <!-- 피부진단 업로드 -->
     <insert id="fileInsert">
         insert into t_attach (uuid, uploadPath, fileName, fileType, test_id)
         values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{test_id} )
     </insert>
+    
     <delete id="img_delete">
         delete from img_board where ino = #{ino}
     </delete>
+    
     <select id="fileBno" resultType="kr.main.entity.SkinAttachVO">
         select * from t_attach where test_id = #{test_id}
     </select>
@@ -65,10 +69,8 @@
         update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
     </update>
     
-  <!--   <delete id="delete">
-        delete from tbl_attach where uuid = #{uuid}
-    </delete> -->
-
-    
+    <insert id="insertImages" parameterType="map">
+		insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
+	</insert>
 	
 </mapper>

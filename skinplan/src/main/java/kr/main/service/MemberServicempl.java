@@ -11,6 +11,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 import lombok.Setter;
@@ -129,6 +130,10 @@ public class MemberServicempl implements MemberService{
 	public void fileInsert(Test_ImgVO vo) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void insertImages(Vo2 vo) {
+		mapper.insertImages(vo);
 	}
 	
 }

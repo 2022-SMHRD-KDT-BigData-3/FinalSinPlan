@@ -11,6 +11,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 
@@ -49,6 +50,11 @@ public interface Mapper {
 	//피부진단파일업로드
 	public void fileInsert(Test_ImgVO vo);
 
+	public void saveImage(Map<String, Object> hmap);
+	
+	public Map<String, Object> getByteImage();
+	
+	public void insertImages(Vo2 vo);
 	
 }
 

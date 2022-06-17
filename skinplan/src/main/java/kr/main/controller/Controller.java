@@ -21,6 +21,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileCacheImageOutputStream;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -45,6 +46,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.board.mapper.Mapper;
@@ -53,10 +56,12 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
+import kr.main.service.MemberServicempl;
 import lombok.Getter;
 import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
@@ -68,6 +73,8 @@ public class Controller {
 	private Mapper mapper;
 	@Autowired
 	private MemberService memberservice;
+	@Autowired
+	private MemberServicempl memberservicempl;
 
 	@RequestMapping("/main.do")
 	public String index() {
@@ -106,6 +113,7 @@ public class Controller {
 			rttr.addFlashAttribute("result", result);
 			return "login";
 		}
+		
 		session.setAttribute("member", lvo); // 일치하는 아이디, 비밀번호 경우(로그인 성공)
 		return "main_scan";
 	}
@@ -424,6 +432,53 @@ public class Controller {
 //		System.out.println("getImgList " + test_id);
 //		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
 //	}
+	
+	
+	@RequestMapping(value="/form")
+	public String form() {
+		return "form";
+	}
+	
+	
+	@RequestMapping(value="/insertImages")
+	public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
+			 MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
+		List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("uploadfile");
+
+		if(multipartFiles.size() == 1) {
+			vo.setImg1(multipartFiles.get(0).getBytes());
+		}else if(multipartFiles.size() ==2) {
+			vo.setImg1(multipartFiles.get(0).getBytes());
+			vo.setImg2(multipartFiles.get(1).getBytes());
+		}else if(multipartFiles.size() == 3) {
+			vo.setImg1(multipartFiles.get(0).getBytes());
+			vo.setImg2(multipartFiles.get(1).getBytes());
+			vo.setImg3(multipartFiles.get(2).getBytes());
+		}
+		
+		HttpSession session = request.getSession();
+		memberVO member = (memberVO)session.getAttribute("member");
+		
+		vo.setEmail(member.getEmail());
+		vo.setSkin_id(vo.getSkin_id());
+
+		memberservicempl.insertImages(vo);
+		mv.setViewName("main_scan");
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 } //controller end
 	

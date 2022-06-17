@@ -79,3 +79,26 @@ insert into member values('123','123','123','123','1','123',sysdate);
 
 DROP TABLE member CASCADE CONSTRAINTS;
 
+
+select * from test_test;
+
+create sequence test_test_seq;
+
+
+drop table test1234;
+
+create table test1234(
+ test_id number(3) primary key,
+ email varchar2(30),
+ skin_id number(3,0),
+ img blob,
+ img2 blob,
+ img3 blob,
+ test_date date default sysdate
+);
+
+alter table test_img rename column front to img1;
+alter table test_img rename column left to img2;
+alter table test_img rename column right to img3;
+
+alter table test_img add(skin_id number(3) not null, constraint test_skin_fk foreign key(skin_id) references skin_type(skin_id));
