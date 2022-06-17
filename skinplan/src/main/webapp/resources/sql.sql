@@ -79,6 +79,7 @@ insert into member values('123','123','123','123','1','123',sysdate);
 
 DROP TABLE member CASCADE CONSTRAINTS;
 
+<<<<<<< HEAD
 
 select * from test_test;
 
@@ -102,3 +103,8 @@ alter table test_img rename column left to img2;
 alter table test_img rename column right to img3;
 
 alter table test_img add(skin_id number(3) not null, constraint test_skin_fk foreign key(skin_id) references skin_type(skin_id));
+=======
+select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
+from board b, tbl_attach t
+where b.bno = t.bno;
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git

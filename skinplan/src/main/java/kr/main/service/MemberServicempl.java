@@ -64,6 +64,14 @@ public class MemberServicempl implements MemberService{
 			mapper.fileInsert(skin);
 		});
 	}
+	//첨부파일 삭제
+//	@Transactional
+//	@Override
+//	public boolean remove(Long bno) {
+//		System.out.println("remove........."+ bno);
+//		mapper.deleteAll(bno);
+//		return mapper.delete(bno) == 1;
+//	}
 	@Override
 	public List<SkinAttachVO> getImgList(Long test_id){
 		System.out.println("test_img " + test_id);
@@ -75,10 +83,29 @@ public class MemberServicempl implements MemberService{
 		System.out.println("getList........");
 		return mapper.getList();
 	}
+	//게시물 글 조회
 	@Override
 	public boardVO get(Long bno) {
 		System.out.println("get...."+bno);
 		return mapper.read(bno);
+	}
+	//게시물 사진 조회
+	@Override
+	public BoardAttachVO img_get(Long bno) {
+		System.out.println("img_get : "+ bno);
+		return mapper.get_read(bno);
+	}
+	//게시물 수정
+	@Override
+	public boolean modify(boardVO board) {
+		System.out.println("modify....."+board);
+		return mapper.update(board) ==1;
+	}
+	//게시물 삭제
+	@Override
+	public boolean remove(Long bno) {
+		System.out.println("remove....."+bno);
+		return mapper.delete(bno)==1;
 	}
 	@Override
 	public void insert(BoardAttachVO vo) {
@@ -111,16 +138,7 @@ public class MemberServicempl implements MemberService{
 		
 	}
 
-	@Override
-	public boolean modify(boardVO board) {
-		System.out.println("modify....."+board);
-		return mapper.update(board) ==1;
-	}
-	@Override
-	public boolean remove(Long bno) {
-		System.out.println("remove....."+bno);
-		return mapper.delete(bno)==1;
-	}
+
 	@Override
 	public void fileInsert(SkinAttachVO vo) {
 		// TODO Auto-generated method stub

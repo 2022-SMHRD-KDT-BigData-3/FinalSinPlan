@@ -93,16 +93,16 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
           <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">내 정보 변경</a>
+              <a class="nav-link" href="infochange">내 정보 변경</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">화장품 정보</a>
+              <a class="nav-link" href="cosmetic">화장품 정보</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">로그아웃</a>
+              <a class="nav-link" href="logout">로그아웃</a>
             </li>
           </ul>
 
@@ -123,14 +123,17 @@
         <!-- 게시글 썸네일 카드 -->
         <div class="album pt-3 bg-light">
           <div class="container bg-info bg-opacity-25">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="list">
             
-              <div class="col">
+<!--               <div class="col">
                 <div class="card shadow-sm">
                   <a href="boardView.html">
                     <div class="card" style="width: 100%;">
-                      <img src="" alt="..."
-                        style="height: 300px; width: 300px">
+                    이미지 불러오기    			
+    				<div class='uploadResult'>
+						<ul>
+						</ul>
+					</div>                    
                       <div class="card-body">
                         <h3 class="card-title"></h5>
                         <p class="card-text"></p>
@@ -138,8 +141,8 @@
                     </div>
                   </a>
                 </div>
-              </div>
-            <c:forEach items="${board}" var="board" >            
+              </div> 
+              
               <div class="col">
                 <div class="card shadow-sm">
                   <a href="boardView.html">
@@ -147,14 +150,13 @@
                       <img class="" alt="..."
                         style="height: 300px; width: 300px">
                       <div class="card-body">
-                        <h5 class="card-title"><c:out value="${board.title}"/></h5>
-                        <p class="card-text"><c:out value="${board.skintype}"/></p>
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"></p>
                       </div>
                     </div>
                   </a>
                 </div>
-              </div>
-             </c:forEach> 
+              </div> -->
                  
             </div>
           </div>
@@ -197,13 +199,80 @@
       <a href="main_log.html" class="nav-link" aria-selected="false">피부 일기</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a href="#" class="nav-link active"  aria-selected="true">게시판</a>
+      <a href="main_board" class="nav-link active"  aria-selected="true">게시판</a>
     </li>
   </ul>
 </body>
 
 <script>
+$(document).ready(()=>{
+	loadList();
+});
+	function loadList(){
+		$.ajax({
+			url : "boardlist",
+			type : "GET",
+			dataType : "json",
+			success : resultHtml,
+			error : function(){alert("error");}
+		});
+	}
+	function resultHtml(data){
+		var view = "<div calss='col'>";
+		view+= "<div class='card shadow-sm'> ";
+        view+= "<a href='boardView.html'>";
+        view+= "<div class='card' style='width: 100%'>";
+        view+= "<div class='uploadResult'>";
+        view+= "<ul>";
+        view+= "</ul>";
+        view+= "</div>";
+        view+= "<div class='card-body'>";
+        view+= "<h5 class='card-title'/>제목</h5>";
+        view+= "<p class='card-text'/>피부타입</p>";
+        view+= "</div>";    
+        view+= "</div>";
+        view+= "</a>";
+        view+= "</div>";
+      	view+= "</div>";
+      	$.each(data, function(index,obj){
+      		view+="<div class='col'";
+      		view+= "<div class='card shadow-sm'> ";
+      		view+= "<a href='boardView.html'>";
+      		view+= "<div class='card' style='width: 100%'>";
+            view+= "<div class='uploadResult'>";
+            view+= "<ul>";
+			//image type
+			if(obj.fileType){
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				
+				view += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"' ><div>";
+				view += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+				view += "</div>";
+				view += "</li>";
+			}else{
+				view += "<li data-path='"+obj.uploadPath+"'data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'data-type='"+obj.fileType+"' ><div>";
+				view += "<span>" + obj.fileName+"</span><br/>";
+				view += "<img src='/resources/img/attach.png'>";
+				view += "</div>";
+				view += "</li>";
+			}
+            view+= "</ul>";
+            view+= "</div>";
+            view+= "<div class='card-body'>";
+            view+= "<h5 class='card-title'/>"+obj.title+"</h5>";
+            view+= "<p class='card-text'>"+obj.skintype+"</p>";
+            view+= "</div>";    
+            view+= "</div>";
+            view+= "</a>";
+            view+= "</div>";
+           	view+= "</div>";
 
+      	});
+      	$(".uploadResult ul").html(view); 
+      	$("#list").html(view);
+	
+	}
+	
 </script>
 
 </html>

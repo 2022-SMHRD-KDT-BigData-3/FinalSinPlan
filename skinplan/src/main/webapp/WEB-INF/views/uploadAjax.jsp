@@ -121,7 +121,7 @@
               <a class="nav-link" href="infochange">내 정보 변경</a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="#">화장품 정보</a>
+              <a class="nav-link" href="cosmetic">화장품 정보</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="logout">로그아웃</a>

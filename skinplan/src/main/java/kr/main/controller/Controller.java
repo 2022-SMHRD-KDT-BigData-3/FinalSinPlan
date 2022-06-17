@@ -56,7 +56,11 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+<<<<<<< HEAD
 import kr.main.entity.Vo2;
+=======
+import kr.main.entity.boardListVO;
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 import kr.main.entity.boardVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
@@ -147,7 +151,7 @@ public class Controller {
 	// 게시판 글쓰기 취소
 	@RequestMapping("/cancel")
 	public String boardcancel() {
-		return "main";
+		return "main_board";
 	}
 	//썸네일 카드 선택
 	@RequestMapping("/boardView.html")
@@ -172,10 +176,10 @@ public class Controller {
 	public String main_scan() {
 		return "main_scan";
 	}
-	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
+	//게시글 등록후 게시글 목록
 	@RequestMapping("/rBoardView")
 	public String rboardView() {
-		return "main";
+		return "main_board";
 	}
 	//게시판 글쓰기 페이지에 이동했을때 
 	@GetMapping("/boardWrite")
@@ -188,18 +192,38 @@ public class Controller {
 		return "uploadAjax";
 	}
 	//피부진단탭
-
+	//화장품정보
+	@RequestMapping("/cosmetic")
+	public String cosmetic() {
+		return "cosmetics";
+	}
+	//화장품카테고리
+	@RequestMapping("/cosmeticinfo")
+	public String cosmeticinfo() {
+		return "cosmeticInfo";
+	}
 	//게시판 목록
 	@GetMapping("/list")
 	public void list(Model model) {
 		System.out.println("게시판 목록");
 		model.addAttribute("list",memberservice.getList());
 	}
+	@GetMapping("/boardlist")
+	public @ResponseBody List<boardListVO> boardlist (){
+		List<boardListVO> list = mapper.getboardList();		
+		return list;
+	}
 	//게시물 조회
-	@GetMapping("/get")
+	@GetMapping("/boardView")
 	public void get(@RequestParam("bno") Long bno, Model model) {
-		System.out.println("/get");
+		System.out.println("/boardVeiw");
 		model.addAttribute("board", memberservice.get(bno));
+	}
+	//게시글 사진 조회
+	@GetMapping("/img_get")
+	public void img_get(@RequestParam("bno") Long bno, Model model) {
+		System.out.println("img_get");
+		model.addAttribute("img_board", memberservice.img_get(bno));
 	}
 	//수정
 	@PostMapping("/modify")
@@ -208,7 +232,11 @@ public class Controller {
 		if(memberservice.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "main_board";
+		return "redirect:/main_board";
+	}
+	@RequestMapping("/modify")
+	public String modify() {
+		return "modify";
 	}
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
@@ -216,7 +244,7 @@ public class Controller {
 		if(memberservice.remove(bno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "main_board";
+		return "redirect:/main_board";
 	}
 	//Ajax를 이용한 파일 업로드
 	@PostMapping("/upload")
@@ -247,8 +275,8 @@ public class Controller {
 	@ResponseBody
     public ResponseEntity<byte[]> getFile(String fileName) {
         System.out.println("fileName: " + fileName);
-        //File file = new File("C:\\upload\\" + fileName);
-        File file = new File(fileName);
+        File file = new File("C:\\upload\\" + fileName);
+        //File file = new File(fileName);
         System.out.println("file : " + file);
         ResponseEntity<byte[]> result = null;
         
@@ -348,8 +376,7 @@ public class Controller {
 	@ResponseBody
     public ResponseEntity<byte[]> getimgFile(String fileName) {
         System.out.println("fileName: " + fileName);
-        //File file = new File("C:\\upload\\" + fileName);
-        File file = new File(fileName);
+        File file = new File("C:\\upload\\" + fileName);
         System.out.println("file : " + file);
         ResponseEntity<byte[]> result = null;
         
@@ -384,13 +411,13 @@ public class Controller {
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 			System.out.println("only file name :" +uploadFileName);
 			attachVO.setFileName(uploadFileName);
-			//UUID uuid = UUID.randomUUID();
-			//uploadFileName = uuid.toString()+"_" +uploadFileName;	
+			UUID uuid = UUID.randomUUID();
+			uploadFileName = uuid.toString()+"_" +uploadFileName;	
 		
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
-				//attachVO.setUuid(uuid.toString());
+				attachVO.setUuid(uuid.toString());
 				attachVO.setUploadPath(uploadFolderPath);
 				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
 				BufferedImage bo_image = ImageIO.read(saveFile);
@@ -406,12 +433,12 @@ public class Controller {
 		return new ResponseEntity<List<imgFileVO>>(list, HttpStatus.OK);
 	}
 	
-//	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	@ResponseBody
-//	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
-//		System.out.println("getAttachList " + bno);
-//		return new ResponseEntity<>(memberservice.getAttachList(bno),HttpStatus.OK);
-//	}
+	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		System.out.println("getAttachList " + bno);
+		return new ResponseEntity<>(memberservice.getAttachList(bno),HttpStatus.OK);
+	}
 	//피부진단
 	@PostMapping("/uploadAction")
 	public String skinsacn(Test_ImgVO vo, RedirectAttributes rttr) {
@@ -426,6 +453,7 @@ public class Controller {
 		rttr.addFlashAttribute("result", vo.getIno());
 		return "redirect:/loading";
 	}
+<<<<<<< HEAD
 //	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 //	@ResponseBody
 //	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
@@ -480,5 +508,24 @@ public class Controller {
 	
 	
 	
+=======
+	//
+	@RequestMapping("/BoardView")
+	public String BoardView() {
+		return "result";
+	}
+	//진단페이지 
+	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
+		System.out.println("getImgList " + test_id);
+		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
+	}
+	//다이어리 -> 목록
+	@RequestMapping("/remain")
+	public String remain() {
+		return "main_log";
+	}
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 } //controller end
 	
