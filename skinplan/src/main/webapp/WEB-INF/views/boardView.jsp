@@ -127,14 +127,14 @@
         </nav>
     </div>
     <div class="form-group">
-    <label>bno</label><input class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
+    <input type='hidden'class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
                  <div class ="row">
     				<div class="col-lg-12">
     					<div class="panel panel-default">
-    						<div class="panel-heading">File Attach</div>
+    						<div class="panel-heading"></div>
     					<div class="panel-body">
     				<div class="uploadDiv">
 						<input type="file" name="uploadFile" multiple>
@@ -145,11 +145,11 @@
 		
 						</ul>
 					</div>
-    		</div>
+    				</div>
     	</div>
     	</div>
     </div> 
-                <img src="${vo.uploadFile}" class="d-block w-100" height=300px
+                <img src="" class="d-block w-100" height=300px
                     alt="...">
             </div>
             <!-- <div class="carousel-item">
@@ -175,10 +175,10 @@
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>닉네임</h3>      
+                            <h3>닉네임 : <c:out value="${member.nickname}"/></h3>      
                         </blockquote>
                         <figcaption class="blockquote-footer">
-                           	 피부 타입 :
+                           	 피부 타입 : <c:out value="${board.skintype }"></c:out>
                         </figcaption>
                     </figure>
                 </div>
@@ -188,7 +188,7 @@
         <div class="row mb-3">
             <label for="title" class="col-sm-2 col-form-label mx-1"></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control-plaintext mx-4" id="title" value="나만의 피부관리 꿀팁" disabled>
+                <input type="text" class="form-control-plaintext mx-4" id="title" value='<c:out value="${board.title }"/>' disabled>
             </div>
         </div>
 
@@ -199,11 +199,25 @@
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
-            <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
-            <a href="rBoardView" class="btn btn-primary ">돌아가기</a>
+        <button data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'"/>수정하기       
+        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'">돌아가기</button>
+           <!--  <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
+            <a href="main_board" class="btn btn-primary ">돌아가기</a> -->
         </div>
+        <form id='operForm' action="modify" method="get">
+        <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'/>
+        </form>
 <script>
 $(document).ready(function(){
+	var operForm = $("#operForm");
+	$("button[data-oper='modify']").on("click", function(e){
+		operForm.attr("action", "modify").submit();
+	});
+	$("button[data-oper='list']").on("click", function(e){
+		operForm.find("#bno").remove();
+		operForm.attr("action","main_board")
+		operForm.submit();
+	});
 	(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){
@@ -215,7 +229,7 @@ $(document).ready(function(){
 					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
 					
 					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-					str += "img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
 					str += "</div>";
 					str += "</li>";
 				}else{

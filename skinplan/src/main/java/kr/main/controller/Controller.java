@@ -53,6 +53,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.boardListVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
@@ -164,10 +165,10 @@ public class Controller {
 	public String main_scan() {
 		return "main_scan";
 	}
-	//게시글 등록후 메인페이지로 이동(돌아가기) ->메인2페이지 이동
+	//게시글 등록후 게시글 목록
 	@RequestMapping("/rBoardView")
 	public String rboardView() {
-		return "main";
+		return "main_board";
 	}
 	//게시판 글쓰기 페이지에 이동했을때 
 	@GetMapping("/boardWrite")
@@ -196,11 +197,22 @@ public class Controller {
 		System.out.println("게시판 목록");
 		model.addAttribute("list",memberservice.getList());
 	}
+	@GetMapping("/boardlist")
+	public @ResponseBody List<boardListVO> boardlist (){
+		List<boardListVO> list = mapper.getboardList();		
+		return list;
+	}
 	//게시물 조회
-	@GetMapping("/get")
+	@GetMapping("/boardView")
 	public void get(@RequestParam("bno") Long bno, Model model) {
-		System.out.println("/get");
+		System.out.println("/boardVeiw");
 		model.addAttribute("board", memberservice.get(bno));
+	}
+	//게시글 사진 조회
+	@GetMapping("/img_get")
+	public void img_get(@RequestParam("bno") Long bno, Model model) {
+		System.out.println("img_get");
+		model.addAttribute("img_board", memberservice.img_get(bno));
 	}
 	//수정
 	@PostMapping("/modify")
@@ -211,10 +223,10 @@ public class Controller {
 		}
 		return "redirect:/main_board";
 	}
-//	@RequestMapping("/modify")
-//	public String modify() {
-//		return "modify";
-//	}
+	@RequestMapping("/modify")
+	public String modify() {
+		return "modify";
+	}
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		System.out.println("remove...."+bno);

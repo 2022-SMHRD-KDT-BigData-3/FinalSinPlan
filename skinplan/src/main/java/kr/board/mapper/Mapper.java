@@ -11,6 +11,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.boardListVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 
@@ -29,6 +30,8 @@ public interface Mapper {
 	public int delete(Long bno);
 	public int update(boardVO board);
 	
+	//게시글 사진 조회
+	public BoardAttachVO get_read(Long bno);
 	//피부진단========================
 	public void fileInsert(SkinAttachVO vo);
 	public void img_delete(String uuid);
@@ -50,7 +53,9 @@ public interface Mapper {
 	public void fileInsert(Test_ImgVO vo);
 	//첨부파일 삭제 처리
 	public void deleteAll(Long bno); 
-
+	
+	//게시글 목록
+	public List<boardListVO> getboardList();
 	
 }
 
