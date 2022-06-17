@@ -22,13 +22,13 @@ public interface Mapper {
 	//로그인
 	public memberVO memberLogin(memberVO member);
 	//게시판 목록
-	public List<boardVO> getList();
-	
+	public List<boardVO> getList();	
 	public void insert(boardVO board);
 	public void insertSelectKey(boardVO board);
 	public boardVO read(Long bno);
 	public int delete(Long bno);
 	public int update(boardVO board);
+	
 	//피부진단========================
 	public void fileInsert(SkinAttachVO vo);
 	public void img_delete(String uuid);
@@ -48,6 +48,8 @@ public interface Mapper {
 	public void upload(boardVO boardvo);
 	//피부진단파일업로드
 	public void fileInsert(Test_ImgVO vo);
+	//첨부파일 삭제 처리
+	public void deleteAll(Long bno); 
 
 	
 }

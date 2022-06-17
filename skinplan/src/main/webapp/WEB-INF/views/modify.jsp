@@ -127,13 +127,13 @@
         </nav>
     </div>
     <div class="form-group">
-    <label>bno</label><input class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
+  <!--   <label>bno</label><input class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div> --!>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
                  <div class ="row">
     				<div class="col-lg-12">
-    					<div class="panel panel-default">
+    					<!-- <div class="panel panel-default">
     						<div class="panel-heading">File Attach</div>
     					<div class="panel-body">
     				<div class="uploadDiv">
@@ -144,7 +144,7 @@
 						<ul>
 		
 						</ul>
-					</div>
+					</div> -->
     		</div>
     	</div>
     	</div>
@@ -193,13 +193,12 @@
         </div>
 
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"
-                disabled></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"></textarea>
             <label for="content">Content</label>
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
-            <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
+            <a href="" class="btn btn-primary mx-1 ">수정하기</a>
             <a href="rBoardView" class="btn btn-primary ">돌아가기</a>
         </div>
 <script>
@@ -215,13 +214,19 @@ $(document).ready(function(){
 					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
 					
 					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "<span> "+ attach.fileName+"</span>";
+					str += "button type='button' data-file=\'"+fileCallPath+"\'data-type='image' "
+					str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
 					str += "img src='/controller/display?fileName="+fileCallPath+"'>";
 					str += "</div>";
 					str += "</li>";
 				}else{
-					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"' "
+					str += "data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"' ><div>";
 					str += "<span>" + attach.fileName+"</span><br/>";
-					str += "<img src='/resources/img/attach.png'>";
+					str += "<button type='button' data-file=\'"+fileCallPath+"\'data-type='file' "
+					str += " class=btn btn-warning btn-circle'><i class='fa fa times'></i><\button><br>";
+					str += "<img src='/resources/img/attach.png'></a>";
 					str += "</div>";
 					str += "</li>";
 				}
@@ -230,6 +235,85 @@ $(document).ready(function(){
 			$(".uploadResult ul").html(str); 
 		
 		});//end getjson
+		$(".uploadResult").on("click", "button", function(e){
+			console.log("delete file");
+			if(confirm("Remove this file?")){
+				var targetLi = $(this).closest("li");
+				targetLi.remove();
+			}
+		})
+		var regex = new RegExp("(.*?)\.(exe|zip)$");
+		var maxSize = 5242880; //5MB
+
+		function checkExtension(fileName, fileSize){
+		   if(fileSize >= maxSize){
+		      alert("파일 사이즈 초과");
+		      return false;
+		   }
+		   if(regex.test(fileName)){
+		      alert("해당 종류의 파일은 업로드할 수 없습니다.");
+		      return false;
+		   }
+		   return true;
+		}
+		$("input[type='file']").change(function(e){
+		   var formData = new FormData();
+		   var inputFile = $("input[name='uploadFile']");
+		   var files = inputFile[0].files;
+		   for(var i=0; i < files.length; i++){
+		      if(!checkExtension(files[i].name, files[i].size)){
+		         return false;
+		      }
+		      formData.append("uploadFile", files[i]);
+		}
+		   $.ajax({
+		      url : 'uploadAjaxAction',
+		      processData : false,
+		      contentType: false,
+		      data : formData,
+		      type : 'POST',
+		      dataType: 'json',
+		      success : function(result){
+		         console.log(result);
+		         showUploadResult(result);
+		      }
+		    });//$.ajax       
+		});
+		function showUploadResult(uploadResultArr){
+			if(!uploadResultArr || uploadResultArr.length == 0){return;}
+			var uploadUL = $(".uploadResult ul");
+			var str = "";
+			$(uploadResultArr).each(function(i, obj){
+				//image type
+				$(uploadResultArr).each(function(i,obj){
+					if(!obj.image){
+						var fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
+						str += "<li data-path='"+obj.uploadPath+"'";
+						str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
+						str +" ><div>";
+						str += "<span> "+ obj.fileName+"</span>";
+						str += "<button type='button' data-file=\'"+fileCallPath+"\' "
+						str += "data-type='image' class='btn'><img src='resources/img/remove.png'></button><br>";
+						str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+						str += "</div>";
+						str += "</li>";
+						}else{
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/" 
+			                        + obj.uuid + "_" + obj.fileName);
+						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+						str += "<li "
+						str += "data-path='"+obj.uploadPath+"'data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
+						str += "<span>" + obj.fileName+"</span>";
+						str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' "
+						str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+						str += "<img src='/resources/img/attach.png'></a>";
+						str += "</div>";
+						str += "</li>";
+					}
+				});
+				uploadUL.append(str);
+			});
+		}
 	});
 });
 

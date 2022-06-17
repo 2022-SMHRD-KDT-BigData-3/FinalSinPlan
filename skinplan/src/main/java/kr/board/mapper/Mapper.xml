@@ -65,9 +65,9 @@
         update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
     </update>
     
-  <!--   <delete id="delete">
-        delete from tbl_attach where uuid = #{uuid}
-    </delete> -->
+    <delete id="deleteAll">
+        delete from tbl_attach where bno = #{bno}
+    </delete>
 
     
 	
