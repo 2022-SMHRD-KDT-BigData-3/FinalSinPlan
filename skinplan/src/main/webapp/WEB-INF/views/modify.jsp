@@ -137,7 +137,7 @@
     						<div class="panel-heading">File Attach</div>
     					<div class="panel-body">
     				<div class="uploadDiv">
-						<input type="file" name="uploadFile" multiple>
+						<input type="file" name="uploadFile" m`````ultiple>
 					</div>	
 
     				<div class='uploadResult'>
@@ -168,17 +168,17 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
+<form role="form" action="modify" method="post">
     <header>
         <div class="container marketing">
             <div class="row mt-4 mx-auto">
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>닉네임</h3>      
+                            <h3>닉네임 </h3>      
                         </blockquote>
                         <figcaption class="blockquote-footer">
-                           	 피부 타입 :
+                           	 피부 타입 : 
                         </figcaption>
                     </figure>
                 </div>
@@ -198,11 +198,29 @@
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
-            <a href="" class="btn btn-primary mx-1 ">수정하기</a>
-            <a href="rBoardView" class="btn btn-primary ">돌아가기</a>
+        <button type="submit" data-oper='modify' class="btn btn-default">수정하기</button>
+        <button type="submit" data-oper='main_board' class="btn btn-info">돌아가기</button>
+          <!--   <a href="submit" class="btn btn-primary mx-1 ">수정하기</a>
+            <a href="" class="btn btn-primary ">돌아가기</a> -->
         </div>
+        </form>
 <script>
 $(document).ready(function(){
+	var formObj = ${"form"};
+	$('button').on("click", function(e){
+		e.preventDefault();
+		var operation = $(this).data("oper");
+		console.log(operation);
+		if(operation === 'remove'){
+			formObj.attr("action", "remove");
+		}else if(operation === 'main_board'){
+			//move to list
+			formObj.attr("action", "main_board").attr("method","get");
+			formObj.empty();
+			return;
+		}
+		formObj.submit();
+	});
 	(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){

@@ -79,3 +79,6 @@ insert into member values('123','123','123','123','1','123',sysdate);
 
 DROP TABLE member CASCADE CONSTRAINTS;
 
+select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
+from board b, tbl_attach t
+where b.bno = t.bno;

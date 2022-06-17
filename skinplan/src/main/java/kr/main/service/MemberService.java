@@ -43,6 +43,8 @@ public interface MemberService {
 	public void img_Upload(Test_ImgVO vo);
 	public List<SkinAttachVO> getImgList(Long test_id);
 	public void fileInsert(Test_ImgVO vo);
+	//게시글 사진 조회
+	public BoardAttachVO img_get(Long bno);
 
 
 }

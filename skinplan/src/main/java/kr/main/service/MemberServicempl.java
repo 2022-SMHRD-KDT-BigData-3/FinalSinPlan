@@ -82,11 +82,17 @@ public class MemberServicempl implements MemberService{
 		System.out.println("getList........");
 		return mapper.getList();
 	}
-	//게시물 조회
+	//게시물 글 조회
 	@Override
 	public boardVO get(Long bno) {
 		System.out.println("get...."+bno);
 		return mapper.read(bno);
+	}
+	//게시물 사진 조회
+	@Override
+	public BoardAttachVO img_get(Long bno) {
+		System.out.println("img_get : "+ bno);
+		return mapper.get_read(bno);
 	}
 	//게시물 수정
 	@Override
