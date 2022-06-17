@@ -227,8 +227,8 @@ $(document).ready(()=>{
         view+= "</ul>";
         view+= "</div>";
         view+= "<div class='card-body'>";
-        view+= "<h5 class='card-title'/>제목</h5>";
-        view+= "<p class='card-text'/>피부타입</p>";
+        view+= "<h5 class='card-title'/></h5>";
+        view+= "<p class='card-text'/></p>";
         view+= "</div>";    
         view+= "</div>";
         view+= "</a>";

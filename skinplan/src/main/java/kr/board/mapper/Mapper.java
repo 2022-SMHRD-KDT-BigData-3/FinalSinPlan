@@ -11,6 +11,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.Vo2;
 import kr.main.entity.boardListVO;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
@@ -56,6 +57,9 @@ public interface Mapper {
 	
 	//게시글 목록
 	public List<boardListVO> getboardList();
+	//진단사진 업로드
+	public void insertImages(Vo2 vo);
+
 	
 }
 

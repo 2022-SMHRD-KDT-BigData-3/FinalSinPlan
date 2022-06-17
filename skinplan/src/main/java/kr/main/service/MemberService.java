@@ -7,6 +7,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 
@@ -45,6 +46,7 @@ public interface MemberService {
 	public void fileInsert(Test_ImgVO vo);
 	//게시글 사진 조회
 	public BoardAttachVO img_get(Long bno);
-
+	//피부진단 업로드
+	public void insertImages(Vo2 vo);
 
 }

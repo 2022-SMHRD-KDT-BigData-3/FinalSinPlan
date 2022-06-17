@@ -11,6 +11,7 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 import lombok.Setter;
@@ -63,6 +64,11 @@ public class MemberServicempl implements MemberService{
 			mapper.fileInsert(skin);
 		});
 	}
+	//피부진단 사진 업로드
+	public void insertImages(Vo2 vo) {
+	      mapper.insertImages(vo);
+	}
+
 	//첨부파일 삭제
 //	@Transactional
 //	@Override
