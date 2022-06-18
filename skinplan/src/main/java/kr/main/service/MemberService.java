@@ -47,6 +47,6 @@ public interface MemberService {
 	//게시글 사진 조회
 	public BoardAttachVO img_get(Long bno);
 	//피부진단 업로드
-	public void insertImages(Vo2 vo);
+	
 
 }

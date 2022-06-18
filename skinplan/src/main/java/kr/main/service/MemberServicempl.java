@@ -154,9 +154,4 @@ public class MemberServicempl implements MemberService{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public void insertImages(Vo2 vo) {
-		mapper.insertImages(vo);
-	}
-	
 }

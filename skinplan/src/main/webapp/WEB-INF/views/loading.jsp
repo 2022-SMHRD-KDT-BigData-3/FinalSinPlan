@@ -30,8 +30,7 @@
 <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
 <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#7952b3">
-
-
+<meta http-equiv="refresh" content="5;url=result">
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,16 +73,16 @@
           <div class="collapse navbar-collapse" id="navbarsExample01">
             <ul class="navbar-nav me-auto mb-2">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">내 정보 변경</a>
+                <a class="nav-link" href="infochange">내 정보 변경</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">화장품 정보</a>
+                <a class="nav-link" href="cosmetic">화장품 정보</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">로그아웃</a>
+                <a class="nav-link" href="logout">로그아웃</a>
               </li>
             </ul>
           </div>
@@ -96,7 +95,7 @@
             <span class="visually-hidden">Loading...</span>
         </div>
         <div class="mt-5">
-            <a class="btn btn-primary" href="#" role="button">돌아가기</a>
+            <a class="btn btn-primary" href="main_scan" role="button">돌아가기</a>
         </div>
     </div>
 

@@ -102,6 +102,10 @@
     	padding: 0;
     	
     }
+    .thumbnail{
+    width:200px;
+    height:200px;
+    }
   </style>
 
 </head>
@@ -166,25 +170,21 @@
           <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
-            <div class="uploadDiv">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
-              <input type='file' name="uploadfile" multiple accept="image/*">
-
-=======
-              <input type='file' name="uploadFile" multiple accept="image/*">
-              <input type='text' name="id" hidden value="">
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
-              <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
-             <div class='uploadResult'>
-      		<ul>
-			</ul>
-		 </div>
-              
-              </div>
+          
+            <div class="container">
+              <input type='file' name="uploadfile1" multiple accept="image/*">
+               <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>   </div>  
             </div>
+            <div class="container">
+			  <input type='file' name="uploadfile2" multiple accept="image/*">
+			  <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'> </div>
+			</div> 
+			 <div class="container">
+			  <input type='file' name="uploadfile3" multiple accept="image/*">		
+			   <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>    
+              </div>
+			 </div>   
+         
           </div>
           <fieldset class="row mb-3 ">
             <select class="form-select" aria-label="Default select example" name="skin_id">
@@ -215,7 +215,68 @@
 </body>
 
 <script type="text/javascript">
-/* $(document).ready(function(e){
+window.addEventListener('load',function(){
+	
+	const container = document.querySelectorAll('.container');
+	const frame1 = container[0].querySelector('#att_zone');
+	const frame2 = container[1].querySelector('#att_zone');
+	const frame3 = container[2].querySelector('#att_zone');
+	//console.log(frame1)
+	const fileInput1 = container[0].querySelector('input[type="file"]');
+	const fileInput2 = container[1].querySelector('input[type="file"]');
+	const fileInput3 = container[2].querySelector('input[type="file"]');
+	//console.log(fileInput2)
+	fileInput1.addEventListener('input', () => {
+		if(!isImage(fileInput1.files[0])){
+			alert('image 파일만 업로드 할 수 있습니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.addEventListener('load',() => {
+			const img = document.createElement('IMG');
+			img.classList.add('thumbnail');
+			img.src = reader.result;
+			frame1.insertAdjacentElement('beforeend', img);
+		});
+		reader.readAsDataURL(fileInput1.files[0]);
+	});
+	
+	fileInput2.addEventListener('input', () => {
+		if(!isImage(fileInput2.files[0])){
+			alert('image 파일만 업로드 할 수 있습니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.addEventListener('load',() => {
+			const img = document.createElement('IMG');
+			img.classList.add('thumbnail');
+			img.src = reader.result;
+			frame2.insertAdjacentElement('beforeend', img);
+			
+		});
+		reader.readAsDataURL(fileInput2.files[0]);
+	});
+	
+	fileInput3.addEventListener('input', () => {
+		if(!isImage(fileInput3.files[0])){
+			alert('image 파일만 업로드 할 수 있습니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.addEventListener('load',() => {
+			const img = document.createElement('IMG');
+			img.classList.add('thumbnail');
+			img.src = reader.result;
+			frame3.insertAdjacentElement('beforeend', img);
+			
+		});
+		reader.readAsDataURL(fileInput3.files[0]);
+	});
+	function isImage(file){
+		return file.type.indexOf('image')>=0;
+	}
+});
+ /* $(document).ready(function(e){
 	var formObj = $("form[role='form']");
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
@@ -323,8 +384,8 @@ var uploadResult = $(".uploadResult ul");
 		     }
 		  });//$.ajax
 		});
-});
- */
+}); */
+
 </script>
 
 </html>
