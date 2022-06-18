@@ -25,6 +25,14 @@
     <insert id="insertImages" parameterType="map">
       insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
    </insert>
+   <!-- blob 테스트 -->
+     <insert id="saveImage" parameterType="map">
+      insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
+   </insert>
+   <select id="selectImage" resultType="map">
+       <![CDATA[
+       select * from test_img where test_id = #{test_id} ]]>
+   </select>
     
     <!-- 첨부파일 업로드 -->
     <insert id="insert">

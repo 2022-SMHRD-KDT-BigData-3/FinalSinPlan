@@ -106,5 +106,5 @@ alter table test_img add(skin_id number(3) not null, constraint test_skin_fk for
 select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
 from board b, tbl_attach t
 where b.bno = t.bno;
-
+select * from 
 select * from test_img;

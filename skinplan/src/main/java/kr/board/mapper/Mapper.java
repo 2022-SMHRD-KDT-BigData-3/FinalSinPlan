@@ -68,7 +68,12 @@ public interface Mapper {
 	//게시글 목록
 	public List<boardListVO> getboardList();
 
+	//blob이미지 사진 저장
 	public void insertImages(Vo2 vo);
+	//진단사진 불러오기
+//	public List<Vo2> selectImages(int test_id);
+	public int saveImage(Vo2 userImage);
+	public Map<String, Object> selectImage(int test_img); 
 
 	
 }

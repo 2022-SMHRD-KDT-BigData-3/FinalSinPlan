@@ -1,6 +1,7 @@
 package kr.main.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,10 @@ public class MemberServicempl implements MemberService{
 	//피부진단 사진 업로드
 	public void insertImages(Vo2 vo) {
 	      mapper.insertImages(vo);
+	}
+	//진단사진 불러오기
+	public Map<String, Object> selectImage(int test_id){
+		return mapper.selectImage(test_id);
 	}
 
 	//첨부파일 삭제

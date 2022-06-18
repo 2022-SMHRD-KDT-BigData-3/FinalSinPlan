@@ -10,8 +10,10 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.google.gson.JsonObject;
 
 import kr.board.mapper.Mapper;
 import kr.main.entity.AttachFileVO;
@@ -516,7 +520,81 @@ public class Controller {
 	public String loading() {
 		return "loading";
 	}
+	@PostMapping("/saveImage")
+	public String saveImage(@RequestBody Map<String, String> param) {
+		 byte imageArray [] = null;
+	        final String BASE_64_PREFIX = "data:image/png;base64,";
+	        try {
+	            String base64Url = String.valueOf(param.get("image"));
+	            if (base64Url.startsWith(BASE_64_PREFIX)){
+	                imageArray =  Base64.getDecoder().decode(base64Url.substring(BASE_64_PREFIX.length()));
+	                System.out.println("\n");
+	                System.out.println("=======================================");
+	                System.out.println("[DBApiController] : [saveImage]");
+	                System.out.println("[imageArray] : " + new String(imageArray));
+	                System.out.println("=======================================");
+	                System.out.println("\n");
+	            }
+	        }
+	        catch (Exception e){
+	            e.printStackTrace();
+	        }
+	     // 모델 객체에 idx 및 byte 지정 실시 [오라클 blob 컬럼은 byte 로 되어있다]
+	        Vo2 userImage = new Vo2(param.get("test_id"), imageArray);
+	        if (mapper.saveImage(userImage) > 0) {
+	          
+	            JsonObject jsonObject = new JsonObject();
+	            try {
+	                jsonObject.put("state", "T");
+	                jsonObject.put("message", "Success");
+	            } catch (JSONException e) {
+	                e.printStackTrace();
+	            }
+	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
+	        } else {
+	    
+	            JsonObject jsonObject = new JsonObject();
+	            try {
+	                jsonObject.put("state", "F");
+	                jsonObject.put("message", "Fail");
+	            } catch (JSONException e) {
+	                e.printStackTrace();
+	            }
+	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
+	        }
+	}
+	@GetMapping("/selectImages")
+	public String selectImage(@RequestParam Map<String, String> param) {
 	
+		int data = Integer.valueOf(param.get("test_id"));
+		Map<String, Object> result = mapper.selectImage(data);
+		byte arr[] = blobToBytes((Blob) result.get("T_BLOB")); 
+        //data url 리턴 실시
+        if(arr.length > 0 && arr != null){ //데이터가 들어 있는 경우
+            //바이트를 base64인코딩 실시
+            String base64Encode = byteToBase64(arr);
+            base64Encode = "data:image/png;base64," + base64Encode;
+            System.out.println("\n");
+            System.out.println("=======================================");
+            System.out.println("[DBApiController] : [selectImage]");
+            System.out.println("[base64Encode] : " + base64Encode);
+            System.out.println("=======================================");
+            System.out.println("\n");
+            return base64Encode;
+        }
+        else {
+            return "";
+        }		
+	}
 
+	private String byteToBase64(byte[] arr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private byte[] blobToBytes(Blob blob) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 } //controller end
 	

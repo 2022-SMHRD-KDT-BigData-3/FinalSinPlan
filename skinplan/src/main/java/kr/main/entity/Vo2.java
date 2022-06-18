@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Vo2 {
 
-	   private byte[] img1;
+	public Vo2(String string, byte[] imageArray) {
+		// TODO Auto-generated constructor stub
+	}
+	private byte[] img1;
 	   private byte[] img2;
 	   private byte[] img3;
 	   private String email;
