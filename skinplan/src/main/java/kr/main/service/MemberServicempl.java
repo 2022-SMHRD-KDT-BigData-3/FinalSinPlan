@@ -38,13 +38,13 @@ public class MemberServicempl implements MemberService{
 	public void upload(boardVO board) {
 		System.out.println("upload...."+board);
 		mapper.insertSelectKey(board);
-		if(board.getAttachList()==null || board.getAttachList().size() <=0) {
-			return;
-		}
-		board.getAttachList().forEach(attach ->{
-			attach.setBno(board.getBno());
-			mapper.insert(attach);
-		});
+//		if(board.getAttachList()==null || board.getAttachList().size() <=0) {
+//			return;
+//		}
+//		board.getAttachList().forEach(attach ->{
+//			attach.setBno(board.getBno());
+//			mapper.insert(attach);
+//		});
 	}
 	@Override
 	public List<BoardAttachVO> getAttachList(Long bno) {
@@ -66,12 +66,12 @@ public class MemberServicempl implements MemberService{
 		});
 	}
 	//피부진단 사진 업로드
-	public void insertImages(Vo2 vo) {
-	      mapper.insertImages(vo);
+	public int insertImages(Vo2 vo) {
+	     return mapper.insertImages(vo);
 	}
 	//진단사진 불러오기
 	public Map<String, Object> selectImage(int test_id){
-		return mapper.selectImage(test_id);
+		return mapper.selectImages(test_id);
 	}
 
 	//첨부파일 삭제
@@ -159,4 +159,5 @@ public class MemberServicempl implements MemberService{
 		// TODO Auto-generated method stub
 		
 	}
+
 }

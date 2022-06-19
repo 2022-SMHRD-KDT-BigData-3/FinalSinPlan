@@ -19,7 +19,7 @@ public interface MemberService {
 	//로그인
 	public memberVO memberLogin(memberVO member) throws Exception;
 
-	//게시판 업로드
+	//게시글 업로드
 	public void upload(boardVO boardvo);
 	public boardVO get(Long bno);
 	public boolean modify(boardVO board);

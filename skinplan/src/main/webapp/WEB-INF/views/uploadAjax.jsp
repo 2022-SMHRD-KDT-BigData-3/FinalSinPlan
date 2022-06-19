@@ -100,7 +100,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
           <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="infochange">내 정보 변경</a>
@@ -117,7 +117,7 @@
       </div>
     </nav>
  
-  <form role="form" action="upload" method="post"> 
+  <form role="form" action="uploadAjax" method="post"> 
     <div class="row mb-3">
       <label for="title" class="col-sm-2 col-form-label">제목</label>
       <div class="col-sm-10">

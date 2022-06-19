@@ -14,10 +14,11 @@ create table board(
  bno number(10,0),
  title varchar2(100),
  content varchar2(2000),
- skintype varchar2(10),
+ skintype number(3),
  primary key(bno)
 );
-
+ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
+insert into board values (1,'제목','내용','1');
 create table tbl_attach(
  uuid varchar2(100) not null,
  uploadPath varchar2(200) not null,
@@ -57,17 +58,19 @@ alter table tbl_attach add constraint fk_board_attach foreign key (fileType) ref
 ALTER TABLE board ADD(nickname VARCHAR2(15) NOT NULL);
 ALTER TABLE board ADD(CONSTRAINT board_nick_fk FOREIGN KEY(nickname) REFERENCES member(nickname));
 
-ALTER TABLE board ADD(skin_id NUMBER(3) NOT NULL);
-ALTER TABLE board ADD(CONSTRAINT board_skin_id_fk FOREIGN KEY(skin_id) REFERENCES skin_type(skin_id));
+ALTER TABLE board ADD(skintype varchar2 NOT NULL);
+ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
 
 insert into board values(1,'제목','내용','피부','파일업로드');
 DROP TABLE board;
 drop table tbl_attach;
+drop sequence seq_board;
+
 DROP SEQUENCE board_seq;
 drop table board cascade constraints;
 create sequence seq_board;
 select * from seq_board;
-drop sequence seq_board;
+
 select * from board;
 select * from TBL_ATTACH;
 select * from MEMBER;
@@ -108,3 +111,4 @@ from board b, tbl_attach t
 where b.bno = t.bno;
 select * from 
 select * from test_img;
+select * from skin_type;

@@ -126,30 +126,31 @@
             </div>
         </nav>
     </div>
+     <form role="form" action="modify" method="post">
     <div class="form-group">
-  <!--   <label>bno</label><input class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div> --!>
+    <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno }"/>'></div>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
                  <div class ="row">
     				<div class="col-lg-12">
-    					<!-- <div class="panel panel-default">
-    						<div class="panel-heading">File Attach</div>
+    					<div class="panel panel-default">
+    						<div class="panel-heading"></div>
     					<div class="panel-body">
     				<div class="uploadDiv">
-						<input type="file" name="uploadFile" m`````ultiple>
+						<input type="file" name="uploadFile" multiple>
 					</div>	
 
     				<div class='uploadResult'>
 						<ul>
 		
 						</ul>
-					</div> -->
-    		</div>
+					</div>
+    				</div>
     	</div>
     	</div>
     </div> 
-                <img src="${vo.uploadFile}" class="d-block w-100" height=300px
+                <img src="" class="d-block w-100" height=300px
                     alt="...">
             </div>
             <!-- <div class="carousel-item">
@@ -168,17 +169,18 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-<form role="form" action="modify" method="post">
+
     <header>
         <div class="container marketing">
             <div class="row mt-4 mx-auto">
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>닉네임 </h3>      
+                         <h3>닉네임 : </h3>
+                        
                         </blockquote>
                         <figcaption class="blockquote-footer">
-                           	 피부 타입 : 
+                           	 피부 타입 : <c:out value="${board.skintype }"></c:out>
                         </figcaption>
                     </figure>
                 </div>
@@ -188,22 +190,27 @@
         <div class="row mb-3">
             <label for="title" class="col-sm-2 col-form-label mx-1"></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control-plaintext mx-4" id="title" value="나만의 피부관리 꿀팁" disabled>
+                <input type="text" class="form-control-plaintext mx-4" id="title" value='<c:out value="${board.title }"/>'>
             </div>
         </div>
 
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px">
+                <c:out value="${board.content}"/></textarea>
             <label for="content">Content</label>
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
-        <button type="submit" data-oper='modify' class="btn btn-default">수정하기</button>
-        <button type="submit" data-oper='main_board' class="btn btn-info">돌아가기</button>
-          <!--   <a href="submit" class="btn btn-primary mx-1 ">수정하기</a>
-            <a href="" class="btn btn-primary ">돌아가기</a> -->
+        <button type="submit" data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'">수정하기 </button>
+        <button type="submit" data-oper='remove' class="btn btn-danger">삭제하기</button>
+        <button type="submit" data-oper='list' class="btn btn-info" onclick="location.href='main_board'">돌아가기</button>
+           <!--  <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
+            <a href="main_board" class="btn btn-primary ">돌아가기</a> -->
         </div>
-        </form>
+<%--         <form id='operForm' action="modify" method="get">
+        <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'/>
+        </form> --%>
+     </form>
 <script>
 $(document).ready(function(){
 	var formObj = ${"form"};
@@ -212,14 +219,21 @@ $(document).ready(function(){
 		var operation = $(this).data("oper");
 		console.log(operation);
 		if(operation === 'remove'){
-			formObj.attr("action", "remove");
-		}else if(operation === 'main_board'){
-			//move to list
-			formObj.attr("action", "main_board").attr("method","get");
-			formObj.empty();
+			formObj.attr("action","remove");
+		}else if(operation ==='main_board'){
+			self.location="main_board";
 			return;
 		}
 		formObj.submit();
+});
+/* 	var operForm = $("#operForm");
+	$("button[data-oper='modify']").on("click", function(e){
+		operForm.attr("action", "modify").submit();
+	});
+	$("button[data-oper='list']").on("click", function(e){
+		operForm.find("#bno").remove();
+		operForm.attr("action","main_board")
+		operForm.submit();
 	});
 	(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
@@ -232,19 +246,13 @@ $(document).ready(function(){
 					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
 					
 					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-					str += "<span> "+ attach.fileName+"</span>";
-					str += "button type='button' data-file=\'"+fileCallPath+"\'data-type='image' "
-					str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-					str += "img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
 					str += "</div>";
 					str += "</li>";
 				}else{
-					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"' "
-					str += "data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"' ><div>";
+					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
 					str += "<span>" + attach.fileName+"</span><br/>";
-					str += "<button type='button' data-file=\'"+fileCallPath+"\'data-type='file' "
-					str += " class=btn btn-warning btn-circle'><i class='fa fa times'></i><\button><br>";
-					str += "<img src='/resources/img/attach.png'></a>";
+					str += "<img src='/resources/img/attach.png'>";
 					str += "</div>";
 					str += "</li>";
 				}
@@ -253,87 +261,7 @@ $(document).ready(function(){
 			$(".uploadResult ul").html(str); 
 		
 		});//end getjson
-		$(".uploadResult").on("click", "button", function(e){
-			console.log("delete file");
-			if(confirm("Remove this file?")){
-				var targetLi = $(this).closest("li");
-				targetLi.remove();
-			}
-		})
-		var regex = new RegExp("(.*?)\.(exe|zip)$");
-		var maxSize = 5242880; //5MB
-
-		function checkExtension(fileName, fileSize){
-		   if(fileSize >= maxSize){
-		      alert("파일 사이즈 초과");
-		      return false;
-		   }
-		   if(regex.test(fileName)){
-		      alert("해당 종류의 파일은 업로드할 수 없습니다.");
-		      return false;
-		   }
-		   return true;
-		}
-		$("input[type='file']").change(function(e){
-		   var formData = new FormData();
-		   var inputFile = $("input[name='uploadFile']");
-		   var files = inputFile[0].files;
-		   for(var i=0; i < files.length; i++){
-		      if(!checkExtension(files[i].name, files[i].size)){
-		         return false;
-		      }
-		      formData.append("uploadFile", files[i]);
-		}
-		   $.ajax({
-		      url : 'uploadAjaxAction',
-		      processData : false,
-		      contentType: false,
-		      data : formData,
-		      type : 'POST',
-		      dataType: 'json',
-		      success : function(result){
-		         console.log(result);
-		         showUploadResult(result);
-		      }
-		    });//$.ajax       
-		});
-		function showUploadResult(uploadResultArr){
-			if(!uploadResultArr || uploadResultArr.length == 0){return;}
-			var uploadUL = $(".uploadResult ul");
-			var str = "";
-			$(uploadResultArr).each(function(i, obj){
-				//image type
-				$(uploadResultArr).each(function(i,obj){
-					if(!obj.image){
-						var fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
-						str += "<li data-path='"+obj.uploadPath+"'";
-						str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
-						str +" ><div>";
-						str += "<span> "+ obj.fileName+"</span>";
-						str += "<button type='button' data-file=\'"+fileCallPath+"\' "
-						str += "data-type='image' class='btn'><img src='resources/img/remove.png'></button><br>";
-						str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
-						str += "</div>";
-						str += "</li>";
-						}else{
-						var fileCallPath = encodeURIComponent(obj.uploadPath + "/" 
-			                        + obj.uuid + "_" + obj.fileName);
-						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-						str += "<li "
-						str += "data-path='"+obj.uploadPath+"'data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
-						str += "<span>" + obj.fileName+"</span>";
-						str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' "
-						str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-						str += "<img src='/resources/img/attach.png'></a>";
-						str += "</div>";
-						str += "</li>";
-					}
-				});
-				uploadUL.append(str);
-			});
-		}
-	});
-});
+	}); */
 
 </script>
 </body>

@@ -106,14 +106,14 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/img/tro.jpg" class="d-block w-100"
+                    <img src="selectImage" class="d-block w-100"
                         height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="/img/HF_02.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="selectImage" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/skindskfn.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="selectImage" class="d-block w-100" height=300px alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -257,56 +257,34 @@
     </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	function requestGet(){
-	      var urlData = "http://localhost:8081/selectImages";
-	      var contentData = "test_id=1";
-	      console.log("");
-	      console.log("[requestGet] : [start]");
-	      console.log("[request url] : " + urlData);
-	      console.log("[request data] : " + contentData);
-	      console.log("[request format] : " + urlData+"?"+contentData);
-	      console.log("[request method] : " + "GET");
-	      console.log("");
-	      $.ajax({
-	          /* 요청 시작 부분 */
-	          url: urlData, //주소
-	          data: { //전송 데이터
-	            "test_id" : 1
-	          },
-	          type: "GET", //전송 타입
-	          async: true, //비동기 여부
-	          dataType: "TEXT", //응답받을 데이터 타입 (XML,JSON,TEXT,HTML)
-
-	          /* 응답 확인 부분 */
-	          success: function(response) {
-	            console.log("");
-	            console.log("[requestGet] : [result]");
-	            console.log("[response] : " + response);
-	            console.log("");
-
-	            // 정상적으로 리턴된 data url 있는 경우 src 에 표시 실시
-	            if(response.length > 0 && response != null){
-	              document.getElementById("preview-image").src = response;
-	            }
-	          },
-
-	          /* 에러 확인 부분 */
-	          error: function(xhr) {
-	            console.log("");
-	            console.log("[requestGet] : [result]");
-	            console.log("[error] : " + xhr);
-	            console.log("");
-	          },
-
-	          /* 완료 확인 부분 */
-	          complete:function(data,textStatus) {
-	            console.log("");
-	            console.log("[requestGet] : [result]");
-	            console.log("[complete] : " + textStatus);
-	            console.log("");
-	          }
-	        });
-}
+	(function(){
+		var bno = '<c:out value="$(board.bno}"/>';
+		$.getJSON("getAttachList", {bno:bno}, function(arr){
+			console.log(arr);
+			var str = "";
+			$(arr).each(function(i, attach){
+				//image type
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</li>";
+				}else{
+					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					str += "<span>" + attach.fileName+"</span><br/>";
+					str += "<img src='/resources/img/attach.png'>";
+					str += "</div>";
+					str += "</li>";
+				}
+			});
+			
+			$(".uploadResult ul").html(str); 
+		
+		});//end getjson
+	});
+});
 </script>
 </body>
 

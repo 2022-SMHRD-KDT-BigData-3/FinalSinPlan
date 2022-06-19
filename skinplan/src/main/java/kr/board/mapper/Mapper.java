@@ -60,8 +60,6 @@ public interface Mapper {
 	
 	public Map<String, Object> getByteImage();
 	
-
-
 	//첨부파일 삭제 처리
 	public void deleteAll(Long bno); 
 	
@@ -69,11 +67,10 @@ public interface Mapper {
 	public List<boardListVO> getboardList();
 
 	//blob이미지 사진 저장
-	public void insertImages(Vo2 vo);
+	public int insertImages(Vo2 vo);
 	//진단사진 불러오기
-//	public List<Vo2> selectImages(int test_id);
-	public int saveImage(Vo2 userImage);
-	public Map<String, Object> selectImage(int test_img); 
+	public Map<String, Object> selectImages(int test_id);
+	
 
 	
 }

@@ -127,7 +127,7 @@
         </nav>
     </div>
     <div class="form-group">
-    <input type='hidden'class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
+    <input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'></div>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -218,7 +218,7 @@ $(document).ready(function(){
 		operForm.attr("action","main_board")
 		operForm.submit();
 	});
-	(function(){
+	/* (function(){
 		var bno = '<c:out value="$(board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){
 			console.log(arr);
@@ -244,7 +244,7 @@ $(document).ready(function(){
 			$(".uploadResult ul").html(str); 
 		
 		});//end getjson
-	});
+	}); */
 });
 
 </script>
