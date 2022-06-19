@@ -14,7 +14,7 @@ create table board(
  bno number(10,0),
  title varchar2(100),
  content varchar2(2000),
- skintype number(3),
+ skintype number(10),
  primary key(bno)
 );
 ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
@@ -27,7 +27,7 @@ create table tbl_attach(
  bno number(10,0),
  primary key(uuid)
 );
-
+alter table tbl_attach add constraint fk_board_attach foreign key (bno) references board(bno);
 select * from test_img;
 
 create table img_board(
@@ -50,7 +50,7 @@ create table t_attach(
 alter table t_attach add constraint fk_tboard_attach foreign key (test_id) references test_img(test_id);
 
 alter table tbl_attach add constraint pk_attach primary key (uuid);
-alter table tbl_attach add constraint fk_board_attach foreign key (bno) references board(bno);
+
 
 alter table tbl_attach add constraint fk_board_attach foreign key (uploadPath) references board(bno);
 alter table tbl_attach add constraint fk_board_attach foreign key (fileName) references board(bno);

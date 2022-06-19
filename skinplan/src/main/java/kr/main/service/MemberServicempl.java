@@ -38,18 +38,26 @@ public class MemberServicempl implements MemberService{
 	public void upload(boardVO board) {
 		System.out.println("upload...."+board);
 		mapper.insertSelectKey(board);
-//		if(board.getAttachList()==null || board.getAttachList().size() <=0) {
-//			return;
-//		}
-//		board.getAttachList().forEach(attach ->{
-//			attach.setBno(board.getBno());
-//			mapper.insert(attach);
-//		});
+		if(board.getAttachList()==null || board.getAttachList().size() <=0) {
+			return;
+		}
+		board.getAttachList().forEach(attach ->{
+			attach.setBno(board.getBno());
+			mapper.insertimg(attach);
+		});
 	}
+	//사진포함된 게시물 조회
 	@Override
 	public List<BoardAttachVO> getAttachList(Long bno) {
 		System.out.println("get Attach list by bno" +bno);
-		return mapper.findByBno(bno);
+		return mapper.findByBnoimg(bno);
+	}
+	//게시물 삭제
+	@Override
+	public boolean remove(Long bno) {
+		System.out.println("remove....."+bno);
+		mapper.deleteAll(bno);
+		return mapper.delete(bno)==1;
 	}
 	//피부진단 등록
 	@Transactional
@@ -82,6 +90,7 @@ public class MemberServicempl implements MemberService{
 //		mapper.deleteAll(bno);
 //		return mapper.delete(bno) == 1;
 //	}
+
 	@Override
 	public List<SkinAttachVO> getImgList(Long test_id){
 		System.out.println("test_img " + test_id);
@@ -110,12 +119,6 @@ public class MemberServicempl implements MemberService{
 	public boolean modify(boardVO board) {
 		System.out.println("modify....."+board);
 		return mapper.update(board) ==1;
-	}
-	//게시물 삭제
-	@Override
-	public boolean remove(Long bno) {
-		System.out.println("remove....."+bno);
-		return mapper.delete(bno)==1;
 	}
 	@Override
 	public void insert(BoardAttachVO vo) {
@@ -147,7 +150,6 @@ public class MemberServicempl implements MemberService{
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void fileInsert(SkinAttachVO vo) {

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -134,7 +136,7 @@ public class Controller {
 	// 게시판 글쓰기 취소
 	@RequestMapping("/cancel")
 	public String boardcancel() {
-		return "main_board";
+		return "redirect:/main_board";
 	}
 	//썸네일 카드 선택
 //	@RequestMapping("/boardView")
@@ -214,14 +216,13 @@ public class Controller {
 		}
 		return "redirect:/main_board";
 	}
-//	@RequestMapping("/modify")
-//	public String modify() {
-//		return "modify";
-//	}
+
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		System.out.println("remove...."+bno);
+		List<BoardAttachVO> attachList = memberservice.getAttachList(bno);
 		if(memberservice.remove(bno)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/main_board";
@@ -239,11 +240,11 @@ public class Controller {
 	public String upload(boardVO board, RedirectAttributes rttr) {
 		System.out.println("==============");
 		System.out.println("register: " +board);
-//		if(board.getAttachList() != null) {
-//			board.getAttachList().forEach(attach ->
-//			System.out.println(attach));
-//		}
-//		System.out.println("=============");
+		if(board.getAttachList() != null) {
+			board.getAttachList().forEach(attach ->
+			System.out.println(attach));
+		}
+		System.out.println("=============");
 		memberservice.upload(board);
 		rttr.addFlashAttribute("result", board.getBno());
 		return "redirect:/main_board";
@@ -377,6 +378,25 @@ public class Controller {
             e.printStackTrace();
         }
         return result;
+    }
+    //파일 삭제처리
+    private void deleteFiles(List<BoardAttachVO> attachList) {
+    	if(attachList == null || attachList.size() == 0) {
+    		return;
+    	}
+    	System.out.println("delete attach files........");
+    	attachList.forEach(attach ->{
+    		try {
+    			Path file = Paths.get("c:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+    			Files.deleteIfExists(file);
+    			if(Files.probeContentType(file).startsWith("image")) {
+    				Path thumbNail = Paths.get("c:\\upload\\"+attach.getUploadPath()+"\\s_"+attach.getUuid()+"_"+attach.getFileName());
+    				Files.delete(thumbNail);
+    			}
+    		}catch(Exception e) {
+    			System.out.println("delete file error");
+    		}
+    	});
     }
 	//피부진단페이지 파일 ajax
 //	@PostMapping(value="/imgAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

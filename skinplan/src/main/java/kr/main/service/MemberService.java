@@ -36,7 +36,7 @@ public interface MemberService {
 	public void delete(String uuid);
 	public List<BoardAttachVO> findByBno(Long bno);
 	
-	//게시물 조회
+	//첨부파일이 포함된 게시물 조회
 	public List<BoardAttachVO> getAttachList(Long bno);
 	//피부진단사진업로드
 	public void fileInsert(SkinAttachVO vo);

@@ -127,8 +127,7 @@
         <!-- 게시글 썸네일 카드 -->
         <div class="album pt-3 bg-light">
           <div class="container bg-info bg-opacity-25">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="list">
-            
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="list">        
                <div class="col">
                 <div class="card shadow-sm">
                   <a href="boardView">
@@ -241,15 +240,15 @@ $(document).ready(()=>{
 	function resultHtml(data){
 		var view = "<div calss='col'>";
 		view+= "<div class='card shadow-sm'> ";
-        view+= "<div id='t"+obj.bno+"'><a href='boardView'>";
+        view+= "<div><a href=''>";
         view+= "<div class='card' style='width: 100%'>";
         view+= "<div class='uploadResult'>";
         view+= "<ul>";
         view+= "</ul>";
         view+= "</div>";
         view+= "<div class='card-body'>";
-        view+= "<h5 class='card-title'/>게시글</h5>";
-        view+= "<p class='card-text'/>피부타입 : 중성 </p>";
+        view+= "<h5 class='card-title'/>제목</h5>";
+        view+= "<p class='card-text'/>피부타입 :  </p>";
         view+= "</div>";    
         view+= "</div>";
         view+= "</a>";
@@ -262,13 +261,12 @@ $(document).ready(()=>{
       		view+= "<div><a href='boardView'>";
       		view+= "<div class='card' style='width: 100%'>";
             view+= "<div class='uploadResult'>";
-            view+= "<ul>";
+            view+= "<ul id='t"+bno+"'>";
 			//image type
 			if(obj.fileType){
-				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-				
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);				
 				view += "<a data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"' ><div>";
-				view += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+				view += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px;'>";
 				view += "</div>";
 				view += "</a>";
 			}else{

@@ -126,9 +126,9 @@
             </div>
         </nav>
     </div>
+    <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno }"/>'></div>
      <form role="form" action="modify" method="post">
     <div class="form-group">
-    <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno }"/>'></div>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -137,13 +137,8 @@
     					<div class="panel panel-default">
     						<div class="panel-heading"></div>
     					<div class="panel-body">
-    				<div class="uploadDiv">
-						<input type="file" name="uploadFile" multiple>
-					</div>	
-
-    				<div class='uploadResult'>
+    			<div class='uploadResult'>
 						<ul>
-		
 						</ul>
 					</div>
     				</div>
@@ -190,7 +185,7 @@
         <div class="row mb-3">
             <label for="title" class="col-sm-2 col-form-label mx-1"></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control-plaintext mx-4" id="title" value='<c:out value="${board.title }"/>'>
+                <input type="text" class="form-control-plaintext mx-4" id="title" name="title" value='<c:out value="${board.title }"/>'>
             </div>
         </div>
 
@@ -213,56 +208,46 @@
      </form>
 <script>
 $(document).ready(function(){
-	var formObj = ${"form"};
+	(function(){
+	var bno = '<c:out value="$(board.bno}"/>';
+	$.getJSON("getAttachList", {bno:bno}, function(arr){
+		console.log(arr);
+		var str = "";
+		$(arr).each(function(i, attach){
+			//image type
+			if(attach.fileType){
+				var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);				
+				str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+				str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+				str += "</div>";
+				str += "</li>";
+			}else{
+				str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+				//str += "<span>" + attach.fileName+"</span><br/>";
+				str += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px'>";
+				str += "</div>";
+				str += "</a>";
+			}
+		});
+		$(".uploadResult ul").html(str); 	
+});//end getjson
+})();//end function
+(function(){
+var formObj = ${"form"};
 	$('button').on("click", function(e){
 		e.preventDefault();
 		var operation = $(this).data("oper");
 		console.log(operation);
 		if(operation === 'remove'){
 			formObj.attr("action","remove");
-		}else if(operation ==='main_board'){
-			self.location="main_board";
-			return;
+		}else if(operation ==='list'){
+			formObj.attr("action","main_board").attr("method","get");
+			formObj.empth();
 		}
 		formObj.submit();
 });
-/* 	var operForm = $("#operForm");
-	$("button[data-oper='modify']").on("click", function(e){
-		operForm.attr("action", "modify").submit();
-	});
-	$("button[data-oper='list']").on("click", function(e){
-		operForm.find("#bno").remove();
-		operForm.attr("action","main_board")
-		operForm.submit();
-	});
-	(function(){
-		var bno = '<c:out value="$(board.bno}"/>';
-		$.getJSON("getAttachList", {bno:bno}, function(arr){
-			console.log(arr);
-			var str = "";
-			$(arr).each(function(i, attach){
-				//image type
-				if(attach.fileType){
-					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-					
-					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
-					str += "</div>";
-					str += "</li>";
-				}else{
-					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
-					str += "<span>" + attach.fileName+"</span><br/>";
-					str += "<img src='/resources/img/attach.png'>";
-					str += "</div>";
-					str += "</li>";
-				}
-			});
-			
-			$(".uploadResult ul").html(str); 
-		
-		});//end getjson
-	}); */
-
+});
+});
 </script>
 </body>
 

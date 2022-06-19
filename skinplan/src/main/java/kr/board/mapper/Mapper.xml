@@ -28,13 +28,13 @@
         values (#{bno}, #{title}, #{content}, #{skintype})
     </insert>
     <select id="read" resultType="kr.main.entity.boardVO">
-        select * from board where bno = #{bno}
+        select * from board where bno = #{bno} 
     </select>
     <delete id="delete">
         delete * from board where bno = #{bno}
     </delete>
     <update id="update">
-        update board set title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
+        update board set title=#{title}, content=#{content} where bno=#{bno}
     </update>
     <!--게시글 목록 -->
     <select id="getboardList" resultType="kr.main.entity.boardListVO">
@@ -52,15 +52,19 @@
    </select>
     
     <!-- 첨부파일 업로드 -->
-<!--     <insert id="insert">
+    <insert id="insertimg">
         insert into tbl_attach (uuid, uploadPath, fileName, fileType, bno)
         values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
-    </insert> -->
-    
-    <select id="findByBno" resultType="kr.main.entity.BoardAttachVO">
+    </insert> 
+    <delete id="deleteimg">
+        delete from tbl_attach where uuid=#{uuid}
+    </delete>
+    <select id="findByBnoimg" resultType="kr.main.entity.BoardAttachVO">
 		select * from tbl_attach where bno = #{bno}        
     </select>
-
+    <delete id="deleteAll">
+        delete from tbl_attach where bno = #{bno}
+    </delete>
  <!--    <insert id="insertSelectKey" parameterType="kr.main.entity.boardVO" useGeneratedKeys="true" keyProperty="bno">
         <selectKey keyProperty="bno" order="BEFORE" resultType="long">
             select seq_board.nextval from dual
@@ -96,10 +100,7 @@
     <select id="img_read" resultType="kr.main.entity.BoardAttachVO">
         select * from tbl_attach where bno = #{bno}
     </select>
- 
-    <delete id="deleteAll">
-        delete from tbl_attach where bno = #{bno}
-    </delete>
+
 
 	
 </mapper>

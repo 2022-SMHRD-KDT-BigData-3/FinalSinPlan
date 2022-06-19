@@ -47,9 +47,11 @@ public interface Mapper {
 
 	public void board(boardVO vo);
 	//첨부파일 업로드
-	public void insert(BoardAttachVO vo);
-	public void delete(String uuid);
-	public List<BoardAttachVO> findByBno(Long bno);
+	public void insertimg(BoardAttachVO vo);
+	public void deleteimg(String uuid);
+	public List<BoardAttachVO> findByBnoimg(Long bno);
+	//첨부파일 삭제 처리
+	public void deleteAll(Long bno); 
 	
 	public List<BoardAttachVO> getAttachList(Long bno);
 	public void upload(boardVO boardvo);
@@ -59,9 +61,6 @@ public interface Mapper {
 	public void saveImage(Map<String, Object> hmap);
 	
 	public Map<String, Object> getByteImage();
-	
-	//첨부파일 삭제 처리
-	public void deleteAll(Long bno); 
 	
 	//게시글 목록
 	public List<boardListVO> getboardList();
