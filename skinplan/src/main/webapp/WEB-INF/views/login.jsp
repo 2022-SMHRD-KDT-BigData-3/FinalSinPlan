@@ -101,7 +101,7 @@
                                 비밀번호를 입력해주세요.
                             </div>
                         </div>
-                        
+                        <input type="hidden" name="nickname" value='<c:out value="${member.nickname}"/>'/>
                         
                     </div>
 

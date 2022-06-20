@@ -192,7 +192,7 @@
 			         	<td><a href='boardView?bno=<c:out value="${board.bno}"/>'>
 			         	<c:out value="${board.title}"/></a></td>
 			         	<td><c:out value="${board.skintype }"/></td>
-			    		         	
+			    		<td><c:out value="${board.nickname }"/></td>         	
 			         </tr>  		
               	</c:forEach>
               </table>

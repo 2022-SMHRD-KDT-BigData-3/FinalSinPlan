@@ -15,5 +15,7 @@ public class boardVO {
 	private String content;//내용
 	private String skintype;//피부타입
 	
+	private String nickname;
+	
 	private List<BoardAttachVO> attachList; //업로드한 사진
 }

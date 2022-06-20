@@ -7,7 +7,7 @@
 		values(#{email, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{mem_name, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, #{gender, jdbcType=VARCHAR}, #{mem_tel, jdbcType=VARCHAR}, sysdate)       
     </insert>
     <select id="memberLogin" resultType="kr.main.entity.memberVO">
-        select email, password from member where email=#{email} and password=#{password}
+        select email, password, nickname  from member where email=#{email} and password=#{password}
     </select>
     <update id="updateMember" parameterType="kr.main.entity.memberVO">
         update member set password=#{password} where email=#{email}
@@ -15,25 +15,22 @@
     <!-- 게시판 목록 -->
     <select id = "getList" resultType="kr.main.entity.boardVO">
         <![CDATA[
-        select * from board where bno > 0
+        select * from board order by bno desc
         ]]>
     </select>
-    <select id="nickname" resultType="kr.main.entity.memberVO">
-        select nickname=#{nickname} from member
-    </select>
     <insert id="insert">
-        insert into board (bno,title,content,skintype)
-        values (seq_board.nextval, #{title}, #{content},#{skintype})
+        insert into board (bno,title,content,skintype,nickname)
+        values (seq_board.nextval, #{title}, #{content},#{skintype},#{nickname})
     </insert>
     <insert id="insertSelectKey">
        	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
             select seq_board.nextval from dual
         </selectKey>
-        insert into board(bno,title,content,skintype)
-        values (#{bno}, #{title}, #{content}, #{skintype})
+        insert into board(bno,title,content,skintype, nickname)
+        values (#{bno}, #{title}, #{content}, #{skintype}, #{nickname})
     </insert>
     <select id="read" resultType="kr.main.entity.boardVO">
-        select * from board where bno = #{bno} 
+        select * from board where bno = #{bno}  
     </select>
     <delete id="delete">
         delete * from board where bno = #{bno}

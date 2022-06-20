@@ -17,6 +17,8 @@ create table board(
  skintype number(10),
  primary key(bno)
 );
+alter table board add(nickname varchar2(15));
+ALTER TABLE board ADD(CONSTRAINT board_nick_fk FOREIGN KEY(nickname) REFERENCES member(nickname));
 
 ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
 insert into board values (1,'제목','내용','1');

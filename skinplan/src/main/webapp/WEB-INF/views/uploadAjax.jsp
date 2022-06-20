@@ -123,6 +123,12 @@
       <div class="col-sm-10">
         <input type="text" class="form-control" id="title" name="title">
       </div>
+              <% 
+        session = request.getSession();
+        String nickname = (String)session.getAttribute("nickname"); 
+        %>
+        <input type="hidden" name="nickname" value = <%= nickname %>  >
+   <%--   <input type="hidden" name="nickname" value='<c:out value="${board.nickname}"/>'/> --%>
     </div>
     <div class="form-floating">
       <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"></textarea>

@@ -127,7 +127,6 @@
         </nav>
     </div>
     <div class="form-group">
-    <input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'></div>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -171,7 +170,7 @@
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>닉네임 : <c:out value="${member.nickname}"/></h3>      
+                            <h3>닉네임 : <c:out value="${board.nickname}"/></h3>      
                         </blockquote>
                         <figcaption class="blockquote-footer">
                            	 피부 타입 : <c:out value="${board.skintype }"></c:out>

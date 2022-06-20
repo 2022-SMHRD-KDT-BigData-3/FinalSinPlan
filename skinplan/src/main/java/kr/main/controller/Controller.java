@@ -105,7 +105,9 @@ public class Controller {
 		}
 		
 		session.setAttribute("member", lvo); // 일치하는 아이디, 비밀번호 경우(로그인 성공)
-		return "main_scan";
+	    session.setAttribute("nickname", lvo.getNickname());
+		
+	    return "main_scan";
 	}
 
 	// 메인페이지,상단네비바에서 로그아웃
@@ -185,7 +187,7 @@ public class Controller {
 	}
 	//게시판 목록
 	@GetMapping("/main_board")
-	public void list(Model model) {
+	public void list(Model model, HttpServletRequest request) {
 		System.out.println("게시판 목록");
 		model.addAttribute("list",memberservice.getList());
 	}
@@ -241,7 +243,7 @@ public class Controller {
 	}
 	//Ajax를 이용한 파일 업로드
 	@PostMapping("/uploadAjax")
-	public String upload(boardVO board, RedirectAttributes rttr) {
+	public String upload(boardVO board, RedirectAttributes rttr, HttpServletRequest request) {
 		System.out.println("==============");
 		System.out.println("register: " +board);
 		if(board.getAttachList() != null) {
