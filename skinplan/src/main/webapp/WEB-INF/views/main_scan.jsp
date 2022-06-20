@@ -167,13 +167,13 @@
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
             <div class="uploadDiv">
-<<<<<<< HEAD
+
               <input type='file' name="uploadfile" multiple accept="image/*">
 
-=======
-              <input type='file' name="uploadFile" multiple accept="image/*">
+
+             
               <input type='text' name="id" hidden value="">
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
               <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
              <div class='uploadResult'>
       		<ul>

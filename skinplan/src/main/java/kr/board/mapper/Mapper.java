@@ -11,11 +11,11 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
-<<<<<<< HEAD
+
 import kr.main.entity.Vo2;
-=======
+
 import kr.main.entity.boardListVO;
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
 import kr.main.entity.boardVO;
 import kr.main.entity.memberVO;
 
@@ -55,20 +55,20 @@ public interface Mapper {
 	public void upload(boardVO boardvo);
 	//피부진단파일업로드
 	public void fileInsert(Test_ImgVO vo);
-<<<<<<< HEAD
+
 
 	public void saveImage(Map<String, Object> hmap);
 	
 	public Map<String, Object> getByteImage();
 	
 	public void insertImages(Vo2 vo);
-=======
+
 	//첨부파일 삭제 처리
 	public void deleteAll(Long bno); 
 	
 	//게시글 목록
 	public List<boardListVO> getboardList();
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
 	
 }
 

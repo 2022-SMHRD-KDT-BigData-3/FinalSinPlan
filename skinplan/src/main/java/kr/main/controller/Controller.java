@@ -56,11 +56,11 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
-<<<<<<< HEAD
+
 import kr.main.entity.Vo2;
-=======
+
 import kr.main.entity.boardListVO;
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
 import kr.main.entity.boardVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
@@ -453,7 +453,7 @@ public class Controller {
 		rttr.addFlashAttribute("result", vo.getIno());
 		return "redirect:/loading";
 	}
-<<<<<<< HEAD
+
 //	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 //	@ResponseBody
 //	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
@@ -495,20 +495,7 @@ public class Controller {
 		return mv;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-=======
+
 	//
 	@RequestMapping("/BoardView")
 	public String BoardView() {
@@ -526,6 +513,6 @@ public class Controller {
 	public String remain() {
 		return "main_log";
 	}
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
 } //controller end
 	
