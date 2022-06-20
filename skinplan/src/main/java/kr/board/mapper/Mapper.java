@@ -59,12 +59,15 @@ public interface Mapper {
 	public List<BoardAttachVO> getAttachList(Long bno);
 	public void upload(boardVO boardvo);
 	//피부진단파일업로드
+
 	public void fileInsert(Test_ImgVO vo);
+
 
 	public void saveImage(Map<String, Object> hmap);
 	
 	public Map<String, Object> getByteImage();
-	
+
+
 	//게시글 목록
 	public List<boardListVO> getboardList();
 
@@ -73,7 +76,6 @@ public interface Mapper {
 	//진단사진 불러오기
 	public Map<String, Object> selectImages(int test_id);
 	
-
 	
 }
 

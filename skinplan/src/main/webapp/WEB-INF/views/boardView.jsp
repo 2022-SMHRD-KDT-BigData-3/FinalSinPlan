@@ -70,14 +70,7 @@
             border: none;
             resize: none;
         }
-        #result_card img{
-			max-width: 100%;
-	  	 	height: auto;
-	   		display: block;
-	   		padding: 5px;
-	   		margin-top: 10px;
-	  		margin: auto;	
-		}
+
 		.bigPicture{
 		position: relative;
 		display:fles;
@@ -88,11 +81,12 @@
 		width:600px;
 		}
 
+
     </style>
 
 </head>
 
-<body class=" bg-info bg-opacity-25">
+<body class="bg-info bg-opacity-25" style="height: 100%">
     <!-- 상단 네비바 -->
     <div>
         <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
@@ -127,23 +121,20 @@
         </nav>
     </div>
     <div class="form-group">
+<<<<<<< HEAD
+=======
+    	<input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'>
+    </div>
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
     
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-                 <div class ="row">
-    				<div class="col-lg-12">
-    					<div class="panel panel-default">
-    						<div class="panel-heading"></div>
-    					<div class="panel-body">
-
-    				<div class='uploadResult'>
-						<ul>	
+        <div class="container text-center">
+        	
+    				<div class='uploadResult mt-2'>
+						<ul style="padding: 0px">	
 						</ul>
 					</div>
     				</div>
-    	</div>
-    	</div>
-    </div> 
+
        <!--          <img src="" class="d-block w-100" height=300px
                     alt="...">
             </div> -->
@@ -154,14 +145,7 @@
                 <img src="img/phone-wallpaper-g43fb981c2_1920.jpg" class="d-block w-100" height=300px alt="...">
             </div> -->
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+
     </div>
 
     <header>
@@ -180,12 +164,14 @@
             </div>
         </div>
     </header>
-        <div class="row mb-3">
-            <label for="title" class="col-sm-2 col-form-label mx-1"></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control-plaintext mx-4" id="title" value='<c:out value="${board.title }"/>' disabled>
-            </div>
-        </div>
+    <div class="container">
+        <div class="row mb-1">
+            <label for="title" class="col mx-1">제목</label>
+		</div>
+		<div class="row">
+            <input type="text" class="form-control-plaintext col mx-3" id="title" value='<c:out value="${board.title }"/>' disabled>
+		</div>
+        
 
         <div class="form-floating">
             <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"
@@ -202,6 +188,7 @@
         <form id='operForm' action="modify" method="get">
         <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'/>
         </form>
+    </div>
 <script>
 $(document).ready(function(){	
 	//(function(){

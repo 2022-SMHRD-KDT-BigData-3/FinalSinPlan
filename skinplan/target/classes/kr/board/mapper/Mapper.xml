@@ -102,7 +102,18 @@
     <select id="img_read" resultType="kr.main.entity.BoardAttachVO">
         select * from tbl_attach where bno = #{bno}
     </select>
+    
+<!--     <update id="update">
+        update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
+    </update> -->
+    
+<!--     <insert id="insertImages" parameterType="map">
+		insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
+	</insert> -->
 
-
+<!--     <delete id="deleteAll">
+        delete from tbl_attach where bno = #{bno}
+    </delete>
+ -->
 	
 </mapper>

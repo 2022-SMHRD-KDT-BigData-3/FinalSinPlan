@@ -47,8 +47,11 @@ import kr.main.entity.AttachFileVO;
 import kr.main.entity.BoardAttachVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
+
 import kr.main.entity.Vo2;
+
 import kr.main.entity.boardListVO;
+
 import kr.main.entity.boardVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
@@ -465,7 +468,8 @@ public class Controller {
 		memberservice.img_Upload(vo);
 		rttr.addFlashAttribute("result", vo.getIno());
 		return "redirect:/loading";
-	}
+}
+
 //	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 //	@ResponseBody
 //	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
@@ -617,10 +621,8 @@ public class Controller {
 	
 	//진단페이지에서 받은 사진 3장
 	@PostMapping("/img_upload")
-	public void imgupload() {
-		
+	public void imgupload() {		
 	}
-
 
 } //controller end
 	
