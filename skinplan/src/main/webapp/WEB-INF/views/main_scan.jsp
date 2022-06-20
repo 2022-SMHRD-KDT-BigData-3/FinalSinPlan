@@ -175,16 +175,16 @@
               
             <div class="container">
               <input type='file' name="uploadfile1">
-               <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>   </div>  
+               <div class="frame" id='att_zone'> </div>  
 
             </div>
             <div class="container">
 			  <input type='file' name="uploadfile2">
-			  <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'> </div>
+			  <div class="frame" id='att_zone'> </div>
 			</div> 
 			 <div class="container">
 			  <input type='file' name="uploadfile3">		
-			   <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>    
+			   <div class="frame" id='att_zone'>    
               </div>
 			 </div>   
          
