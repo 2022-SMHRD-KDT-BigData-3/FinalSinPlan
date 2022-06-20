@@ -126,10 +126,10 @@
             </div>
         </nav>
     </div>
-    <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno }"/>'></div>
+   
      <form role="form" action="modify" method="post">
     <div class="form-group">
-    
+     <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno}"/>'>
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
                  <div class ="row">
@@ -208,7 +208,7 @@
      </form>
 <script>
 $(document).ready(function(){
-	(function(){
+	//(function(){
 	var bno = '<c:out value="$(board.bno}"/>';
 	$.getJSON("getAttachList", {bno:bno}, function(arr){
 		console.log(arr);
@@ -231,7 +231,7 @@ $(document).ready(function(){
 		});
 		$(".uploadResult ul").html(str); 	
 });//end getjson
-})();//end function
+//})();//end function
 (function(){
 var formObj = ${"form"};
 	$('button').on("click", function(e){

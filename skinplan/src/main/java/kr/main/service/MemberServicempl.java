@@ -32,6 +32,8 @@ public class MemberServicempl implements MemberService{
 	public memberVO memberLogin(memberVO member) throws Exception{
 		return mapper.memberLogin(member);
 	}
+	//회원정보수정
+
 	//게시판 등록
 	@Transactional
 	@Override
@@ -102,6 +104,7 @@ public class MemberServicempl implements MemberService{
 		System.out.println("getList........");
 		return mapper.getList();
 	}
+	//닉네임
 	//게시물 글 조회
 	@Override
 	public boardVO get(Long bno) {
@@ -161,5 +164,6 @@ public class MemberServicempl implements MemberService{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

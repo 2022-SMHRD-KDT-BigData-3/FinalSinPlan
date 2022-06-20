@@ -17,6 +17,7 @@ create table board(
  skintype number(10),
  primary key(bno)
 );
+
 ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
 insert into board values (1,'제목','내용','1');
 create table tbl_attach(
@@ -109,6 +110,7 @@ alter table test_img add(skin_id number(3) not null, constraint test_skin_fk for
 select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
 from board b, tbl_attach t
 where b.bno = t.bno;
+
 select * from 
 select * from test_img;
 select * from skin_type;

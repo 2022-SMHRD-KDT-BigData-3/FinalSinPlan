@@ -129,7 +129,7 @@
           <div class="container bg-info bg-opacity-25">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="list">        
                <div class="col">
-                <div class="card shadow-sm">
+<!--                 <div class="card shadow-sm">
                   <a href="boardView">
                     <div class="card" style="width: 100%;">    			
     				<div class='uploadResult'>
@@ -142,9 +142,9 @@
                           </div>
                     </div>
                   </a>
-                </div>
+                </div> -->
               </div> 
-              <c:forEach items="${list}" var="board">
+           <%--    <c:forEach items="${list}" var="board">
               	 <div class="col">
                 <div class="card shadow-sm">
                   <div><a href='boardView?bno=<c:out value="${board.bno}"/>'>
@@ -161,7 +161,7 @@
                   </a></div>
                 </div>
               </div> 
-              </c:forEach>
+              </c:forEach> --%>
               
 <!--               <div class="col">
                 <div class="card shadow-sm">
@@ -177,7 +177,25 @@
                   </a>
                 </div>
               </div>  -->
-                 
+              <table class="table table-striped table-borderd table-hover">
+              	<thead>
+              		<tr>
+              			<th>번호</th>
+              			<th>제목</th>
+              			<th>피부타입</th>
+              			<th>작성자</th>
+              		</tr>
+              	</thead>
+              	<c:forEach items="${list}" var="board">
+			         <tr>
+			         	<td><c:out value="${board.bno }"/></td>
+			         	<td><a href='boardView?bno=<c:out value="${board.bno}"/>'>
+			         	<c:out value="${board.title}"/></a></td>
+			         	<td><c:out value="${board.skintype }"/></td>
+			    		         	
+			         </tr>  		
+              	</c:forEach>
+              </table>
             </div>
           </div>
         </div>
@@ -237,7 +255,7 @@ $(document).ready(()=>{
 			error : function(){alert("error");}
 		});
 	}
-	function resultHtml(data){
+	/* function resultHtml(data){
 		var view = "<div calss='col'>";
 		view+= "<div class='card shadow-sm'> ";
         view+= "<div><a href=''>";
@@ -297,7 +315,7 @@ $(document).ready(()=>{
 		var title=$("t"+bno).text();
 		var view ="<a href='boardView'/>";
 		$("#t"+bno).html(view)
-	}
+	} */
 	
 </script>
 

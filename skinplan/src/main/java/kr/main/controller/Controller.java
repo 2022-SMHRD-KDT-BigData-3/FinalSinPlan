@@ -29,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,13 +115,16 @@ public class Controller {
 		session.invalidate();
 		return "index";
 	}
-
-	// 내정보수정
 	@RequestMapping("/infochange")
-	public String infochange() {
+	public String change() {
 		return "myInfoChange";
 	}
-
+	// 내정보수정
+	@RequestMapping("/update")
+	public String updatemember(@ModelAttribute memberVO vo) {
+		mapper.updateMember(vo);
+		return "redirect:/main_scan";
+	}
 	// 게시판글쓰기페이지 이동
 	@RequestMapping("/boardWrite")
 	public String boardWrite() {
@@ -187,7 +191,7 @@ public class Controller {
 	}
 	@GetMapping("/boardlist")
 	public @ResponseBody List<boardListVO> boardlist (){
-		List<boardListVO> list = mapper.getboardList();		
+		List<boardListVO> list = mapper.getboardList();	
 		return list;
 	}
 	@GetMapping("/read")

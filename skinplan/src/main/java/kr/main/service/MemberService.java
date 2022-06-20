@@ -18,6 +18,7 @@ public interface MemberService {
 	
 	//로그인
 	public memberVO memberLogin(memberVO member) throws Exception;
+	//회원정보수정
 
 	//게시글 업로드
 	public void upload(boardVO boardvo);
@@ -47,6 +48,10 @@ public interface MemberService {
 	//게시글 사진 조회
 	public BoardAttachVO img_get(Long bno);
 	//피부진단 업로드
+	//닉네임
+
+
+	
 	
 
 }

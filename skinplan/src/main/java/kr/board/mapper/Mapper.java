@@ -26,6 +26,8 @@ public interface Mapper {
 	
 	//로그인
 	public memberVO memberLogin(memberVO member);
+	//회원정보수정
+	public void updateMember(memberVO vo);
 	//게시판 목록
 	public List<boardVO> getList();	
 	public void insert(boardVO board);
@@ -33,7 +35,8 @@ public interface Mapper {
 	public boardVO read(Long bno);
 	public int delete(Long bno);
 	public int update(boardVO board);
-	
+	//닉네임
+	public memberVO nickname(memberVO vo);
 	//게시글 사진 조회
 	public BoardAttachVO get_read(Long bno);
 	//피부진단========================

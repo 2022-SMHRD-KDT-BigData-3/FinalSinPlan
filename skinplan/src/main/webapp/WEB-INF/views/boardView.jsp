@@ -206,7 +206,7 @@
 <script>
 $(document).ready(function(){	
 	//(function(){
-				var bno = '<c:out value="${board.bno}"/>';
+		var bno = '<c:out value="${board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){	
 			console.log(arr);
 			var str = "";
