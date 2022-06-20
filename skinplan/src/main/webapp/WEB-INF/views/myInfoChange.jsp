@@ -71,11 +71,12 @@
 
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">정보 수정</h4>
-                <form class="needs-validation" novalidate>
+                <form action="update" class="needs-validation" novalidate>
+               
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="사용자 이메일"  disabled readonly>
+                            <input type="email" class="form-control" id="email" placeholder="" value="${member.email}"  disabled readonly>
                             <div class="invalid-feedback">
                                 이메일을 입력해주세요.
                             </div>
@@ -99,7 +100,7 @@
 
             <hr class="my-4">
 
-            <button class="w-100 btn btn-primary btn-lg" type="submit">내 정보 변경</button>
+            <button class="w-100 btn btn-primary btn-lg" type="submit" >내 정보 변경</button>
             </form>
     </div>
     </div>

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class boardListVO {
+	private Long bno;
 	private String title;//제목
 	private String skintype;//피부타입
 	private String uuid;

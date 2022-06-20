@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 
@@ -22,7 +24,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
+    <script
+	 rc="https://code.jquery.com/jquery-3.4.1.js"
+ 	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+ 	 crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -79,7 +85,7 @@
                 <div class="collapse navbar-collapse" id="navbarsExample01">
                     <ul class="navbar-nav me-auto mb-2">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="infochange">내 정보 변경</a>
@@ -100,14 +106,14 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/img/tro.jpg" class="d-block w-100"
+                    <img src="selectImage" class="d-block w-100"
                         height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="/img/HF_02.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="selectImage" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/skindskfn.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="selectImage" class="d-block w-100" height=300px alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -246,13 +252,40 @@
             </div>
         </div>
         <div class="my-5">
-            <a href="remain" class="w-100 btn btn-primary btn-lg">돌아가기</a>
+            <a href="main_scan" class="w-100 btn btn-primary btn-lg">돌아가기</a>
         </div>
     </div>
-
-
-
-
+<script type="text/javascript">
+$(document).ready(function(){
+	(function(){
+		var bno = '<c:out value="$(board.bno}"/>';
+		$.getJSON("getAttachList", {bno:bno}, function(arr){
+			console.log(arr);
+			var str = "";
+			$(arr).each(function(i, attach){
+				//image type
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</li>";
+				}else{
+					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					str += "<span>" + attach.fileName+"</span><br/>";
+					str += "<img src='/resources/img/attach.png'>";
+					str += "</div>";
+					str += "</li>";
+				}
+			});
+			
+			$(".uploadResult ul").html(str); 
+		
+		});//end getjson
+	});
+});
+</script>
 </body>
 
 </html>

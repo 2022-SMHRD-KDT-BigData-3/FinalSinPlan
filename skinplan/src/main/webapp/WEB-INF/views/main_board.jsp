@@ -76,6 +76,10 @@
       color: #999;
       font-size: .9em;
     }
+    .uploadResult{
+    	width : 200px;
+    	height : 200px;
+    }
   </style>
 
 </head>
@@ -123,13 +127,11 @@
         <!-- 게시글 썸네일 카드 -->
         <div class="album pt-3 bg-light">
           <div class="container bg-info bg-opacity-25">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="list">
-            
-<!--               <div class="col">
-                <div class="card shadow-sm">
-                  <a href="boardView.html">
-                    <div class="card" style="width: 100%;">
-                    이미지 불러오기    			
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="list">        
+               <div class="col">
+<!--                 <div class="card shadow-sm">
+                  <a href="boardView">
+                    <div class="card" style="width: 100%;">    			
     				<div class='uploadResult'>
 						<ul>
 						</ul>
@@ -140,10 +142,28 @@
                           </div>
                     </div>
                   </a>
+                </div> -->
+              </div> 
+           <%--    <c:forEach items="${list}" var="board">
+              	 <div class="col">
+                <div class="card shadow-sm">
+                  <div><a href='boardView?bno=<c:out value="${board.bno}"/>'>
+                    <div class="card" style="width: 100%;">    			
+    				<div class='uploadResult'>
+						<ul>
+						</ul>
+					</div>                    
+                      <div class="card-body">
+                        <h3 class="card-title"><c:out value="${board.title }"></c:out></h5>
+                        <p class="card-text"><c:out value="${board.skintype }"></c:out></p>
+                          </div>
+                    </div>
+                  </a></div>
                 </div>
               </div> 
+              </c:forEach> --%>
               
-              <div class="col">
+<!--               <div class="col">
                 <div class="card shadow-sm">
                   <a href="boardView.html">
                     <div class="card" style="width: 100%;">
@@ -156,8 +176,26 @@
                     </div>
                   </a>
                 </div>
-              </div> -->
-                 
+              </div>  -->
+              <table class="table table-striped table-borderd table-hover">
+              	<thead>
+              		<tr>
+              			<th>번호</th>
+              			<th>제목</th>
+              			<th>피부타입</th>
+              			<th>작성자</th>
+              		</tr>
+              	</thead>
+              	<c:forEach items="${list}" var="board">
+			         <tr>
+			         	<td><c:out value="${board.bno }"/></td>
+			         	<td><a href='boardView?bno=<c:out value="${board.bno}"/>'>
+			         	<c:out value="${board.title}"/></a></td>
+			         	<td><c:out value="${board.skintype }"/></td>
+			    		         	
+			         </tr>  		
+              	</c:forEach>
+              </table>
             </div>
           </div>
         </div>
@@ -217,10 +255,10 @@ $(document).ready(()=>{
 			error : function(){alert("error");}
 		});
 	}
-	function resultHtml(data){
+	/* function resultHtml(data){
 		var view = "<div calss='col'>";
 		view+= "<div class='card shadow-sm'> ";
-        view+= "<a href='boardView.html'>";
+        view+= "<div><a href=''>";
         view+= "<div class='card' style='width: 100%'>";
         view+= "<div class='uploadResult'>";
         view+= "<ul>";
@@ -228,27 +266,27 @@ $(document).ready(()=>{
         view+= "</div>";
         view+= "<div class='card-body'>";
         view+= "<h5 class='card-title'/>제목</h5>";
-        view+= "<p class='card-text'/>피부타입</p>";
+        view+= "<p class='card-text'/>피부타입 :  </p>";
         view+= "</div>";    
         view+= "</div>";
         view+= "</a>";
+        view+= "</div>";
         view+= "</div>";
       	view+= "</div>";
       	$.each(data, function(index,obj){
       		view+="<div class='col'";
       		view+= "<div class='card shadow-sm'> ";
-      		view+= "<a href='boardView.html'>";
+      		view+= "<div><a href='boardView'>";
       		view+= "<div class='card' style='width: 100%'>";
             view+= "<div class='uploadResult'>";
-            view+= "<ul>";
+            view+= "<ul id='t"+bno+"'>";
 			//image type
 			if(obj.fileType){
-				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-				
-				view += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"' ><div>";
-				view += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);				
+				view += "<a data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"' ><div>";
+				view += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px;'>";
 				view += "</div>";
-				view += "</li>";
+				view += "</a>";
 			}else{
 				view += "<li data-path='"+obj.uploadPath+"'data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'data-type='"+obj.fileType+"' ><div>";
 				view += "<span>" + obj.fileName+"</span><br/>";
@@ -265,6 +303,7 @@ $(document).ready(()=>{
             view+= "</div>";
             view+= "</a>";
             view+= "</div>";
+            view+= "</div>";
            	view+= "</div>";
 
       	});
@@ -272,6 +311,11 @@ $(document).ready(()=>{
       	$("#list").html(view);
 	
 	}
+	function goForm(bno){
+		var title=$("t"+bno).text();
+		var view ="<a href='boardView'/>";
+		$("#t"+bno).html(view)
+	} */
 	
 </script>
 

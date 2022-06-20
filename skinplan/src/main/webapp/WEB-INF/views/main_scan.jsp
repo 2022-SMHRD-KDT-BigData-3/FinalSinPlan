@@ -102,6 +102,10 @@
     	padding: 0;
     	
     }
+    .thumbnail{
+    width:200px;
+    height:200px;
+    }
   </style>
 
 </head>
@@ -119,7 +123,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
           <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="infochange">내 정보 변경</a>
@@ -166,6 +170,7 @@
           <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
+<<<<<<< HEAD
             <div class="uploadDiv">
 
               <input type='file' name="uploadfile" multiple accept="image/*">
@@ -181,7 +186,23 @@
 		 </div>
               
               </div>
+=======
+          
+            <div class="container">
+              <input type='file' name="uploadfile1" multiple accept="image/*">
+               <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>   </div>  
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
             </div>
+            <div class="container">
+			  <input type='file' name="uploadfile2" multiple accept="image/*">
+			  <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'> </div>
+			</div> 
+			 <div class="container">
+			  <input type='file' name="uploadfile3" multiple accept="image/*">		
+			   <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>    
+              </div>
+			 </div>   
+         
           </div>
           <fieldset class="row mb-3 ">
             <select class="form-select" aria-label="Default select example" name="skin_id">
@@ -192,15 +213,18 @@
               <option value=4>중성</option>
             </select>
           </fieldset>
-       <button class="btn btn-primary mb-5">submit</button>
+       <button id ="submit" class="btn btn-primary mb-5">submit</button>
         </div>
       </form>
-
+	<div class='uploadResult'>
+			<ul>
+			</ul>
+	</div>
     </div> 
   </div>
   <ul class="nav fixed-bottom nav-pills mb-3 nav-fill bg-light" id="pills-tab" >
     <li class="nav-item" role="presentation">
-      <a href="#" class="nav-link active" aria-selected="true">피부 진단</a>
+      <a href="main_scan" class="nav-link active" aria-selected="true">피부 진단</a>
     </li>
     <li class="nav-item" role="presentation">
       <a href="./main_log.html" class="nav-link" aria-selected="false">피부 일기</a>
@@ -212,8 +236,90 @@
 </body>
 
 <script type="text/javascript">
-$(document).ready(function(e){
-	var formObj = $("form[role='form']");
+window.addEventListener('load',function(){
+	const container = document.querySelectorAll('.container');
+	const frame1 = container[0].querySelector('#att_zone');
+	const frame2 = container[1].querySelector('#att_zone');
+	const frame3 = container[2].querySelector('#att_zone');
+	//console.log(frame1)
+	const fileInput1 = container[0].querySelector('input[type="file"]');
+	const fileInput2 = container[1].querySelector('input[type="file"]');
+	const fileInput3 = container[2].querySelector('input[type="file"]');
+	//console.log(fileInput2)
+	fileInput1.addEventListener('input', () => {
+		if(!isImage(fileInput1.files[0])){
+			alert('image 파일만 업로드 할 수 있습니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.addEventListener('load',() => {
+			const img = document.createElement('IMG');
+			img.classList.add('thumbnail');
+			img.src = reader.result;
+			frame1.insertAdjacentElement('beforeend', img);
+		});
+		reader.readAsDataURL(fileInput1.files[0]);
+	});
+	
+	fileInput2.addEventListener('input', () => {
+		if(!isImage(fileInput2.files[0])){
+			alert('image 파일만 업로드 할 수 있습니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.addEventListener('load',() => {
+			const img = document.createElement('IMG');
+			img.classList.add('thumbnail');
+			img.src = reader.result;
+			frame2.insertAdjacentElement('beforeend', img);
+			
+		});
+		reader.readAsDataURL(fileInput2.files[0]);
+	});
+	
+	fileInput3.addEventListener('input', () => {
+		if(!isImage(fileInput3.files[0])){
+			alert('image 파일만 업로드 할 수 있습니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.addEventListener('load',() => {
+			const img = document.createElement('IMG');
+			img.classList.add('thumbnail');
+			img.src = reader.result;
+			frame3.insertAdjacentElement('beforeend', img);
+			
+		});
+		reader.readAsDataURL(fileInput3.files[0]);
+	});
+	function isImage(file){
+		return file.type.indexOf('image')>=0;
+	}
+});
+$("#submit").on("click", function(e){
+	var formData = new FormData();
+	var inputFile = $("input[type='file']");
+	var files = inputFile[0].files;
+	console.log(files);
+	for(var i=0; i<files.length;i++){
+		formData.append("uploadFile1", files[i]);
+		formData.append("uploadFile2", files[i]);
+		formData.append("uploadFile3", files[i]);
+	}
+	$.ajax({
+		url : 'imgAjaxAction',
+		processData:false,
+		contentType:false,
+		data:formData,
+	//	type:'',
+		dataType:'json',
+		success : function(result){
+			alert("uploaded");
+			console.log(result);
+		}
+	});//$.ajax
+});
+/* 	var formObj = $("form[role='form']");
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
 		console.log("submit clicked");
@@ -227,9 +333,9 @@ $(document).ready(function(e){
 			str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("type")+"'>";
 		});
 		formObj.append(str).submit(); 
-	});
+	}); */
 
-var regex = new RegExp("(.*?)\.(exe|zip)$");
+/* var regex = new RegExp("(.*?)\.(exe|zip)$");
 var maxSize = 5242880; //5MB
 
 function checkExtension(fileName, fileSize){
@@ -242,10 +348,10 @@ function checkExtension(fileName, fileSize){
     return false;
 	}
   return true;
-}
-$("input[type='file']").change(function(e){
+} */
+/* $("input[type='file']").change(function(e){
 	  var formData = new FormData();
-	  var inputFile = $("input[name='uploadFile']");
+	  var inputFile = $("input[type='file']");
 	  var files = inputFile[0].files;
 	  //var cloneObj = $(".uploadDiv").clone();
 	//$("#uploadBtn").on("click", function(e){
@@ -270,7 +376,8 @@ $("input[type='file']").change(function(e){
 		 }
 	 }); //$.ajax  
 });
-var uploadResult = $(".uploadResult ul");
+}); */
+/* var uploadResult = $(".uploadResult ul");
 	function showUploadedFile(uploadResultArr){
 		if(!uploadResultArr || uploadResultArr.length == 0){return;}
 		var uploadUL = $(".uploadResult ul");
@@ -302,8 +409,8 @@ var uploadResult = $(".uploadResult ul");
 			}			
 		});
 		uploadResult.append(str);
-	}
-	$(".uploadResult").on("click", "button", function(e){	  
+	} */
+/* 	$(".uploadResult").on("click", "button", function(e){	  
 		console.log("delete file");
 		  var targetFile = $(this).data("file");
 		  var type = $(this).data("type");
@@ -320,8 +427,8 @@ var uploadResult = $(".uploadResult ul");
 		     }
 		  });//$.ajax
 		});
-});
 
+ */
 </script>
 
 </html>

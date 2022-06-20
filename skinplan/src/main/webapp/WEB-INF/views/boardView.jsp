@@ -27,7 +27,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script
-	 rc="https://code.jquery.com/jquery-3.4.1.js"
+	 src="https://code.jquery.com/jquery-3.4.1.js"
  	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
  	 crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -127,7 +127,7 @@
         </nav>
     </div>
     <div class="form-group">
-    <input type='hidden'class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
+    <input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'></div>
     
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -136,22 +136,18 @@
     					<div class="panel panel-default">
     						<div class="panel-heading"></div>
     					<div class="panel-body">
-    				<div class="uploadDiv">
-						<input type="file" name="uploadFile" multiple>
-					</div>	
 
     				<div class='uploadResult'>
-						<ul>
-		
+						<ul>	
 						</ul>
 					</div>
     				</div>
     	</div>
     	</div>
     </div> 
-                <img src="" class="d-block w-100" height=300px
+       <!--          <img src="" class="d-block w-100" height=300px
                     alt="...">
-            </div>
+            </div> -->
             <!-- <div class="carousel-item">
                 <img src="/img/flowers-7188503_1920.jpg" class="d-block w-100" height=300px alt="...">
             </div>
@@ -193,14 +189,14 @@
         </div>
 
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"
-                disabled></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"
+                readonly="readonly"><c:out value="${board.content}"/></textarea>
             <label for="content">Content</label>
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
         <button data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'"/>수정하기       
-        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'">돌아가기</button>
+        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'"/>돌아가기
            <!--  <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
             <a href="main_board" class="btn btn-primary ">돌아가기</a> -->
         </div>
@@ -208,8 +204,35 @@
         <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'/>
         </form>
 <script>
-$(document).ready(function(){
-	var operForm = $("#operForm");
+$(document).ready(function(){	
+	//(function(){
+		var bno = '<c:out value="${board.bno}"/>';
+		$.getJSON("getAttachList", {bno:bno}, function(arr){	
+			console.log(arr);
+			var str = "";
+			$(arr).each(function(i, attach){
+				//image type
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);			
+					str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</a>";
+				}else{
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);		
+					str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					//str += "<a></a><br/>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px'>";
+					//str += "<img src='./resources/img/attach.png' style='{width:200px; height:200px;}'>";
+					str += "</div>";
+					str += "</a>";
+				}
+			});		
+		$(".uploadResult ul").html(str); 		
+	});//end getjson
+//)}//end function
+(function(){
+var operForm = $("#operForm");
 	$("button[data-oper='modify']").on("click", function(e){
 		operForm.attr("action", "modify").submit();
 	});
@@ -218,35 +241,8 @@ $(document).ready(function(){
 		operForm.attr("action","main_board")
 		operForm.submit();
 	});
-	(function(){
-		var bno = '<c:out value="$(board.bno}"/>';
-		$.getJSON("getAttachList", {bno:bno}, function(arr){
-			console.log(arr);
-			var str = "";
-			$(arr).each(function(i, attach){
-				//image type
-				if(attach.fileType){
-					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-					
-					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
-					str += "</div>";
-					str += "</li>";
-				}else{
-					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
-					str += "<span>" + attach.fileName+"</span><br/>";
-					str += "<img src='/resources/img/attach.png'>";
-					str += "</div>";
-					str += "</li>";
-				}
-			});
-			
-			$(".uploadResult ul").html(str); 
-		
-		});//end getjson
-	});
 });
-
+});
 </script>
 </body>
 

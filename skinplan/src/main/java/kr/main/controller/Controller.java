@@ -1,34 +1,27 @@
 package kr.main.controller;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.imageio.stream.FileCacheImageOutputStream;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.util.URLEncoder;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,24 +29,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.JsonIOException;
+
 import kr.board.mapper.Mapper;
 import kr.main.entity.AttachFileVO;
 import kr.main.entity.BoardAttachVO;
-import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
 
@@ -66,8 +57,6 @@ import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
 import kr.main.service.MemberServicempl;
-import lombok.Getter;
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 
 @org.springframework.stereotype.Controller
@@ -129,13 +118,16 @@ public class Controller {
 		session.invalidate();
 		return "index";
 	}
-
-	// 내정보수정
 	@RequestMapping("/infochange")
-	public String infochange() {
+	public String change() {
 		return "myInfoChange";
 	}
-
+	// 내정보수정
+	@RequestMapping("/update")
+	public String updatemember(@ModelAttribute memberVO vo) {
+		mapper.updateMember(vo);
+		return "redirect:/main_scan";
+	}
 	// 게시판글쓰기페이지 이동
 	@RequestMapping("/boardWrite")
 	public String boardWrite() {
@@ -151,17 +143,13 @@ public class Controller {
 	// 게시판 글쓰기 취소
 	@RequestMapping("/cancel")
 	public String boardcancel() {
-		return "main_board";
+		return "redirect:/main_board";
 	}
 	//썸네일 카드 선택
-	@RequestMapping("/boardView.html")
-	public String boardView() {
-		return "boardView";
-	}
-	@RequestMapping("/boardView")
-	public String boardVIEW() {
-		return "boardView";
-	}
+//	@RequestMapping("/boardView")
+//	public String boardVIEW() {
+//		return "boardView";
+//	}
 	@RequestMapping("/main_board")
 	public String main_board() {
 		return "main_board";
@@ -181,11 +169,7 @@ public class Controller {
 	public String rboardView() {
 		return "main_board";
 	}
-	//게시판 글쓰기 페이지에 이동했을때 
-	@GetMapping("/boardWrite")
-	public void uploadForm() {
-		System.out.println("upload form");
-	}
+
 	//게시판업로드
 	@RequestMapping("/uploadAjax")
 	public String uploadAJAX() {
@@ -203,20 +187,25 @@ public class Controller {
 		return "cosmeticInfo";
 	}
 	//게시판 목록
-	@GetMapping("/list")
+	@GetMapping("/main_board")
 	public void list(Model model) {
 		System.out.println("게시판 목록");
 		model.addAttribute("list",memberservice.getList());
 	}
 	@GetMapping("/boardlist")
 	public @ResponseBody List<boardListVO> boardlist (){
-		List<boardListVO> list = mapper.getboardList();		
+		List<boardListVO> list = mapper.getboardList();	
 		return list;
 	}
+	@GetMapping("/read")
+	public void read(Long bno){
+		boardVO board = mapper.read(bno);
+		System.out.println(board);
+	}
 	//게시물 조회
-	@GetMapping("/boardView")
+	@GetMapping({"/boardView","/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
-		System.out.println("/boardVeiw");
+		System.out.println("boardVeiw or modify");
 		model.addAttribute("board", memberservice.get(bno));
 	}
 	//게시글 사진 조회
@@ -234,20 +223,27 @@ public class Controller {
 		}
 		return "redirect:/main_board";
 	}
-	@RequestMapping("/modify")
-	public String modify() {
-		return "modify";
-	}
+
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		System.out.println("remove...."+bno);
+		List<BoardAttachVO> attachList = memberservice.getAttachList(bno);
 		if(memberservice.remove(bno)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/main_board";
 	}
+	@RequestMapping("/result")
+	public String result() {
+		return "result";
+	}
+	@GetMapping("/uploadAjax")
+	public void uploadAjax() {
+		System.out.println("테스트목록");
+	}
 	//Ajax를 이용한 파일 업로드
-	@PostMapping("/upload")
+	@PostMapping("/uploadAjax")
 	public String upload(boardVO board, RedirectAttributes rttr) {
 		System.out.println("==============");
 		System.out.println("register: " +board);
@@ -390,48 +386,66 @@ public class Controller {
         }
         return result;
     }
-	//피부진단 파일
-	@PostMapping(value="/uploadimgAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<List<imgFileVO>> uploadFile(MultipartFile[] uploadFile) {
-
-		List<imgFileVO> list = new ArrayList<imgFileVO>();
-		String uploadFolder = "c:\\upload";
-		String uploadFolderPath = get_Folder();
-		//make folder
-		File uploadPath = new File(uploadFolder, getFolder());
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
-		}
-		// make yyyy/mm/dd folder
-		for (MultipartFile multipartFile : uploadFile) {
-			imgFileVO attachVO = new imgFileVO();
-			String uploadFileName = multipartFile.getOriginalFilename();
-			//file path
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			System.out.println("only file name :" +uploadFileName);
-			attachVO.setFileName(uploadFileName);
-			UUID uuid = UUID.randomUUID();
-			uploadFileName = uuid.toString()+"_" +uploadFileName;	
-		
-			try {
-				File saveFile = new File(uploadPath, uploadFileName);
-				multipartFile.transferTo(saveFile);
-				attachVO.setUuid(uuid.toString());
-				attachVO.setUploadPath(uploadFolderPath);
-				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
-				BufferedImage bo_image = ImageIO.read(saveFile);
-					double ratio = 2;
-						int width = (int) (bo_image.getWidth()/ratio);
-						int height = (int) (bo_image.getHeight()/ratio);
-				Thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
-				list.add(attachVO);
-				}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}//end for
-		return new ResponseEntity<List<imgFileVO>>(list, HttpStatus.OK);
-	}
+    //파일 삭제처리
+    private void deleteFiles(List<BoardAttachVO> attachList) {
+    	if(attachList == null || attachList.size() == 0) {
+    		return;
+    	}
+    	System.out.println("delete attach files........");
+    	attachList.forEach(attach ->{
+    		try {
+    			Path file = Paths.get("c:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+    			Files.deleteIfExists(file);
+    			if(Files.probeContentType(file).startsWith("image")) {
+    				Path thumbNail = Paths.get("c:\\upload\\"+attach.getUploadPath()+"\\s_"+attach.getUuid()+"_"+attach.getFileName());
+    				Files.delete(thumbNail);
+    			}
+    		}catch(Exception e) {
+    			System.out.println("delete file error");
+    		}
+    	});
+    }
+	//피부진단페이지 파일 ajax
+//	@PostMapping(value="/imgAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	@ResponseBody
+//	public ResponseEntity<List<imgFileVO>> uploadFile(MultipartFile[] uploadFile) {
+//
+//		List<imgFileVO> list = new ArrayList<imgFileVO>();
+//		String uploadFolder = "c:\\upload";
+//		String uploadFolderPath = get_Folder();
+//		//make folder
+//		File uploadPath = new File(uploadFolder, getFolder());
+//		if(uploadPath.exists() == false) {
+//			uploadPath.mkdirs();
+//		}
+//		// make yyyy/mm/dd folder
+//		for (MultipartFile multipartFile : uploadFile) {
+//			imgFileVO attachVO = new imgFileVO();
+//			String uploadFileName = multipartFile.getOriginalFilename();
+//			//file path
+//			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+//			System.out.println("only file name :" +uploadFileName);
+//			attachVO.setFileName(uploadFileName);
+//			UUID uuid = UUID.randomUUID();
+//			uploadFileName = uuid.toString()+"_" +uploadFileName;	
+//			File saveFile = new File(uploadPath, uploadFileName);
+//			try {		
+//				multipartFile.transferTo(saveFile);
+//				attachVO.setUuid(uuid.toString());
+//				attachVO.setUploadPath(uploadFolderPath);
+////				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
+////				BufferedImage bo_image = ImageIO.read(saveFile);
+////					double ratio = 2;
+////						int width = (int) (bo_image.getWidth()/ratio);
+////						int height = (int) (bo_image.getHeight()/ratio);
+////				Thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
+//				list.add(attachVO);
+//				}catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}//end for
+//		return new ResponseEntity<List<imgFileVO>>(list, HttpStatus.OK);
+//	}
 	
 	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
@@ -452,7 +466,7 @@ public class Controller {
 		memberservice.img_Upload(vo);
 		rttr.addFlashAttribute("result", vo.getIno());
 		return "redirect:/loading";
-	}
+}
 
 //	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 //	@ResponseBody
@@ -460,41 +474,11 @@ public class Controller {
 //		System.out.println("getImgList " + test_id);
 //		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
 //	}
-	
-	
+
 	@RequestMapping(value="/form")
 	public String form() {
 		return "form";
 	}
-	
-	
-	@RequestMapping(value="/insertImages")
-	public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
-			 MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
-		List<MultipartFile> multipartFiles = multipartHttpServletRequest.getFiles("uploadfile");
-
-		if(multipartFiles.size() == 1) {
-			vo.setImg1(multipartFiles.get(0).getBytes());
-		}else if(multipartFiles.size() ==2) {
-			vo.setImg1(multipartFiles.get(0).getBytes());
-			vo.setImg2(multipartFiles.get(1).getBytes());
-		}else if(multipartFiles.size() == 3) {
-			vo.setImg1(multipartFiles.get(0).getBytes());
-			vo.setImg2(multipartFiles.get(1).getBytes());
-			vo.setImg3(multipartFiles.get(2).getBytes());
-		}
-		
-		HttpSession session = request.getSession();
-		memberVO member = (memberVO)session.getAttribute("member");
-		
-		vo.setEmail(member.getEmail());
-		vo.setSkin_id(vo.getSkin_id());
-
-		memberservicempl.insertImages(vo);
-		mv.setViewName("main_scan");
-		return mv;
-	}
-	
 
 	//
 	@RequestMapping("/BoardView")
@@ -512,6 +496,130 @@ public class Controller {
 	@RequestMapping("/remain")
 	public String remain() {
 		return "main_log";
+	}
+
+	//피부진단 업로드
+	@RequestMapping("/insertImages")
+	   public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
+	      MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
+	      System.out.println("insertImages");
+	      List<MultipartFile> img1 = multipartHttpServletRequest.getFiles("uploadfile1");
+	      List<MultipartFile> img2 = multipartHttpServletRequest.getFiles("uploadfile2");
+	      List<MultipartFile> img3 = multipartHttpServletRequest.getFiles("uploadfile3");
+
+	      
+	         vo.setImg1(img1.get(0).getBytes());
+	         vo.setImg2(img2.get(0).getBytes());
+	         vo.setImg3(img3.get(0).getBytes());
+	      
+	      
+	      HttpSession session = request.getSession();
+	      memberVO member = (memberVO)session.getAttribute("member");
+	      
+	      vo.setEmail(member.getEmail());
+	      vo.setSkin_id(vo.getSkin_id());
+	     
+	      memberservicempl.insertImages(vo);
+	      mv.setViewName("loading");
+	      return mv;
+	   }
+	
+	//피부진단 첨부파일저장
+//		@PostMapping("/insertImages")
+//		public String uploaded(boardVO board, RedirectAttributes rttr) {
+//			System.out.println("==============");
+//			System.out.println("register: " +board);
+//			if(board.getAttachList() != null) {
+//				board.getAttachList().forEach(attach ->
+//				System.out.println(attach));
+//			}
+//			System.out.println("=============");
+//			memberservice.upload(board);
+//			rttr.addFlashAttribute("result", board.getBno());
+//			return "redirect:/main_board";
+//		}
+//	@RequestMapping("/selectImage")
+//	public void selectImage(Map<String, Object> model ,HttpServletResponse rsponse)throws IOException,SerialException{
+//		List<Map<String,Object>> listBoard;
+//		try {
+//			Map<String, Object>paramMap = new HashMap<String, Object>();
+//			listBoard = mapper.selectImage(test_id);
+//		}
+//	}
+	//이미지 저장
+//	 @PostMapping("/saveImage")
+//	    public String saveImage(@RequestBody Map<String, String> param) {
+//	        System.out.println("\n");
+//	        System.out.println("=======================================");
+//	        System.out.println("[DBApiController] : [saveImage]");
+//	        System.out.println("[request keySet] : " + String.valueOf(param.keySet()));
+//	        System.out.println("[request idx] : " + String.valueOf(param.get("idx")));
+//	        System.out.println("[request idx] : " + String.valueOf(param.get("image")));
+//	        System.out.println("=======================================");
+//	        System.out.println("\n");
+//
+//	        // DATA URL 을 바이트로 변환 실시
+//	        byte imageArray [] = null;
+//	        final String BASE_64_PREFIX = "data:image/png;base64,";
+//	        try {
+//	            String base64Url = String.valueOf(param.get("image"));
+//	            if (base64Url.startsWith(BASE_64_PREFIX)){
+//	                imageArray =  Base64.getDecoder().decode(base64Url.substring(BASE_64_PREFIX.length()));
+//	                System.out.println("\n");
+//	                System.out.println("=======================================");
+//	                System.out.println("[DBApiController] : [saveImage]");
+//	                System.out.println("[imageArray] : " + new String(imageArray));
+//	                System.out.println("=======================================");
+//	                System.out.println("\n");
+//	            }
+//	        }
+//	        catch (Exception e){
+//	            e.printStackTrace();
+//	        }
+//
+//	        // 모델 객체에 idx 및 byte 지정 실시 [오라클 blob 컬럼은 byte 로 되어있다]
+//	        Vo2 vo = new Vo2(param.get("test_id"), imageArray);
+//	        if (mapper.insertImages(vo) > 0) {
+//	            System.out.println("\n");
+//	            System.out.println("=======================================");
+//	            System.out.println("[DBApiController] : [saveImage]");
+//	            System.out.println("[response] : " + new String("T"));
+//	            System.out.println("=======================================");
+//	            System.out.println("\n");
+//	            JSONObject jsonObject = new JSONObject();
+//	            try {
+//	                jsonObject.put("state", "T");
+//	                jsonObject.put("message", "Success");
+//	            } catch (JsonIOException e) {
+//	                e.printStackTrace();
+//	            }
+//	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
+//	        } else {
+//	            System.out.println("\n");
+//	            System.out.println("=======================================");
+//	            System.out.println("[DBApiController] : [saveImage]");
+//	            System.out.println("[response] : " + new String("F"));
+//	            System.out.println("=======================================");
+//	            System.out.println("\n");
+//	            JSONObject jsonObject = new JSONObject();
+//	            try {
+//	                jsonObject.put("state", "F");
+//	                jsonObject.put("message", "Fail");
+//	            } catch (JsonIOException e) {
+//	                e.printStackTrace();
+//	            }
+//	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
+//	        }
+//	    }
+	
+	@RequestMapping("/loading")
+	public String loading() {
+		return "loading";
+	}
+	
+	//진단페이지에서 받은 사진 3장
+	@PostMapping("/img_upload")
+	public void imgupload() {		
 	}
 
 } //controller end
