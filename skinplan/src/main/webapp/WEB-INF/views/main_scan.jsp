@@ -170,35 +170,20 @@
           <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
-<<<<<<< HEAD
             <div class="uploadDiv">
 
-              <input type='file' name="uploadfile" multiple accept="image/*">
-
-
-             
-              <input type='text' name="id" hidden value="">
-
-              <div class="mx-auto" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
-             <div class='uploadResult'>
-      		<ul>
-			</ul>
-		 </div>
               
-              </div>
-=======
-          
             <div class="container">
-              <input type='file' name="uploadfile1" multiple accept="image/*">
+              <input type='file' name="uploadfile1">
                <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>   </div>  
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
             </div>
             <div class="container">
-			  <input type='file' name="uploadfile2" multiple accept="image/*">
+			  <input type='file' name="uploadfile2">
 			  <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'> </div>
 			</div> 
 			 <div class="container">
-			  <input type='file' name="uploadfile3" multiple accept="image/*">		
+			  <input type='file' name="uploadfile3">		
 			   <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>    
               </div>
 			 </div>   
