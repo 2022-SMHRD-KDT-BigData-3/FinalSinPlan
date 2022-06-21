@@ -14,13 +14,14 @@ import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
 import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
+import kr.main.entity.dairyVO;
 import kr.main.entity.memberVO;
 import lombok.Setter;
 
 @Service
 public class MemberServicempl implements MemberService{
 
-	//@Setter(onMethod_=@Autowired)
+	@Setter(onMethod_=@Autowired)
 	private Mapper mapper;
 	//회원가입
 	@Override
@@ -94,6 +95,12 @@ public class MemberServicempl implements MemberService{
 	public List<boardVO> getList(){
 		System.out.println("getList........");
 		return mapper.getList();
+	}
+	//다이어리 목록
+	@Override
+	public List<dairyVO> diaryList(){
+		System.out.println("diaryList : ");
+		return mapper.diaryList();
 	}
 	//닉네임
 	//게시물 글 조회

@@ -139,7 +139,7 @@
     						<div class="panel-heading"></div>
     					<div class="panel-body">
     							<div class='uploadResult'>
-								<ul>
+								<ul style="padding: 0px">
 								</ul>
 								</div>
     				</div>

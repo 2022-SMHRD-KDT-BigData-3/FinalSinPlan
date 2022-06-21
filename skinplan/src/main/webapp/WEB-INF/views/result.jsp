@@ -107,6 +107,11 @@
 				<ul>
 				</ul>
 		</div>
+		 <% 
+        session = request.getSession();
+        String email = (String)session.getAttribute("email"); 
+        %>
+        <input type="hidden" name="email" value = <%= email %>  >
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -259,7 +264,7 @@
         </div>
     </div>
 <script type="text/javascript">
-$(document).ready(function(){
+/* $(document).ready(function(){
 	(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){
@@ -284,9 +289,9 @@ $(document).ready(function(){
 			});			
 			$(".uploadResult ul").html(str); 
 		
-		});//end getjson
+		});
 	});
-});
+}); */
 </script>
 </body>
 

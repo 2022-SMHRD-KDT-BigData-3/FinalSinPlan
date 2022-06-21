@@ -38,6 +38,8 @@ public interface Mapper {
 	public int update(boardVO board);
 	//닉네임
 	public memberVO nickname(memberVO vo);
+	//다이어리 목록
+	public List<dairyVO> diaryList();
 	//게시글 사진 조회
 	public BoardAttachVO get_read(Long bno);
 	//피부진단========================

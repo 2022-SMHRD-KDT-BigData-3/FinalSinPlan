@@ -281,11 +281,10 @@ window.addEventListener('load',function(){
 		return file.type.indexOf('image')>=0;
 	}
 });
-<<<<<<< HEAD
 
  /* $(document).ready(function(e){
 	var formObj = $("form[role='form']");
-=======
+
 $("#submit").on("click", function(e){
 	var formData = new FormData();
 	var inputFile = $("input[type='file']");
@@ -311,7 +310,7 @@ $("#submit").on("click", function(e){
 });
 
 /* 	var formObj = $("form[role='form']");
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
 		console.log("submit clicked");
