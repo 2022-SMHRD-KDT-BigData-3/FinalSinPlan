@@ -2,17 +2,25 @@ package kr.main.controller;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,6 +44,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,12 +70,13 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
-
+import kr.main.entity.Vo;
 import kr.main.entity.Vo2;
 
 import kr.main.entity.boardListVO;
 
 import kr.main.entity.boardVO;
+import kr.main.entity.dairyVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
@@ -487,14 +498,20 @@ public class Controller {
 	}
 	//다이어리 -> 목록
 	@RequestMapping("/remain")
-	public String remain() {
+	public String remain(dairyVO vo, Model model) {
+		vo = mapper.dairyList();
+		
+		model.addAttribute("idx", vo.getDairy_id());
+		model.addAttribute("email", vo.getEmail());
+		model.addAttribute("symptom", vo.getSymptom());
+		model.addAttribute("wr_date", vo.getWr_date());
+		
 		return "main_log";
 	}
 
 	//피부진단 업로드
 	@RequestMapping("/insertImages")
-	   public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
-	      MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
+	   public String insertImages(MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
 	      System.out.println("insertImages");
 	      List<MultipartFile> img1 = multipartHttpServletRequest.getFiles("uploadfile1");
 	      List<MultipartFile> img2 = multipartHttpServletRequest.getFiles("uploadfile2");
@@ -510,91 +527,39 @@ public class Controller {
 	      memberVO member = (memberVO)session.getAttribute("member");
 	      
 	      vo.setEmail(member.getEmail());
-	      vo.setSkin_id(vo.getSkin_id());
+	      vo.setSkin_type(vo.getSkin_type());
 	     
 	      memberservicempl.insertImages(vo);
-	      mv.setViewName("loading");
-	      return mv;
-	   }
+	      
+	      return "redirect:http://localhost:9000/scan";
+	  }
+	
+	
+	
 	@RequestMapping("/loading")
 	public String loading() {
 		return "loading";
 	}
-	@PostMapping("/saveImage")
-	public String saveImage(@RequestBody Map<String, String> param) {
-		 byte imageArray [] = null;
-	        final String BASE_64_PREFIX = "data:image/png;base64,";
-	        try {
-	            String base64Url = String.valueOf(param.get("image"));
-	            if (base64Url.startsWith(BASE_64_PREFIX)){
-	                imageArray =  Base64.getDecoder().decode(base64Url.substring(BASE_64_PREFIX.length()));
-	                System.out.println("\n");
-	                System.out.println("=======================================");
-	                System.out.println("[DBApiController] : [saveImage]");
-	                System.out.println("[imageArray] : " + new String(imageArray));
-	                System.out.println("=======================================");
-	                System.out.println("\n");
-	            }
-	        }
-	        catch (Exception e){
-	            e.printStackTrace();
-	        }
-	     // 모델 객체에 idx 및 byte 지정 실시 [오라클 blob 컬럼은 byte 로 되어있다]
-	        Vo2 userImage = new Vo2(param.get("test_id"), imageArray);
-	        if (mapper.saveImage(userImage) > 0) {
-	          
-	            JsonObject jsonObject = new JsonObject();
-	            try {
-	                jsonObject.put("state", "T");
-	                jsonObject.put("message", "Success");
-	            } catch (JSONException e) {
-	                e.printStackTrace();
-	            }
-	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
-	        } else {
-	    
-	            JsonObject jsonObject = new JsonObject();
-	            try {
-	                jsonObject.put("state", "F");
-	                jsonObject.put("message", "Fail");
-	            } catch (JSONException e) {
-	                e.printStackTrace();
-	            }
-	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
-	        }
-	}
-	@GetMapping("/selectImages")
-	public String selectImage(@RequestParam Map<String, String> param) {
-	
-		int data = Integer.valueOf(param.get("test_id"));
-		Map<String, Object> result = mapper.selectImage(data);
-		byte arr[] = blobToBytes((Blob) result.get("T_BLOB")); 
-        //data url 리턴 실시
-        if(arr.length > 0 && arr != null){ //데이터가 들어 있는 경우
-            //바이트를 base64인코딩 실시
-            String base64Encode = byteToBase64(arr);
-            base64Encode = "data:image/png;base64," + base64Encode;
-            System.out.println("\n");
-            System.out.println("=======================================");
-            System.out.println("[DBApiController] : [selectImage]");
-            System.out.println("[base64Encode] : " + base64Encode);
-            System.out.println("=======================================");
-            System.out.println("\n");
-            return base64Encode;
-        }
-        else {
-            return "";
-        }		
-	}
-
-	private String byteToBase64(byte[] arr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private byte[] blobToBytes(Blob blob) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    
+    @RequestMapping(value="result.do")
+    public String res(dairyVO vo, Model model) {
+    	vo = mapper.dairyView();
+    	
+    	model.addAttribute("id", vo.getDairy_id());
+    	model.addAttribute("path", vo.getPath());
+    	model.addAttribute("symptom", vo.getSymptom());
+    	model.addAttribute("causation", vo.getCausation());
+    	model.addAttribute("care", vo.getCare());
+    	model.addAttribute("date", vo.getWr_date());
+    	
+    	return "result";
+    }
+    
+    @RequestMapping(value="search_date")
+    public String search_date() {
+    	
+    	return "result";
+    }
+    
 } //controller end
 	

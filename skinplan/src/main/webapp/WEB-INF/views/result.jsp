@@ -106,14 +106,14 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/img/tro.jpg" class="d-block w-100"
+                    <img src="${path}/img1.jpg" class="d-block w-100"
                         height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="/img/HF_02.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="${path}/img2.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/skindskfn.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="${path}/img3.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -133,19 +133,19 @@
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">진단결과</h5>
-                <p class="card-text">여드름 : 있음</p>
+                <p class="card-text">${symptom} : 있음</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">원인</h5>
-                <p class="card-text">여드름 : 피지가 피부 밖으로 배출되지 못하여 모낭에 갇히면서 염증을 일으켜 발생, 주로 호르몬 변화, 세균 감염, 유전적 요인으로 발생</p>
+                <p class="card-text">${symptom} : ${causation}</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">Tip</h5>
-                <p class="card-text">피지가 과도하게 생성되는 것을 막고 유성화장품을 사용을 자제하는 것이 좋다. </p>
+                <p class="card-text">${care} </p>
             </div>
         </div>
     </div>
@@ -256,57 +256,7 @@
         </div>
     </div>
 <script type="text/javascript">
-$(document).ready(function(){
-	function requestGet(){
-	      var urlData = "http://localhost:8081/selectImages";
-	      var contentData = "test_id=1";
-	      console.log("");
-	      console.log("[requestGet] : [start]");
-	      console.log("[request url] : " + urlData);
-	      console.log("[request data] : " + contentData);
-	      console.log("[request format] : " + urlData+"?"+contentData);
-	      console.log("[request method] : " + "GET");
-	      console.log("");
-	      $.ajax({
-	          /* 요청 시작 부분 */
-	          url: urlData, //주소
-	          data: { //전송 데이터
-	            "test_id" : 1
-	          },
-	          type: "GET", //전송 타입
-	          async: true, //비동기 여부
-	          dataType: "TEXT", //응답받을 데이터 타입 (XML,JSON,TEXT,HTML)
 
-	          /* 응답 확인 부분 */
-	          success: function(response) {
-	            console.log("");
-	            console.log("[requestGet] : [result]");
-	            console.log("[response] : " + response);
-	            console.log("");
-
-	            // 정상적으로 리턴된 data url 있는 경우 src 에 표시 실시
-	            if(response.length > 0 && response != null){
-	              document.getElementById("preview-image").src = response;
-	            }
-	          },
-
-	          /* 에러 확인 부분 */
-	          error: function(xhr) {
-	            console.log("");
-	            console.log("[requestGet] : [result]");
-	            console.log("[error] : " + xhr);
-	            console.log("");
-	          },
-
-	          /* 완료 확인 부분 */
-	          complete:function(data,textStatus) {
-	            console.log("");
-	            console.log("[requestGet] : [result]");
-	            console.log("[complete] : " + textStatus);
-	            console.log("");
-	          }
-	        });
-}
 </script>
 </body>
 

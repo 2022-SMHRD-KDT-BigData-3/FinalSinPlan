@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vo2 {
-	private byte[] img1;
-	private byte[] img2;
-	private byte[] img3;
+public class dairyVO {
+	private int dairy_id;
 	private String email;
 	private String skin_type;
-
+	private String path;
+	private String symptom;
+	private String causation;
+	private String care;
+	private String wr_date;
 }

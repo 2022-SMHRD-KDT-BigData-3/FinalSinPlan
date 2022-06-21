@@ -7,11 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vo2 {
-	private byte[] img1;
-	private byte[] img2;
-	private byte[] img3;
-	private String email;
-	private String skin_type;
-
+public class Vo {
+	private int key;
+	private byte[] img;
 }

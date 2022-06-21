@@ -23,7 +23,7 @@
     </select>
     <!--진단사진 업로드-->
     <insert id="insertImages" parameterType="map">
-      insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
+      insert into test_img(test_id,img1,img2,img3,email,skin_type) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_type})
    </insert>
    <!-- blob 테스트 -->
      <insert id="saveImage" parameterType="map">
@@ -31,7 +31,7 @@
    </insert>
    <select id="selectImage" resultType="map">
        <![CDATA[
-       select * from test_img where test_id = #{test_id} ]]>
+       select img1 from test_img where test_id = #{idx} ]]>
    </select>
     
     <!-- 첨부파일 업로드 -->
@@ -92,6 +92,52 @@
     <delete id="deleteAll">
         delete from tbl_attach where bno = #{bno}
     </delete>
+    
+    <select id="getImage" resultType="kr.main.entity.Vo">
+        select img1 from test_img where test_id=#{key}
+    </select>
+	
+    
+    <resultMap type="java.util.Map" id="imgMap">
+		<result property="base64" column="img1" jdbcType="BLOB"/>
+	</resultMap>
+	<select id="selectImg" resultMap="imgMap">
+		SELECT img1 FROM test_img where test_id=1
+	</select>
+	
+	
+	<select id="getByteImage" resultType="map">
+		SELECT img1 FROM test_img where test_id=1
+	</select>
 
+	<select id="dairyView" resultType="kr.main.entity.dairyVO">
+	    SELECT * FROM(SELECT d.dairy_id, d.email, d.skin_type, d.path, s.symptom, s.care, s.causation, d.wr_date FROM dairy d, symptom s WHERE d.symptom_id = s.symptom_id ORDER BY d.wr_date DESC) WHERE ROWNUM =1
+	</select>
+	
+	<select id="dairyList">
+	    SELECT d.dairy_id, d.email, s.symptom, d.wr_date FROM dairy d, symptom s WHERE d.symptom_id = s.symptom_id AND d.email=#{email} ORDER BY d.wr_date DESC
+	</select>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
