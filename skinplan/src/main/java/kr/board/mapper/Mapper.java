@@ -11,12 +11,13 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.CommunityVO;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
-
+import kr.main.entity.Vo;
 import kr.main.entity.Vo2;
 
 import kr.main.entity.boardListVO;
 
 import kr.main.entity.boardVO;
+import kr.main.entity.dairyVO;
 import kr.main.entity.memberVO;
 
 @org.apache.ibatis.annotations.Mapper
@@ -73,9 +74,23 @@ public interface Mapper {
 
 	//blob이미지 사진 저장
 	public int insertImages(Vo2 vo);
-	//진단사진 불러오기
-	public Map<String, Object> selectImages(int test_id);
 	
+	//진단사진 불러오기
+//	public List<Vo2> selectImages(int test_id);
+	
+	public int saveImage(Vo2 userImage);
+	
+	public Map<String, Object> selectImage(int idx); 
+	
+	public Vo getImage(int key);
+
+	public Map<String, Object> selectImg();
+	
+	public dairyVO dairyView();
+	
+	public dairyVO dairyList();
+	
+	public Map<String, Object> selectImages(int test_id);
 	
 }
 

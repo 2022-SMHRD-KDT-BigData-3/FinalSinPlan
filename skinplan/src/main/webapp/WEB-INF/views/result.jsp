@@ -110,14 +110,13 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="selectImage" class="d-block w-100"
-                        height=300px alt="...">
+                    <img src="${path}/img1.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="selectImage" class="d-block w-100" height=300px alt="...">
-                </div>
+                    <img src="${path}/img2.jpg" class="d-block w-100" height=300px alt="...">
+                 </div>
                 <div class="carousel-item">
-                    <img src="selectImage" class="d-block w-100" height=300px alt="...">
+                    <img src="${path}/img3.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -137,19 +136,19 @@
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">진단결과</h5>
-                <p class="card-text">여드름 : 있음</p>
+                <p class="card-text">${symptom}</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">원인</h5>
-                <p class="card-text">여드름 : 피지가 피부 밖으로 배출되지 못하여 모낭에 갇히면서 염증을 일으켜 발생, 주로 호르몬 변화, 세균 감염, 유전적 요인으로 발생</p>
+                <p class="card-text">${causation}</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">Tip</h5>
-                <p class="card-text">피지가 과도하게 생성되는 것을 막고 유성화장품을 사용을 자제하는 것이 좋다. </p>
+                <p class="card-text">${care} </p>
             </div>
         </div>
     </div>

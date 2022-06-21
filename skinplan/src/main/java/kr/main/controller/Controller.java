@@ -1,15 +1,25 @@
 package kr.main.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +37,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,12 +60,13 @@ import kr.main.entity.BoardAttachVO;
 import kr.main.entity.Criteria;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
-
+import kr.main.entity.Vo;
 import kr.main.entity.Vo2;
 
 import kr.main.entity.boardListVO;
 
 import kr.main.entity.boardVO;
+import kr.main.entity.dairyVO;
 import kr.main.entity.imgFileVO;
 import kr.main.entity.memberVO;
 import kr.main.service.MemberService;
@@ -497,14 +510,20 @@ public class Controller {
 	}
 	//다이어리 -> 목록
 	@RequestMapping("/remain")
-	public String remain() {
+	public String remain(dairyVO vo, Model model) {
+		vo = mapper.dairyList();
+		
+		model.addAttribute("idx", vo.getDairy_id());
+		model.addAttribute("email", vo.getEmail());
+		model.addAttribute("symptom", vo.getSymptom());
+		model.addAttribute("wr_date", vo.getWr_date());
+		
 		return "main_log";
 	}
 
 	//피부진단 업로드
 	@RequestMapping("/insertImages")
-	   public ModelAndView newWorkSpaceForAdmin(ModelAndView mv,
-	      MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
+	   public String insertImages(MultipartHttpServletRequest multipartHttpServletRequest, Vo2 vo, HttpServletRequest request) throws IOException {
 	      System.out.println("insertImages");
 	      List<MultipartFile> img1 = multipartHttpServletRequest.getFiles("uploadfile1");
 	      List<MultipartFile> img2 = multipartHttpServletRequest.getFiles("uploadfile2");
@@ -520,12 +539,12 @@ public class Controller {
 	      memberVO member = (memberVO)session.getAttribute("member");
 	      
 	      vo.setEmail(member.getEmail());
-	      vo.setSkin_id(vo.getSkin_id());
+	      vo.setSkin_type(vo.getSkin_type());
 	     
 	      memberservicempl.insertImages(vo);
-	      mv.setViewName("loading");
-	      return mv;
-	   }
+	      
+	      return "redirect:http://localhost:9000/scan";
+	  }
 	
 	//피부진단 첨부파일저장
 //		@PostMapping("/insertImages")
@@ -619,11 +638,30 @@ public class Controller {
 	public String loading() {
 		return "loading";
 	}
+    
+    @RequestMapping(value="result.do")
+    public String res(dairyVO vo, Model model) {
+    	vo = mapper.dairyView();
+    	
+    	model.addAttribute("id", vo.getDairy_id());
+    	model.addAttribute("path", vo.getPath());
+    	model.addAttribute("symptom", vo.getSymptom());
+    	model.addAttribute("causation", vo.getCausation());
+    	model.addAttribute("care", vo.getCare());
+    	model.addAttribute("date", vo.getWr_date());
+    	
+    	return "result";
+    }
+    
+    @RequestMapping(value="search_date")
+    public String search_date() {
+    	
+    	return "result";
+    }
 	
 	//진단페이지에서 받은 사진 3장
 	@PostMapping("/img_upload")
 	public void imgupload() {		
 	}
-
 } //controller end
 	

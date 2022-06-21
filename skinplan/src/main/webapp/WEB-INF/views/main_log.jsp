@@ -116,7 +116,7 @@
     <div class="tab-pane fade show active" id="pills-log" role="tabpanel" aria-labelledby="pills-log-tab">
       <main>
         <!-- 피부 일기 썸네일 카드 -->
-        <form action="">
+        <form action="search_date">
           <div class="container text-center bg-info bg-opacity-25">
             <div class="row pt-3">
               <!-- 달력부분  -->

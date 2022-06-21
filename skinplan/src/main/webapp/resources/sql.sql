@@ -114,8 +114,75 @@ alter table test_img add(skin_id number(3) not null, constraint test_skin_fk for
 select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
 from board b, tbl_attach t
 where b.bno = t.bno;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 
 select * from 
 select * from test_img;
+<<<<<<< HEAD
 select * from skin_type;
 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+drop table test123;
+
+create table test123(
+ test_idid number(3) primary key,
+ img1 blob,
+ img2 blob,
+ img3 blob,
+ img4 blob,
+ img5 blob,
+ img6 blob,
+ img7 blob,
+ img_date date default sysdate);
+
+ drop sequence test_img_seq;
+ create sequence test_img_seq;
+ 
+ create sequence test_123_seq;
+ 
+ drop table SYMPTOM cascade constraints;
+ 
+ CREATE TABLE symptom(
+ symptom_id NUMBER(3),
+ symptom VARCHAR2(15) NOT NULL,
+ causation VARCHAR2(999) NOT NULL,
+ care VARCHAR2(999) NOT NULL,
+ CONSTRAINT symptom_id_pk PRIMARY KEY(symptom_id));
+ 
+ alter table symptom modify(causation VARCHAR2(4000));
+ alter table symptom modify(care VARCHAR2(4000));
+ 
+INSERT INTO symptom
+VALUES(1,"아토피","환경요인, 면역학적 이상반응, 피부장벽의 이상의 복합적 이유로 발생하며 주로 건조한 피부로 인해 발생한다.","알레르기 환경 차단 및 피부열감 낮추고 염증 관리를 하면 자연스럽게 건조한 피부가 완화된다.");
+INSERT INTO symptom
+VALUES(2,"여드름","피지가 피부 밖으로 배출되지 못하여 모낭에 갇히면서 염증을 일으켜 발생, 주로 호르몬 변화, 세균 감염, 유전적 요인으로 발생한다.","피지가 과도하게 생성되는 것을 막고 유성화장품을 사용을 자제하는 것이 좋다.");
+INSERT INTO symptom
+VALUES(3,"물집성","바이러스성 질환 으로 스트레스 면역력이 낮아지면 발병하는 경우가 많다.","건드리지 않는것이 중요하며 면역력 관리가 중요하다.");
+INSERT INTO symptom
+VALUES(4,"모공성","피부노화로 인한 탄력 저하, 과도한 피지, 각질 증가, 자외선 노출, 스트레서 및 갑작스러운 피부 온도 상승등이 원인이다.","ph 지수 가 약 산성인 제품 을 사용하여 ph 밸런스 유지 가 중요하다.");
+INSERT INTO symptom
+VALUES(5,"정상","정상이다.","정상이다.");
+
+CREATE TABLE dairy(
+ dairy_id NUMBER(3),
+ email VARCHAR2(30) NOT NULL,
+ skin_type VARCHAR2(15) NOT NULL,
+ path VARCHAR2(4000) NOT NULL,
+ symptom_id NUMBER(3) NOT NULL,
+ wr_date DATE DEFAULT SYSDATE,
+ CONSTRAINT dairy_id_pk PRIMARY KEY(dairy_id),
+ CONSTRAINT symptom_id_fk FOREIGN KEY(symptom_id) REFERENCES symptom(symptom_id));
+ 
+CREATE SEQUENCE dairy_seq;
+CREATE SEQUENCE test_img_seq;
+
+drop sequence dairy_seq;
+drop sequence test_img_seq;
+select * from skin_type;
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git

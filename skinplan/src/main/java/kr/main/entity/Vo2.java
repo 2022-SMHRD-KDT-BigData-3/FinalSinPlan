@@ -14,9 +14,8 @@ public class Vo2 {
 	}
 	private int test_id;
 	private byte[] img1;
-	   private byte[] img2;
-	   private byte[] img3;
-	   private String email;
-	   private int skin_id;
-
+	private byte[] img2;
+	private byte[] img3;
+	private String email;
+	private String skin_type;
 }

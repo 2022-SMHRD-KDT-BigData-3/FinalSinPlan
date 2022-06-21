@@ -120,10 +120,20 @@
             </div>
         </nav>
     </div>
+<<<<<<< HEAD
     <div class="form-group">
+=======
+    <div class="form-group">
+
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
     	<input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'>
     </div>
+<<<<<<< HEAD
   
+=======
+
+    
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
         <div class="container text-center">
         	
     				<div class='uploadResult mt-2'>
