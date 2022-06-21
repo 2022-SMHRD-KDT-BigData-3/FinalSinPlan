@@ -107,14 +107,6 @@
         update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
     </update> -->
     
-<!--     <insert id="insertImages" parameterType="map">
-		insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
-	</insert> -->
-	
-	<delete id="deleteAll">
-        delete from tbl_attach where bno = #{bno}
-    </delete>
-    
     <select id="getImage" resultType="kr.main.entity.Vo">
         select img1 from test_img where test_id=#{key}
     </select>

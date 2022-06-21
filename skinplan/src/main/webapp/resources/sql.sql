@@ -185,4 +185,5 @@ CREATE SEQUENCE test_img_seq;
 drop sequence dairy_seq;
 drop sequence test_img_seq;
 select * from skin_type;
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
+select * from dairy;

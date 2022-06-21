@@ -153,17 +153,10 @@ public class MemberServicempl implements MemberService{
 	@Override
 	public void fileInsert(Test_ImgVO vo) {
 		// TODO Auto-generated method stub
-		
-<<<<<<< HEAD
 	}
 	@Override
 	public boolean deleteAll(Long bno) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-=======
-	}
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 }

@@ -421,47 +421,6 @@ public class Controller {
     		}
     	});
     }
-	//피부진단페이지 파일 ajax
-//	@PostMapping(value="/imgAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	@ResponseBody
-//	public ResponseEntity<List<imgFileVO>> uploadFile(MultipartFile[] uploadFile) {
-//
-//		List<imgFileVO> list = new ArrayList<imgFileVO>();
-//		String uploadFolder = "c:\\upload";
-//		String uploadFolderPath = get_Folder();
-//		//make folder
-//		File uploadPath = new File(uploadFolder, getFolder());
-//		if(uploadPath.exists() == false) {
-//			uploadPath.mkdirs();
-//		}
-//		// make yyyy/mm/dd folder
-//		for (MultipartFile multipartFile : uploadFile) {
-//			imgFileVO attachVO = new imgFileVO();
-//			String uploadFileName = multipartFile.getOriginalFilename();
-//			//file path
-//			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-//			System.out.println("only file name :" +uploadFileName);
-//			attachVO.setFileName(uploadFileName);
-//			UUID uuid = UUID.randomUUID();
-//			uploadFileName = uuid.toString()+"_" +uploadFileName;	
-//			File saveFile = new File(uploadPath, uploadFileName);
-//			try {		
-//				multipartFile.transferTo(saveFile);
-//				attachVO.setUuid(uuid.toString());
-//				attachVO.setUploadPath(uploadFolderPath);
-////				File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
-////				BufferedImage bo_image = ImageIO.read(saveFile);
-////					double ratio = 2;
-////						int width = (int) (bo_image.getWidth()/ratio);
-////						int height = (int) (bo_image.getHeight()/ratio);
-////				Thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
-//				list.add(attachVO);
-//				}catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}//end for
-//		return new ResponseEntity<List<imgFileVO>>(list, HttpStatus.OK);
-//	}
 	
 	@GetMapping(value ="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
@@ -510,11 +469,14 @@ public class Controller {
 	}
 	//다이어리 -> 목록
 	@RequestMapping("/remain")
-	public String remain(dairyVO vo, Model model) {
+	public String remain(dairyVO vo, Model model, HttpServletRequest request) {
 		vo = mapper.dairyList();
 		
+		HttpSession session = request.getSession();
+	    memberVO member = (memberVO)session.getAttribute("member");
+		
 		model.addAttribute("idx", vo.getDairy_id());
-		model.addAttribute("email", vo.getEmail());
+		model.addAttribute("email", member.getEmail());
 		model.addAttribute("symptom", vo.getSymptom());
 		model.addAttribute("wr_date", vo.getWr_date());
 		
@@ -546,101 +508,13 @@ public class Controller {
 	      return "redirect:http://localhost:9000/scan";
 	  }
 	
-	//피부진단 첨부파일저장
-//		@PostMapping("/insertImages")
-//		public String uploaded(boardVO board, RedirectAttributes rttr) {
-//			System.out.println("==============");
-//			System.out.println("register: " +board);
-//			if(board.getAttachList() != null) {
-//				board.getAttachList().forEach(attach ->
-//				System.out.println(attach));
-//			}
-//			System.out.println("=============");
-//			memberservice.upload(board);
-//			rttr.addFlashAttribute("result", board.getBno());
-//			return "redirect:/main_board";
-//		}
-//	@RequestMapping("/selectImage")
-//	public void selectImage(Map<String, Object> model ,HttpServletResponse rsponse)throws IOException,SerialException{
-//		List<Map<String,Object>> listBoard;
-//		try {
-//			Map<String, Object>paramMap = new HashMap<String, Object>();
-//			listBoard = mapper.selectImage(test_id);
-//		}
-//	}
-	//이미지 저장
-//	 @PostMapping("/saveImage")
-//	    public String saveImage(@RequestBody Map<String, String> param) {
-//	        System.out.println("\n");
-//	        System.out.println("=======================================");
-//	        System.out.println("[DBApiController] : [saveImage]");
-//	        System.out.println("[request keySet] : " + String.valueOf(param.keySet()));
-//	        System.out.println("[request idx] : " + String.valueOf(param.get("idx")));
-//	        System.out.println("[request idx] : " + String.valueOf(param.get("image")));
-//	        System.out.println("=======================================");
-//	        System.out.println("\n");
-//
-//	        // DATA URL 을 바이트로 변환 실시
-//	        byte imageArray [] = null;
-//	        final String BASE_64_PREFIX = "data:image/png;base64,";
-//	        try {
-//	            String base64Url = String.valueOf(param.get("image"));
-//	            if (base64Url.startsWith(BASE_64_PREFIX)){
-//	                imageArray =  Base64.getDecoder().decode(base64Url.substring(BASE_64_PREFIX.length()));
-//	                System.out.println("\n");
-//	                System.out.println("=======================================");
-//	                System.out.println("[DBApiController] : [saveImage]");
-//	                System.out.println("[imageArray] : " + new String(imageArray));
-//	                System.out.println("=======================================");
-//	                System.out.println("\n");
-//	            }
-//	        }
-//	        catch (Exception e){
-//	            e.printStackTrace();
-//	        }
-//
-//	        // 모델 객체에 idx 및 byte 지정 실시 [오라클 blob 컬럼은 byte 로 되어있다]
-//	        Vo2 vo = new Vo2(param.get("test_id"), imageArray);
-//	        if (mapper.insertImages(vo) > 0) {
-//	            System.out.println("\n");
-//	            System.out.println("=======================================");
-//	            System.out.println("[DBApiController] : [saveImage]");
-//	            System.out.println("[response] : " + new String("T"));
-//	            System.out.println("=======================================");
-//	            System.out.println("\n");
-//	            JSONObject jsonObject = new JSONObject();
-//	            try {
-//	                jsonObject.put("state", "T");
-//	                jsonObject.put("message", "Success");
-//	            } catch (JsonIOException e) {
-//	                e.printStackTrace();
-//	            }
-//	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
-//	        } else {
-//	            System.out.println("\n");
-//	            System.out.println("=======================================");
-//	            System.out.println("[DBApiController] : [saveImage]");
-//	            System.out.println("[response] : " + new String("F"));
-//	            System.out.println("=======================================");
-//	            System.out.println("\n");
-//	            JSONObject jsonObject = new JSONObject();
-//	            try {
-//	                jsonObject.put("state", "F");
-//	                jsonObject.put("message", "Fail");
-//	            } catch (JsonIOException e) {
-//	                e.printStackTrace();
-//	            }
-//	            return jsonObject.toString(); //정상 삽입 완료 시 상태값 반환
-//	        }
-//	    }
-	
 	@RequestMapping("/loading")
 	public String loading() {
 		return "loading";
 	}
     
     @RequestMapping(value="result.do")
-    public String res(dairyVO vo, Model model) {
+    public String res(dairyVO vo, Model model, HttpSession session) {
     	vo = mapper.dairyView();
     	
     	model.addAttribute("id", vo.getDairy_id());
