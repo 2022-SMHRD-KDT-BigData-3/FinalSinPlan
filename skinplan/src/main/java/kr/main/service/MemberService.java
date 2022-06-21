@@ -9,6 +9,7 @@ import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
 import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
+import kr.main.entity.dairyVO;
 import kr.main.entity.memberVO;
 
 public interface MemberService {
@@ -51,6 +52,8 @@ public interface MemberService {
 	//닉네임
 
 	boolean deleteAll(Long bno);
+
+	public List<dairyVO> diaryList();
 
 
 	

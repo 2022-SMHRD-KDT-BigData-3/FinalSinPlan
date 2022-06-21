@@ -161,11 +161,6 @@ public class Controller {
 	public String boardcancel() {
 		return "redirect:/main_board";
 	}
-	//썸네일 카드 선택
-//	@RequestMapping("/boardView")
-//	public String boardVIEW() {
-//		return "boardView";
-//	}
 	@RequestMapping("/main_board")
 	public String main_board() {
 		return "main_board";
@@ -442,14 +437,6 @@ public class Controller {
 		rttr.addFlashAttribute("result", vo.getIno());
 		return "redirect:/loading";
 }
-
-//	@GetMapping(value ="/getImgList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	@ResponseBody
-//	public ResponseEntity<List<SkinAttachVO>> getImgList(Long test_id){
-//		System.out.println("getImgList " + test_id);
-//		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
-//	}
-
 	@RequestMapping(value="/form")
 	public String form() {
 		return "form";
@@ -468,20 +455,19 @@ public class Controller {
 		return new ResponseEntity<>(memberservice.getImgList(test_id),HttpStatus.OK);
 	}
 	//다이어리 -> 목록
-	@RequestMapping("/remain")
-	public String remain(dairyVO vo, Model model, HttpServletRequest request) {
-		vo = mapper.dairyList();
-		
-		HttpSession session = request.getSession();
-	    memberVO member = (memberVO)session.getAttribute("member");
-		
-		model.addAttribute("idx", vo.getDairy_id());
-		model.addAttribute("email", member.getEmail());
-		model.addAttribute("symptom", vo.getSymptom());
-		model.addAttribute("wr_date", vo.getWr_date());
-		
-		return "main_log";
-	}
+	/*
+	 * @RequestMapping("/remain") public String remain(dairyVO vo, Model model,
+	 * HttpServletRequest request) { vo = mapper.dairyList();
+	 * 
+	 * HttpSession session = request.getSession(); memberVO member =
+	 * (memberVO)session.getAttribute("member");
+	 * 
+	 * model.addAttribute("idx", vo.getDairy_id()); model.addAttribute("email",
+	 * member.getEmail()); model.addAttribute("symptom", vo.getSymptom());
+	 * model.addAttribute("wr_date", vo.getWr_date());
+	 * 
+	 * return "main_log"; }
+	 */
 
 	//피부진단 업로드
 	@RequestMapping("/insertImages")
@@ -526,7 +512,21 @@ public class Controller {
     	
     	return "result";
     }
-    
+
+	//일기목록
+	@GetMapping("/main_log.html")
+	public String dairy(Model model, HttpServletRequest request) {
+		System.out.println("다이어리 목록");
+		List<dairyVO> list = mapper.diaryList();
+		model.addAttribute("list", memberservice.diaryList());
+		return "main_log";
+	}
+	//결과 -> 돌아가기
+	@RequestMapping("/remain")
+	public String list() {
+		return "redirect:/main_log";
+	}
+	    
     @RequestMapping(value="search_date")
     public String search_date() {
     	

@@ -14,6 +14,7 @@ import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
 import kr.main.entity.Vo2;
 import kr.main.entity.boardVO;
+import kr.main.entity.dairyVO;
 import kr.main.entity.memberVO;
 import lombok.Setter;
 
@@ -95,6 +96,12 @@ public class MemberServicempl implements MemberService{
 		System.out.println("getList........");
 		return mapper.getList();
 	}
+	//다이어리 목록
+	@Override
+	public List<dairyVO> diaryList(){
+		System.out.println("diaryList : ");
+		return mapper.diaryList();
+	}
 	//닉네임
 	//게시물 글 조회
 	@Override
@@ -152,11 +159,11 @@ public class MemberServicempl implements MemberService{
 	}
 	@Override
 	public void fileInsert(Test_ImgVO vo) {
-		// TODO Auto-generated method stub
 	}
 	@Override
 	public boolean deleteAll(Long bno) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

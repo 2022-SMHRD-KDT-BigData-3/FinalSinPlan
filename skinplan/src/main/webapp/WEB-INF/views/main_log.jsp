@@ -1,5 +1,8 @@
+<%@page import="kr.main.entity.dairyVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ko">
 
@@ -135,6 +138,13 @@
             </div>
           </div>
         </form>
+                      <% 
+        session = request.getSession();
+        String email = (String)session.getAttribute("email"); 
+        
+        List<dairyVO> list = (List<dairyVO>)request.getAttribute("list");
+        %>
+        <input type="hidden" name="email" value = <%= email %>  >
         <div class="album pt-3 bg-light">
           <div class="container bg-info bg-opacity-25">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -142,18 +152,15 @@
               	<thead>
               		<tr>
               			<th>진단일</th>
+              			<th>증상</th>
               			<th>피부타입</th>
-              			<th>진단결과</th>
-              			<th>닉네임</th>
               		</tr>
               	</thead>
-              	<c:forEach items="${board}" var="list">
+              	<c:forEach items="${list}" var="list">
 			         <tr>
-			         	<td><c:out value="${board.bno }"/></td>
-			         	<td><a href='result?no=<c:out value="${board.no}"/>'>
-			         	<c:out value="${board.title}"/></a></td>
-			         	<td><c:out value="${board.skintype }"/></td>
-			    		<td><c:out value="${board.nickname }"/></td>         	
+			         	<td><a href="result?wr_date=${list.wr_date}">${list.wr_date}></a></td>
+			         	<td>${list.symptom }</td>
+			         	<td>${list.skin_type }</td>        	
 			         </tr>  		
               	</c:forEach>
               </table>

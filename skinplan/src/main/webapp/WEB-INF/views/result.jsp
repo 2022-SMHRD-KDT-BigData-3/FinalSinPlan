@@ -107,16 +107,21 @@
 				<ul>
 				</ul>
 		</div>
+		 <% 
+        session = request.getSession();
+        String email = (String)session.getAttribute("email"); 
+        %>
+        <input type="hidden" name="email" value = <%= email %>  >
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="${path}/img1.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="C:/DloadImg/${email}/37/img1.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="${path}/img2.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="C:/DloadImg/${email}/37/img2.jpg" class="d-block w-100" height=300px alt="...">
                  </div>
                 <div class="carousel-item">
-                    <img src="${path}/img3.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="C:/DloadImg/${email}/37/img3.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -259,7 +264,7 @@
         </div>
     </div>
 <script type="text/javascript">
-$(document).ready(function(){
+/* $(document).ready(function(){
 	(function(){
 		var bno = '<c:out value="$(board.bno}"/>';
 		$.getJSON("getAttachList", {bno:bno}, function(arr){
@@ -284,9 +289,9 @@ $(document).ready(function(){
 			});			
 			$(".uploadResult ul").html(str); 
 		
-		});//end getjson
+		});
 	});
-});
+}); */
 </script>
 </body>
 

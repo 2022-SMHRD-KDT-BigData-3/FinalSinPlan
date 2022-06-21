@@ -114,19 +114,10 @@ alter table test_img add(skin_id number(3) not null, constraint test_skin_fk for
 select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
 from board b, tbl_attach t
 where b.bno = t.bno;
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 
 select * from 
 select * from test_img;
-<<<<<<< HEAD
-select * from skin_type;
-
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 drop table test123;
 
@@ -184,6 +175,13 @@ CREATE SEQUENCE test_img_seq;
 
 drop sequence dairy_seq;
 drop sequence test_img_seq;
+<<<<<<< HEAD
 select * from skin_type;
 
 select * from dairy;
+=======
+select * from skin_type;
+ SELECT d.dairy_id, d.email, s.symptom, d.wr_date FROM dairy d, symptom s WHERE d.symptom_id = s.symptom_id AND d.email='1234' ORDER BY d.wr_date DESC;
+select * from dairy;
+select d.wr_date, s.symptom, d.skin_type from dairy d, symptom s where d.email='1234' order by d.wr_date;
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
