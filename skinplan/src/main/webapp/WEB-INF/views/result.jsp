@@ -103,6 +103,10 @@
     </div>
     <!-- 피부 상태 사진 -->
     <header>
+    	<div class='uploadResult'>
+				<ul>
+				</ul>
+		</div>
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -252,7 +256,7 @@
             </div>
         </div>
         <div class="my-5">
-            <a href="main_scan" class="w-100 btn btn-primary btn-lg">돌아가기</a>
+            <a href="remain" class="w-100 btn btn-primary btn-lg">돌아가기</a>
         </div>
     </div>
 <script type="text/javascript">
@@ -278,8 +282,7 @@ $(document).ready(function(){
 					str += "</div>";
 					str += "</li>";
 				}
-			});
-			
+			});			
 			$(".uploadResult ul").html(str); 
 		
 		});//end getjson

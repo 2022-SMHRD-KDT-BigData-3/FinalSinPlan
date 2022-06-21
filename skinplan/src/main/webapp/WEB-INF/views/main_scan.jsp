@@ -147,7 +147,7 @@
       <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="./img/front.jpg" class="d-block w-100" alt="..." height=400px>
+            <img src="./resources/img/skin.jpeg" class="d-block w-100" alt="..." height=400px>
           </div>
 <!--           <div class="carousel-item">
             <img src="./img/left.jpg" class="d-block w-100" alt="..." height=400px>
@@ -304,6 +304,7 @@ $("#submit").on("click", function(e){
 		}
 	});//$.ajax
 });
+
 /* 	var formObj = $("form[role='form']");
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();

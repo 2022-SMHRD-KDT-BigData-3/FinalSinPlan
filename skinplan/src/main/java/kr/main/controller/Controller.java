@@ -45,6 +45,7 @@ import com.google.gson.JsonIOException;
 import kr.board.mapper.Mapper;
 import kr.main.entity.AttachFileVO;
 import kr.main.entity.BoardAttachVO;
+import kr.main.entity.Criteria;
 import kr.main.entity.SkinAttachVO;
 import kr.main.entity.Test_ImgVO;
 
@@ -109,7 +110,7 @@ public class Controller {
 		
 		session.setAttribute("member", lvo); // 일치하는 아이디, 비밀번호 경우(로그인 성공)
 	    session.setAttribute("nickname", lvo.getNickname());
-		
+		session.setAttribute("email", lvo.getEmail());
 	    return "main_scan";
 	}
 

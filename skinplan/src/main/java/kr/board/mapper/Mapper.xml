@@ -10,7 +10,7 @@
         select email, password, nickname  from member where email=#{email} and password=#{password}
     </select>
     <update id="updateMember" parameterType="kr.main.entity.memberVO">
-        update member set password=#{password} where email=#{email}
+        update member set password=#{password} 
     </update>
     <!-- 게시판 목록 -->
     <select id = "getList" resultType="kr.main.entity.boardVO">

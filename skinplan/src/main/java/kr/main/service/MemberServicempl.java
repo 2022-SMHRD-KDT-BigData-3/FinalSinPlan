@@ -55,6 +55,7 @@ public class MemberServicempl implements MemberService{
 		return mapper.findByBnoimg(bno);
 	}
 	//게시물 삭제
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
 		System.out.println("remove....."+bno);
@@ -83,16 +84,6 @@ public class MemberServicempl implements MemberService{
 	public Map<String, Object> selectImage(int test_id){
 		return mapper.selectImages(test_id);
 	}
-
-	//첨부파일 삭제
-//	@Transactional
-//	@Override
-//	public boolean remove(Long bno) {
-//		System.out.println("remove........."+ bno);
-//		mapper.deleteAll(bno);
-//		return mapper.delete(bno) == 1;
-//	}
-
 	@Override
 	public List<SkinAttachVO> getImgList(Long test_id){
 		System.out.println("test_img " + test_id);
@@ -121,7 +112,7 @@ public class MemberServicempl implements MemberService{
 	@Override
 	public boolean modify(boardVO board) {
 		System.out.println("modify....."+board);
-		return mapper.update(board) ==1;
+		return mapper.update(board) ==  1;
 	}
 	@Override
 	public void insert(BoardAttachVO vo) {
@@ -163,6 +154,11 @@ public class MemberServicempl implements MemberService{
 	public void fileInsert(Test_ImgVO vo) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public boolean deleteAll(Long bno) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

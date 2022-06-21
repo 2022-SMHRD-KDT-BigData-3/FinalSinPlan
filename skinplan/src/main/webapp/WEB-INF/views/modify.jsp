@@ -127,9 +127,10 @@
         </nav>
     </div>
    
+  
      <form role="form" action="modify" method="post">
-    <div class="form-group">
-     <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno}"/>'>
+      <input type='hidden'class="form-control" name='bno' value='<c:out value="${board.bno}"/>'>
+    <div class="form-group">   
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
                  <div class ="row">
@@ -137,17 +138,17 @@
     					<div class="panel panel-default">
     						<div class="panel-heading"></div>
     					<div class="panel-body">
-    			<div class='uploadResult'>
-						<ul>
-						</ul>
-					</div>
+    							<div class='uploadResult'>
+								<ul>
+								</ul>
+								</div>
     				</div>
     	</div>
     	</div>
-    </div> 
+<!--     </div> 
                 <img src="" class="d-block w-100" height=300px
                     alt="...">
-            </div>
+            </div> -->
             <!-- <div class="carousel-item">
                 <img src="/img/flowers-7188503_1920.jpg" class="d-block w-100" height=300px alt="...">
             </div>
@@ -171,7 +172,7 @@
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                         <h3>닉네임 : </h3>
+                         <h3>닉네임 : <c:out value="${board.nickname }"></c:out></h3>
                         
                         </blockquote>
                         <figcaption class="blockquote-footer">
@@ -196,7 +197,7 @@
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
-        <button type="submit" data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'">수정하기 </button>
+        <button type="submit" data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'"/>수정하기
         <button type="submit" data-oper='remove' class="btn btn-danger">삭제하기</button>
         <button type="submit" data-oper='list' class="btn btn-info" onclick="location.href='main_board'">돌아가기</button>
            <!--  <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
@@ -209,7 +210,7 @@
 <script>
 $(document).ready(function(){
 	//(function(){
-	var bno = '<c:out value="$(board.bno}"/>';
+	var bno = '<c:out value="${board.bno}"/>';
 	$.getJSON("getAttachList", {bno:bno}, function(arr){
 		console.log(arr);
 		var str = "";
@@ -217,37 +218,41 @@ $(document).ready(function(){
 			//image type
 			if(attach.fileType){
 				var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);				
-				str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+				str += "<a data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
 				str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
-				str += "</li>";
+				str += "</a>";
 			}else{
+				var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);	
 				str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
-				//str += "<span>" + attach.fileName+"</span><br/>";
-				str += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px'>";
+				str += "<span>" + attach.fileName+"</span><br/>";
+				str += "<img src='/controller/display?fileName="+fileCallPath+"'style='width:300px; height:300px'>";
+				//str += "<img src='resources/img/attach.png'></a>"
 				str += "</div>";
 				str += "</a>";
 			}
 		});
 		$(".uploadResult ul").html(str); 	
 });//end getjson
-//})();//end function
-(function(){
-var formObj = ${"form"};
-	$('button').on("click", function(e){
-		e.preventDefault();
-		var operation = $(this).data("oper");
-		console.log(operation);
-		if(operation === 'remove'){
-			formObj.attr("action","remove");
-		}else if(operation ==='list'){
-			formObj.attr("action","main_board").attr("method","get");
-			formObj.empth();
-		}
-		formObj.submit();
+//(function(){
+	var formObj = ${"form"};
+	alert("성공");
+		$('button').on("click", function(e){
+			e.preventDefault();
+			var operation = $(this).data("oper");
+			console.log(operation);
+			if(operation === 'remove'){
+				formObj.attr("action","remove");
+			}else if(operation ==='list'){
+				formObj.attr("action","main_board").attr("method","get");
+				formObj.empth();
+			}
+			formObj.submit();
+	});
 });
-});
-});
+//});
+//();//end function
+
 </script>
 </body>
 

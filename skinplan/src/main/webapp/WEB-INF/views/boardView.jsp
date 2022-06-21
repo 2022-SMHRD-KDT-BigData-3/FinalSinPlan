@@ -121,12 +121,9 @@
         </nav>
     </div>
     <div class="form-group">
-<<<<<<< HEAD
-=======
     	<input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'>
     </div>
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
-    
+  
         <div class="container text-center">
         	
     				<div class='uploadResult mt-2'>
@@ -180,8 +177,8 @@
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
-        <button data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'"/>수정하기       
-        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'"/>돌아가기
+        <button data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno}"/>'">수정하기 </button>     
+        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'">돌아가기</button>
            <!--  <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
             <a href="main_board" class="btn btn-primary ">돌아가기</a> -->
         </div>
@@ -208,7 +205,7 @@ $(document).ready(function(){
 					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);		
 					str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
 					//str += "<a></a><br/>";
-					str += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px'>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:300px; height:300px'>";
 					//str += "<img src='./resources/img/attach.png' style='{width:200px; height:200px;}'>";
 					str += "</div>";
 					str += "</a>";
@@ -219,7 +216,7 @@ $(document).ready(function(){
 //)}//end function
 (function(){
 var operForm = $("#operForm");
-	$("button[data-oper='modify']").on("click", function(e){
+ 	$("button[data-oper='modify']").on("click", function(e){
 		operForm.attr("action", "modify").submit();
 	});
 	$("button[data-oper='list']").on("click", function(e){

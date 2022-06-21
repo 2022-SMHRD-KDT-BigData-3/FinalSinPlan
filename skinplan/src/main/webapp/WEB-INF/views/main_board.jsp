@@ -221,9 +221,7 @@
           </ul>
         </nav>
         <div>
-
         </div>
-
       </main>
     </div>
   </div>
@@ -243,9 +241,9 @@
 </body>
 
 <script>
-$(document).ready(()=>{
+/* $(document).ready(()=>{
 	loadList();
-});
+
 	function loadList(){
 		$.ajax({
 			url : "boardlist",
@@ -254,9 +252,9 @@ $(document).ready(()=>{
 			success : resultHtml,
 			error : function(){alert("error");}
 		});
-	}
-	/* function resultHtml(data){
-		var view = "<div calss='col'>";
+	} */
+/* 		 function resultHtml(data){
+ 		var view = "<div calss='col'>";
 		view+= "<div class='card shadow-sm'> ";
         view+= "<div><a href=''>";
         view+= "<div class='card' style='width: 100%'>";
@@ -272,14 +270,14 @@ $(document).ready(()=>{
         view+= "</a>";
         view+= "</div>";
         view+= "</div>";
-      	view+= "</div>";
+      	view+= "</div>"; 
       	$.each(data, function(index,obj){
       		view+="<div class='col'";
       		view+= "<div class='card shadow-sm'> ";
       		view+= "<div><a href='boardView'>";
       		view+= "<div class='card' style='width: 100%'>";
             view+= "<div class='uploadResult'>";
-            view+= "<ul id='t"+bno+"'>";
+            view+= "<ul>";
 			//image type
 			if(obj.fileType){
 				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);				
@@ -310,12 +308,13 @@ $(document).ready(()=>{
       	$(".uploadResult ul").html(view); 
       	$("#list").html(view);
 	
-	}
-	function goForm(bno){
+	} */
+//});
+/* 	function goForm(bno){
 		var title=$("t"+bno).text();
 		var view ="<a href='boardView'/>";
 		$("#t"+bno).html(view)
-	} */
+	}  */
 	
 </script>
 

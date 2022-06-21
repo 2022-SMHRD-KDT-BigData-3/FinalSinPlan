@@ -95,13 +95,13 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">내 정보 변경</a>
+              <a class="nav-link" href="infhchange">내 정보 변경</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="cosmetic">화장품 정보</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">로그아웃</a>
+              <a class="nav-link" href="logout">로그아웃</a>
             </li>
           </ul>
 
@@ -138,7 +138,26 @@
         <div class="album pt-3 bg-light">
           <div class="container bg-info bg-opacity-25">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="col">
+             <table class="table table-striped table-borderd table-hover">
+              	<thead>
+              		<tr>
+              			<th>진단일</th>
+              			<th>피부타입</th>
+              			<th>진단결과</th>
+              			<th>닉네임</th>
+              		</tr>
+              	</thead>
+              	<c:forEach items="${board}" var="list">
+			         <tr>
+			         	<td><c:out value="${board.bno }"/></td>
+			         	<td><a href='result?no=<c:out value="${board.no}"/>'>
+			         	<c:out value="${board.title}"/></a></td>
+			         	<td><c:out value="${board.skintype }"/></td>
+			    		<td><c:out value="${board.nickname }"/></td>         	
+			         </tr>  		
+              	</c:forEach>
+              </table>
+         <!--      <div class="col">
                 <a href="BoardView">
                   <div class="card" style="width: 100%;">
                     <img src="./img/tro.jpg" class="card-img-top mx-auto" alt="..."
@@ -162,7 +181,7 @@
                   </div>
                 </a>
               </div>
-
+ -->
               
               
             </div>

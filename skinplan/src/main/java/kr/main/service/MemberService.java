@@ -50,6 +50,8 @@ public interface MemberService {
 	//피부진단 업로드
 	//닉네임
 
+	boolean deleteAll(Long bno);
+
 
 	
 	
