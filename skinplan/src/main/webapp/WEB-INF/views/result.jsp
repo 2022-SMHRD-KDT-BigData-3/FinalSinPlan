@@ -115,13 +115,13 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="C:/DloadImg/${email}/37/img1.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="/resources/img/indeximg.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="C:/DloadImg/${email}/37/img2.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="C:/eGovFrame-3.10.0/workspace.edu/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/skinplan/resources/img/1234/37/img2.jpg" class="d-block w-100" height=300px alt="...">
                  </div>
                 <div class="carousel-item">
-                    <img src="C:/DloadImg/${email}/37/img3.jpg" class="d-block w-100" height=300px alt="...">
+                    <img src="C:/eGovFrame-3.10.0/workspace.edu/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/skinplan/resources/img/1234/37/img3.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -136,6 +136,7 @@
             </button>
         </div>
     </header>
+    <img src="/resources/img/indeximg.jpg" class="d-block w-100" height=300px alt="...">
 	<!-- 피부 진단 결과 -->
     <div class="mt-3">
         <div class="card" style="width: 100%;">

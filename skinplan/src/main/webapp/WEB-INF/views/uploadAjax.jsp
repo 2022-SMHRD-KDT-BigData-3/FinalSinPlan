@@ -137,10 +137,10 @@
     <fieldset class="row mb-3 mx-auto">
       <select class="form-select" aria-label="Default select example" name="skintype">
         <option selected>피부 타입</option>
-        <option value="1">건성</option>
-        <option value="2">지성</option>
-        <option value="3">복합성</option>
-        <option value="4">중성</option>
+        <option value="건성">건성</option>
+        <option value="지성">지성</option>
+        <option value="복합성">복합성</option>
+        <option value="중성">중성</option>
       </select>
     </fieldset>
 

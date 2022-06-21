@@ -175,13 +175,19 @@ CREATE SEQUENCE test_img_seq;
 
 drop sequence dairy_seq;
 drop sequence test_img_seq;
-<<<<<<< HEAD
-select * from skin_type;
-
-select * from dairy;
-=======
 select * from skin_type;
  SELECT d.dairy_id, d.email, s.symptom, d.wr_date FROM dairy d, symptom s WHERE d.symptom_id = s.symptom_id AND d.email='1234' ORDER BY d.wr_date DESC;
 select * from dairy;
 select d.wr_date, s.symptom, d.skin_type from dairy d, symptom s where d.email='1234' order by d.wr_date;
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
+create table board(
+ bno number(10) primary key,
+ title varchar2(100),
+ content varchar2(2000),
+ skintype varchar2(100),
+ nickname varchar2(15),
+ constraint nick_fk foreign key(nickname) references member(nickname)
+ );
+
+ drop sequence seq_board;
+ create sequence seq_board;
