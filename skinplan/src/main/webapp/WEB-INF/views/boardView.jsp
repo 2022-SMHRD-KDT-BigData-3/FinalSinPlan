@@ -121,11 +121,10 @@
         </nav>
     </div>
     <div class="form-group">
-<<<<<<< HEAD
-=======
+
     	<input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'>
     </div>
->>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+
     
         <div class="container text-center">
         	
