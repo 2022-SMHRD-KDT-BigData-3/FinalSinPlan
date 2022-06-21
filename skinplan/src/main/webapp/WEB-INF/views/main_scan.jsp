@@ -170,18 +170,21 @@
           <p class="card-text">좌측, 정면, 우측 얼굴 사진 3장을</p>
           <p class="card-text">등록해주세요.</p>
           <div class="mb-3">
-          
+            <div class="uploadDiv">
+
+              
             <div class="container">
-              <input type='file' name="uploadfile1" multiple accept="image/*">
-               <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>   </div>  
+              <input type='file' name="uploadfile1">
+               <div class="frame" id='att_zone'> </div>  
+
             </div>
             <div class="container">
-			  <input type='file' name="uploadfile2" multiple accept="image/*">
-			  <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'> </div>
+			  <input type='file' name="uploadfile2">
+			  <div class="frame" id='att_zone'> </div>
 			</div> 
 			 <div class="container">
-			  <input type='file' name="uploadfile3" multiple accept="image/*">		
-			   <div class="frame" id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>    
+			  <input type='file' name="uploadfile3">		
+			   <div class="frame" id='att_zone'>    
               </div>
 			 </div>   
          
@@ -195,10 +198,13 @@
               <option value="중성">중성</option>
             </select>
           </fieldset>
-       <button class="btn btn-primary mb-5">submit</button>
+       <button id ="submit" class="btn btn-primary mb-5">submit</button>
         </div>
       </form>
-
+	<div class='uploadResult'>
+			<ul>
+			</ul>
+	</div>
     </div> 
   </div>
   <ul class="nav fixed-bottom nav-pills mb-3 nav-fill bg-light" id="pills-tab" >
@@ -216,7 +222,6 @@
 
 <script type="text/javascript">
 window.addEventListener('load',function(){
-	
 	const container = document.querySelectorAll('.container');
 	const frame1 = container[0].querySelector('#att_zone');
 	const frame2 = container[1].querySelector('#att_zone');
@@ -276,9 +281,36 @@ window.addEventListener('load',function(){
 		return file.type.indexOf('image')>=0;
 	}
 });
+<<<<<<< HEAD
 
  /* $(document).ready(function(e){
 	var formObj = $("form[role='form']");
+=======
+$("#submit").on("click", function(e){
+	var formData = new FormData();
+	var inputFile = $("input[type='file']");
+	var files = inputFile[0].files;
+	console.log(files);
+	for(var i=0; i<files.length;i++){
+		formData.append("uploadFile1", files[i]);
+		formData.append("uploadFile2", files[i]);
+		formData.append("uploadFile3", files[i]);
+	}
+	$.ajax({
+		url : 'imgAjaxAction',
+		processData:false,
+		contentType:false,
+		data:formData,
+	//	type:'',
+		dataType:'json',
+		success : function(result){
+			alert("uploaded");
+			console.log(result);
+		}
+	});//$.ajax
+});
+/* 	var formObj = $("form[role='form']");
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 	$("button[type='submit']").on("click", function(e){
 		e.preventDefault();
 		console.log("submit clicked");
@@ -292,9 +324,9 @@ window.addEventListener('load',function(){
 			str += "<input type='hidden' name='attachList["+i+"].fileType'value='"+jobj.data("type")+"'>";
 		});
 		formObj.append(str).submit(); 
-	});
+	}); */
 
-var regex = new RegExp("(.*?)\.(exe|zip)$");
+/* var regex = new RegExp("(.*?)\.(exe|zip)$");
 var maxSize = 5242880; //5MB
 
 function checkExtension(fileName, fileSize){
@@ -307,10 +339,10 @@ function checkExtension(fileName, fileSize){
     return false;
 	}
   return true;
-}
-$("input[type='file']").change(function(e){
+} */
+/* $("input[type='file']").change(function(e){
 	  var formData = new FormData();
-	  var inputFile = $("input[name='uploadFile']");
+	  var inputFile = $("input[type='file']");
 	  var files = inputFile[0].files;
 	  //var cloneObj = $(".uploadDiv").clone();
 	//$("#uploadBtn").on("click", function(e){
@@ -335,7 +367,8 @@ $("input[type='file']").change(function(e){
 		 }
 	 }); //$.ajax  
 });
-var uploadResult = $(".uploadResult ul");
+}); */
+/* var uploadResult = $(".uploadResult ul");
 	function showUploadedFile(uploadResultArr){
 		if(!uploadResultArr || uploadResultArr.length == 0){return;}
 		var uploadUL = $(".uploadResult ul");
@@ -367,8 +400,8 @@ var uploadResult = $(".uploadResult ul");
 			}			
 		});
 		uploadResult.append(str);
-	}
-	$(".uploadResult").on("click", "button", function(e){	  
+	} */
+/* 	$(".uploadResult").on("click", "button", function(e){	  
 		console.log("delete file");
 		  var targetFile = $(this).data("file");
 		  var type = $(this).data("type");
@@ -385,8 +418,8 @@ var uploadResult = $(".uploadResult ul");
 		     }
 		  });//$.ajax
 		});
-}); */
 
+ */
 </script>
 
 </html>

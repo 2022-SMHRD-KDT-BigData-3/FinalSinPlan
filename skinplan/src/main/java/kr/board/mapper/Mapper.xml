@@ -7,15 +7,37 @@
 		values(#{email, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{mem_name, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, #{gender, jdbcType=VARCHAR}, #{mem_tel, jdbcType=VARCHAR}, sysdate)       
     </insert>
     <select id="memberLogin" resultType="kr.main.entity.memberVO">
-        select email, password from member where email=#{email} and password=#{password}
+        select email, password, nickname  from member where email=#{email} and password=#{password}
     </select>
-    
+    <update id="updateMember" parameterType="kr.main.entity.memberVO">
+        update member set password=#{password} where email=#{email}
+    </update>
     <!-- 게시판 목록 -->
     <select id = "getList" resultType="kr.main.entity.boardVO">
         <![CDATA[
-        select * from board where bno > 0
+        select * from board order by bno desc
         ]]>
     </select>
+    <insert id="insert">
+        insert into board (bno,title,content,skintype,nickname)
+        values (seq_board.nextval, #{title}, #{content},#{skintype},#{nickname})
+    </insert>
+    <insert id="insertSelectKey">
+       	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+            select seq_board.nextval from dual
+        </selectKey>
+        insert into board(bno,title,content,skintype, nickname)
+        values (#{bno}, #{title}, #{content}, #{skintype}, #{nickname})
+    </insert>
+    <select id="read" resultType="kr.main.entity.boardVO">
+        select * from board where bno = #{bno}  
+    </select>
+    <delete id="delete">
+        delete * from board where bno = #{bno}
+    </delete>
+    <update id="update">
+        update board set title=#{title}, content=#{content} where bno=#{bno}
+    </update>
     <!--게시글 목록 -->
     <select id="getboardList" resultType="kr.main.entity.boardListVO">
         select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
@@ -25,32 +47,33 @@
     <insert id="insertImages" parameterType="map">
       insert into test_img(test_id,img1,img2,img3,email,skin_type) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_type})
    </insert>
-   <!-- blob 테스트 -->
-     <insert id="saveImage" parameterType="map">
-      insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
-   </insert>
-   <select id="selectImage" resultType="map">
+   
+   <select id="selectImages" resultType="map">
        <![CDATA[
        select img1 from test_img where test_id = #{idx} ]]>
    </select>
     
     <!-- 첨부파일 업로드 -->
-    <insert id="insert">
+    <insert id="insertimg">
         insert into tbl_attach (uuid, uploadPath, fileName, fileType, bno)
         values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
-    </insert>
-    
-    <select id="findByBno" resultType="kr.main.entity.BoardAttachVO">
+    </insert> 
+    <delete id="deleteimg">
+        delete from tbl_attach where uuid=#{uuid}
+    </delete>
+    <select id="findByBnoimg" resultType="kr.main.entity.BoardAttachVO">
 		select * from tbl_attach where bno = #{bno}        
     </select>
-
-    <insert id="insertSelectKey" parameterType="kr.main.entity.boardVO" useGeneratedKeys="true" keyProperty="bno">
+    <delete id="deleteAll">
+        delete from tbl_attach where bno = #{bno}
+    </delete>
+ <!--    <insert id="insertSelectKey" parameterType="kr.main.entity.boardVO" useGeneratedKeys="true" keyProperty="bno">
         <selectKey keyProperty="bno" order="BEFORE" resultType="long">
             select seq_board.nextval from dual
         </selectKey>
         insert into board (bno, title, content, skintype)
         values (#{bno}, #{title}, #{content}, #{skintype})
-    </insert>
+    </insert> -->
     
     <!-- 피부진단 업로드 -->
     <insert id="fileInsert">
@@ -74,22 +97,21 @@
         values (#{ino}, #{img}, #{email}, sysdate)
     </insert>
     <!--게시글 조회 -->
-    <select id="read" resultType="kr.main.entity.boardVO">
-        select * from board where bno = #{bno}
-    </select>
+
     <!--게시글 사진 조회  -->
     <select id="img_read" resultType="kr.main.entity.BoardAttachVO">
         select * from tbl_attach where bno = #{bno}
     </select>
-    <delete id="delete">
-        delete * from board where bno = #{bno}
-    </delete>
     
-    <update id="update">
+<!--     <update id="update">
         update board set bno=#{bno}, title=#{title}, content=#{content}, skintype=#{skintype} where bno=#{bno}
-    </update>
- 
-    <delete id="deleteAll">
+    </update> -->
+    
+<!--     <insert id="insertImages" parameterType="map">
+		insert into test_img(test_id,img1,img2,img3,email,skin_id) values(test_img_seq.nextval,#{img1},#{img2},#{img3},#{email},#{skin_id})
+	</insert> -->
+	
+	<delete id="deleteAll">
         delete from tbl_attach where bno = #{bno}
     </delete>
     
@@ -118,26 +140,5 @@
 	    SELECT d.dairy_id, d.email, s.symptom, d.wr_date FROM dairy d, symptom s WHERE d.symptom_id = s.symptom_id AND d.email=#{email} ORDER BY d.wr_date DESC
 	</select>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 </mapper>

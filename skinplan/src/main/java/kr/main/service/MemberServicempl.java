@@ -32,6 +32,8 @@ public class MemberServicempl implements MemberService{
 	public memberVO memberLogin(memberVO member) throws Exception{
 		return mapper.memberLogin(member);
 	}
+	//회원정보수정
+
 	//게시판 등록
 	@Transactional
 	@Override
@@ -43,13 +45,21 @@ public class MemberServicempl implements MemberService{
 		}
 		board.getAttachList().forEach(attach ->{
 			attach.setBno(board.getBno());
-			mapper.insert(attach);
+			mapper.insertimg(attach);
 		});
 	}
+	//사진포함된 게시물 조회
 	@Override
 	public List<BoardAttachVO> getAttachList(Long bno) {
 		System.out.println("get Attach list by bno" +bno);
-		return mapper.findByBno(bno);
+		return mapper.findByBnoimg(bno);
+	}
+	//게시물 삭제
+	@Override
+	public boolean remove(Long bno) {
+		System.out.println("remove....."+bno);
+		mapper.deleteAll(bno);
+		return mapper.delete(bno)==1;
 	}
 	//피부진단 등록
 	@Transactional
@@ -66,12 +76,12 @@ public class MemberServicempl implements MemberService{
 		});
 	}
 	//피부진단 사진 업로드
-	public void insertImages(Vo2 vo) {
-	      mapper.insertImages(vo);
+	public int insertImages(Vo2 vo) {
+	     return mapper.insertImages(vo);
 	}
 	//진단사진 불러오기
 	public Map<String, Object> selectImage(int test_id){
-		return mapper.selectImage(test_id);
+		return mapper.selectImages(test_id);
 	}
 
 	//첨부파일 삭제
@@ -82,6 +92,7 @@ public class MemberServicempl implements MemberService{
 //		mapper.deleteAll(bno);
 //		return mapper.delete(bno) == 1;
 //	}
+
 	@Override
 	public List<SkinAttachVO> getImgList(Long test_id){
 		System.out.println("test_img " + test_id);
@@ -93,6 +104,7 @@ public class MemberServicempl implements MemberService{
 		System.out.println("getList........");
 		return mapper.getList();
 	}
+	//닉네임
 	//게시물 글 조회
 	@Override
 	public boardVO get(Long bno) {
@@ -110,12 +122,6 @@ public class MemberServicempl implements MemberService{
 	public boolean modify(boardVO board) {
 		System.out.println("modify....."+board);
 		return mapper.update(board) ==1;
-	}
-	//게시물 삭제
-	@Override
-	public boolean remove(Long bno) {
-		System.out.println("remove....."+bno);
-		return mapper.delete(bno)==1;
 	}
 	@Override
 	public void insert(BoardAttachVO vo) {
@@ -148,7 +154,6 @@ public class MemberServicempl implements MemberService{
 		
 	}
 
-
 	@Override
 	public void fileInsert(SkinAttachVO vo) {
 		// TODO Auto-generated method stub
@@ -159,5 +164,4 @@ public class MemberServicempl implements MemberService{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

@@ -100,7 +100,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
           <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="main_scan">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="infochange">내 정보 변경</a>
@@ -117,12 +117,18 @@
       </div>
     </nav>
  
-  <form role="form" action="upload" method="post"> 
+  <form role="form" action="uploadAjax" method="post"> 
     <div class="row mb-3">
       <label for="title" class="col-sm-2 col-form-label">제목</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="title" name="title">
       </div>
+              <% 
+        session = request.getSession();
+        String nickname = (String)session.getAttribute("nickname"); 
+        %>
+        <input type="hidden" name="nickname" value = <%= nickname %>  >
+   <%--   <input type="hidden" name="nickname" value='<c:out value="${board.nickname}"/>'/> --%>
     </div>
     <div class="form-floating">
       <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"></textarea>

@@ -106,12 +106,11 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="${path}/img1.jpg" class="d-block w-100"
-                        height=300px alt="...">
+                    <img src="${path}/img1.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
                 <div class="carousel-item">
                     <img src="${path}/img2.jpg" class="d-block w-100" height=300px alt="...">
-                </div>
+                 </div>
                 <div class="carousel-item">
                     <img src="${path}/img3.jpg" class="d-block w-100" height=300px alt="...">
                 </div>
@@ -133,13 +132,13 @@
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">진단결과</h5>
-                <p class="card-text">${symptom} : 있음</p>
+                <p class="card-text">${symptom}</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">원인</h5>
-                <p class="card-text">${symptom} : ${causation}</p>
+                <p class="card-text">${causation}</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
@@ -256,7 +255,35 @@
         </div>
     </div>
 <script type="text/javascript">
-
+$(document).ready(function(){
+	(function(){
+		var bno = '<c:out value="$(board.bno}"/>';
+		$.getJSON("getAttachList", {bno:bno}, function(arr){
+			console.log(arr);
+			var str = "";
+			$(arr).each(function(i, attach){
+				//image type
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</li>";
+				}else{
+					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					str += "<span>" + attach.fileName+"</span><br/>";
+					str += "<img src='/resources/img/attach.png'>";
+					str += "</div>";
+					str += "</li>";
+				}
+			});
+			
+			$(".uploadResult ul").html(str); 
+		
+		});//end getjson
+	});
+});
 </script>
 </body>
 

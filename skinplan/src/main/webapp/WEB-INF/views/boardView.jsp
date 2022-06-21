@@ -27,7 +27,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script
-	 rc="https://code.jquery.com/jquery-3.4.1.js"
+	 src="https://code.jquery.com/jquery-3.4.1.js"
  	 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
  	 crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -70,14 +70,7 @@
             border: none;
             resize: none;
         }
-        #result_card img{
-			max-width: 100%;
-	  	 	height: auto;
-	   		display: block;
-	   		padding: 5px;
-	   		margin-top: 10px;
-	  		margin: auto;	
-		}
+
 		.bigPicture{
 		position: relative;
 		display:fles;
@@ -88,11 +81,12 @@
 		width:600px;
 		}
 
+
     </style>
 
 </head>
 
-<body class=" bg-info bg-opacity-25">
+<body class="bg-info bg-opacity-25" style="height: 100%">
     <!-- 상단 네비바 -->
     <div>
         <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
@@ -127,31 +121,23 @@
         </nav>
     </div>
     <div class="form-group">
-    <input type='hidden'class="form-control" name='title' value='<c:out value="${board.bno }"/>' readonly></div>
+<<<<<<< HEAD
+=======
+    	<input type="hidden" "form-control" name='bno' value='<c:out value="${board.bno}"/>'>
+    </div>
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
     
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-                 <div class ="row">
-    				<div class="col-lg-12">
-    					<div class="panel panel-default">
-    						<div class="panel-heading"></div>
-    					<div class="panel-body">
-    				<div class="uploadDiv">
-						<input type="file" name="uploadFile" multiple>
-					</div>	
-
-    				<div class='uploadResult'>
-						<ul>
-		
+        <div class="container text-center">
+        	
+    				<div class='uploadResult mt-2'>
+						<ul style="padding: 0px">	
 						</ul>
 					</div>
     				</div>
-    	</div>
-    	</div>
-    </div> 
-                <img src="" class="d-block w-100" height=300px
+
+       <!--          <img src="" class="d-block w-100" height=300px
                     alt="...">
-            </div>
+            </div> -->
             <!-- <div class="carousel-item">
                 <img src="/img/flowers-7188503_1920.jpg" class="d-block w-100" height=300px alt="...">
             </div>
@@ -159,14 +145,7 @@
                 <img src="img/phone-wallpaper-g43fb981c2_1920.jpg" class="d-block w-100" height=300px alt="...">
             </div> -->
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+
     </div>
 
     <header>
@@ -175,7 +154,7 @@
                 <div class="col">
                     <figure>
                         <blockquote class="blockquote">
-                            <h3>닉네임 : <c:out value="${member.nickname}"/></h3>      
+                            <h3>닉네임 : <c:out value="${board.nickname}"/></h3>      
                         </blockquote>
                         <figcaption class="blockquote-footer">
                            	 피부 타입 : <c:out value="${board.skintype }"></c:out>
@@ -185,31 +164,61 @@
             </div>
         </div>
     </header>
-        <div class="row mb-3">
-            <label for="title" class="col-sm-2 col-form-label mx-1"></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control-plaintext mx-4" id="title" value='<c:out value="${board.title }"/>' disabled>
-            </div>
-        </div>
+    <div class="container">
+        <div class="row mb-1">
+            <label for="title" class="col mx-1">제목</label>
+		</div>
+		<div class="row">
+            <input type="text" class="form-control-plaintext col mx-3" id="title" value='<c:out value="${board.title }"/>' disabled>
+		</div>
+        
 
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="content" style="height: 350px"
-                disabled></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="content" name="content" style="height: 350px"
+                readonly="readonly"><c:out value="${board.content}"/></textarea>
             <label for="content">Content</label>
         </div>
            		
         <div class="d-flex justify-content-end mx-4 my-4">
         <button data-oper='modify' class="btn btn-default" onclick="location.href='modify?bno=<c:out value="${board.bno }"/>'"/>수정하기       
-        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'">돌아가기</button>
+        <button data-oper='list' class="btn btn-info" onclick="location.href='main_board'"/>돌아가기
            <!--  <a href="modify" class="btn btn-primary mx-1 ">수정하기</a>
             <a href="main_board" class="btn btn-primary ">돌아가기</a> -->
         </div>
         <form id='operForm' action="modify" method="get">
         <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'/>
         </form>
+    </div>
 <script>
-$(document).ready(function(){
-	var operForm = $("#operForm");
+$(document).ready(function(){	
+	//(function(){
+		var bno = '<c:out value="${board.bno}"/>';
+		$.getJSON("getAttachList", {bno:bno}, function(arr){	
+			console.log(arr);
+			var str = "";
+			$(arr).each(function(i, attach){
+				//image type
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);			
+					str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</a>";
+				}else{
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);		
+					str += "<a data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
+					//str += "<a></a><br/>";
+					str += "<img src='/controller/display?fileName="+fileCallPath+"' style='width:200px; height:200px'>";
+					//str += "<img src='./resources/img/attach.png' style='{width:200px; height:200px;}'>";
+					str += "</div>";
+					str += "</a>";
+				}
+			});		
+		$(".uploadResult ul").html(str); 		
+	});//end getjson
+//)}//end function
+(function(){
+var operForm = $("#operForm");
 	$("button[data-oper='modify']").on("click", function(e){
 		operForm.attr("action", "modify").submit();
 	});
@@ -218,35 +227,8 @@ $(document).ready(function(){
 		operForm.attr("action","main_board")
 		operForm.submit();
 	});
-	(function(){
-		var bno = '<c:out value="$(board.bno}"/>';
-		$.getJSON("getAttachList", {bno:bno}, function(arr){
-			console.log(arr);
-			var str = "";
-			$(arr).each(function(i, attach){
-				//image type
-				if(attach.fileType){
-					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-					
-					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-					str += "<img src='/controller/display?fileName="+fileCallPath+"'>";
-					str += "</div>";
-					str += "</li>";
-				}else{
-					str += "<li data-path='"+attach.uploadPath+"'data-uuid='"+attach.uuid+"'data-filename='"+attach.fileName+"'data-type='"+attach.fileType+"'><div>";
-					str += "<span>" + attach.fileName+"</span><br/>";
-					str += "<img src='/resources/img/attach.png'>";
-					str += "</div>";
-					str += "</li>";
-				}
-			});
-			
-			$(".uploadResult ul").html(str); 
-		
-		});//end getjson
-	});
 });
-
+});
 </script>
 </body>
 

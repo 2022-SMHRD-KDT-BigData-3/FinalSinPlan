@@ -14,10 +14,14 @@ create table board(
  bno number(10,0),
  title varchar2(100),
  content varchar2(2000),
- skintype varchar2(10),
+ skintype number(10),
  primary key(bno)
 );
+alter table board add(nickname varchar2(15));
+ALTER TABLE board ADD(CONSTRAINT board_nick_fk FOREIGN KEY(nickname) REFERENCES member(nickname));
 
+ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
+insert into board values (1,'제목','내용','1');
 create table tbl_attach(
  uuid varchar2(100) not null,
  uploadPath varchar2(200) not null,
@@ -26,7 +30,7 @@ create table tbl_attach(
  bno number(10,0),
  primary key(uuid)
 );
-
+alter table tbl_attach add constraint fk_board_attach foreign key (bno) references board(bno);
 select * from test_img;
 
 create table img_board(
@@ -49,7 +53,7 @@ create table t_attach(
 alter table t_attach add constraint fk_tboard_attach foreign key (test_id) references test_img(test_id);
 
 alter table tbl_attach add constraint pk_attach primary key (uuid);
-alter table tbl_attach add constraint fk_board_attach foreign key (bno) references board(bno);
+
 
 alter table tbl_attach add constraint fk_board_attach foreign key (uploadPath) references board(bno);
 alter table tbl_attach add constraint fk_board_attach foreign key (fileName) references board(bno);
@@ -57,17 +61,19 @@ alter table tbl_attach add constraint fk_board_attach foreign key (fileType) ref
 ALTER TABLE board ADD(nickname VARCHAR2(15) NOT NULL);
 ALTER TABLE board ADD(CONSTRAINT board_nick_fk FOREIGN KEY(nickname) REFERENCES member(nickname));
 
-ALTER TABLE board ADD(skin_id NUMBER(3) NOT NULL);
-ALTER TABLE board ADD(CONSTRAINT board_skin_id_fk FOREIGN KEY(skin_id) REFERENCES skin_type(skin_id));
+ALTER TABLE board ADD(skintype varchar2 NOT NULL);
+ALTER TABLE board ADD(CONSTRAINT board_skintype_fk FOREIGN KEY(skintype) REFERENCES skin_type(skin_id));
 
 insert into board values(1,'제목','내용','피부','파일업로드');
 DROP TABLE board;
 drop table tbl_attach;
+drop sequence seq_board;
+
 DROP SEQUENCE board_seq;
 drop table board cascade constraints;
 create sequence seq_board;
 select * from seq_board;
-drop sequence seq_board;
+
 select * from board;
 select * from TBL_ATTACH;
 select * from MEMBER;
@@ -78,7 +84,12 @@ drop table board;
 insert into member values('123','123','123','123','1','123',sysdate);
 
 DROP TABLE member CASCADE CONSTRAINTS;
+<<<<<<< HEAD
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 
 select * from test_test;
 
@@ -101,13 +112,23 @@ alter table test_img rename column front to img1;
 alter table test_img rename column left to img2;
 alter table test_img rename column right to img3;
 
+<<<<<<< HEAD
+alter table test_img add(skin_id number(3) not null, constraint test_skin_fk foreign key(skin_id) references skin_type(skin_id));
+=======
+=======
 alter table test_img add(skin_id number(3) not null, constraint test_skin_fk foreign key(skin_id) references skin_type(skin_id));
 
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
 select b.title, b.skintype, t.uuid, t.uploadPath, t.fileName, t.filetype
 from board b, tbl_attach t
 where b.bno = t.bno;
+<<<<<<< HEAD
+>>>>>>> branch 'main' of https://github.com/2022-SMHRD-KDT-BigData-3/FinalSkinPlan.git
+=======
+
 select * from 
 select * from test_img;
+<<<<<<< HEAD
 
 drop table test123;
 
@@ -165,3 +186,4 @@ CREATE SEQUENCE test_img_seq;
 
 drop sequence dairy_seq;
 drop sequence test_img_seq;
+select * from skin_type;
