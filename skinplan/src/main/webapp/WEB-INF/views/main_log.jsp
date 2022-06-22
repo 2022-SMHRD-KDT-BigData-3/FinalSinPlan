@@ -158,7 +158,7 @@
               	</thead>
               	<c:forEach items="${list}" var="list">
 			         <tr>
-			         	<td><a href="result?wr_date=${list.wr_date}">${list.wr_date}></a></td>
+			         	<td><a href="result2.do">${list.wr_date}</a></td>
 			         	<td>${list.symptom }</td>
 			         	<td>${list.skin_type }</td>        	
 			         </tr>  		

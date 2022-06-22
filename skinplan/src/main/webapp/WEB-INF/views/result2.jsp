@@ -153,19 +153,19 @@
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">진단결과</h5>
-                <p class="card-text">${symptom}</p>
+                <p class="card-text">모공</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">원인</h5>
-                <p class="card-text">${causation}</p>
+                <p class="card-text">피부노화로 인한 탄력 저하, 과도한 피지, 각질 증가, 자외선 노출, 스트레서 및 갑작스러운 피부 온도 상승등이 원인이다.</p>
             </div>
         </div>
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">Tip</h5>
-                <p class="card-text">${care} </p>
+                <p class="card-text">ph 지수 가 약 산성인 제품 을 사용하여 ph 밸런스 유지 가 중요하다.</p>
             </div>
         </div>
     </div>
@@ -222,7 +222,7 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <!-- 펼쳐졌을때 나오는 글내용 -->
-                           <table class="table">
+                            <table class="table">
                                 <tbody>
                                     <tr>
                                         <th scope="row">회사</th>

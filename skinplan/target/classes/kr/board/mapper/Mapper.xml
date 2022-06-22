@@ -114,7 +114,7 @@
 		SELECT img1 FROM test_img where test_id=1
 	</select>
     <select id="diaryList" resultType="kr.main.entity.dairyVO">
-       select d.dairy_id, d.wr_date, s.symptom, d.skin_type from dairy d, symptom s order by d.wr_date desc
+       select d.dairy_id, d.wr_date, s.symptom, d.skin_type from dairy d, symptom s where d.symptom_id = s.symptom_id order by d.wr_date desc
     </select> 
     <select id="dairyView" resultType="kr.main.entity.dairyVO">
        SELECT * FROM(SELECT d.dairy_id, d.email, d.skin_type, d.path, s.symptom, s.care, s.causation, d.wr_date FROM dairy d, symptom s WHERE d.symptom_id = s.symptom_id ORDER BY d.wr_date DESC) WHERE ROWNUM =1

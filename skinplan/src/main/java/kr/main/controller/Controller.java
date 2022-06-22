@@ -521,16 +521,11 @@ public class Controller {
 		model.addAttribute("list", memberservice.diaryList());
 		return "main_log";
 	}
-	//결과 -> 돌아가기
-	@RequestMapping("/remain")
-	public String list() {
-		return "redirect:/main_log";
-	}
 	    
-    @RequestMapping(value="search_date")
-    public String search_date() {
+    @RequestMapping(value="result2.do")
+    public String re2() {
     	
-    	return "result";
+    	return "result2";
     }
 	
 	//진단페이지에서 받은 사진 3장
